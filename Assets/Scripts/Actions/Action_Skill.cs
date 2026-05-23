@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Action_Skill : Action
+public abstract class Action_Skill : CombatAction
 {
     public int actionCost;
     

@@ -9,7 +9,7 @@ public class Action_BasicAttack : Action_Attack
         EnsureTag(ActionTag.Basic);
     }
 
-    public override void Execute()
+    public override void Execute(GameObject target)
     {
         // TODO deal damage to the enemy equal to attackDamage
         // Give the player 1 AP

@@ -9,7 +9,7 @@ public class Action_BasicDefend : Action_Defend
         EnsureTag(ActionTag.Basic);
     }
 
-    public override void Execute()
+    public override void Execute(GameObject target)
     {
         // TODO Apply 1 defence stack to the player
         // Give the player 1 AP when consume 1 stack of defence

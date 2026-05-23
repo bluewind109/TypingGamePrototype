@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Action : ScriptableObject
+public abstract class CombatAction : ScriptableObject
 {
     [SerializeField] private List<ActionTag> tags = new List<ActionTag>();
     public string actionName;
@@ -36,5 +36,5 @@ public abstract class Action : ScriptableObject
     {
     }
 
-    public abstract void Execute();
+    public abstract void Execute(GameObject target);
 }

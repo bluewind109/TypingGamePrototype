@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Action_Defend : Action
+public abstract class Action_Defend : CombatAction
 {
     protected override void ConfigureTags()
     {

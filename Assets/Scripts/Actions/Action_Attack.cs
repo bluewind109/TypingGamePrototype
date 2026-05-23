@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Action_Attack : Action
+public abstract class Action_Attack : CombatAction
 {
     [Min(0)] public int attackDamage = 1;
 
