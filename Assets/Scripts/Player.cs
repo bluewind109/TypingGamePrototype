@@ -4,7 +4,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Stats stats;
-    [SerializeField] private ActionController actionController;
 
     private Health health;
 
