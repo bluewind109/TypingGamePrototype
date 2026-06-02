@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4b5fbaf30c132c429b748e576709e24, type: 3}
-  m_Name: ActionConfig_Player
-  m_EditorClassIdentifier: Assembly-CSharp::ActionConfig
-  basicActions: []
-  skillActions: []
+  m_Script: {fileID: 11500000, guid: 4588c6f5ed0db334a930741930e7b69e, type: 3}
+  m_Name: DamageEffect
+  m_EditorClassIdentifier: Assembly-CSharp::DamageEffect
+  effectName: Damage
+  targetType: 0
+  targetTeam: 0

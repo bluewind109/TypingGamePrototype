@@ -10,13 +10,13 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         health = new Health(stats.health);
-        health.Die += HandleDeath;
+        health.onDie += OnDie;
     }
 
     private void OnDestroy()
     {
         if (health != null)
-            health.Die -= HandleDeath;
+            health.onDie -= OnDie;
     }
 
     public void TakeDamage(int amount)
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
         health.Heal(amount);
     }
 
-    private void HandleDeath()
+    private void OnDie()
     {
         Debug.Log("Player died");
         gameObject.SetActive(false);

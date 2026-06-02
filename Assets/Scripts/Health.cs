@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Health
 {
-    public System.Action Die;
-    public System.Action<int> HealthChanged;
+    public System.Action onDie;
+    public System.Action<int> onHealthChanged;
 
     public int currentHealth;
     public int maxHealth;
@@ -17,18 +17,18 @@ public class Health
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        HealthChanged?.Invoke(currentHealth);
+        onHealthChanged?.Invoke(currentHealth);
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Die?.Invoke();
+            onDie?.Invoke();
         }
     }
 
     public void Heal(int amount)
     {
         currentHealth += amount;
-        HealthChanged?.Invoke(currentHealth);
+        onHealthChanged?.Invoke(currentHealth);
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
     }
