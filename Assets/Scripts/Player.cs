@@ -1,22 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerActionController)), RequireComponent(typeof(Health))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private Stats stats;
+    [SerializeField] private PlayerActionController actionController;
 
     private Health health;
+    private int actionPoints = 0;
 
     private void Awake()
     {
         health = new Health(stats.health);
         health.onDie += OnDie;
+        actionController = GetComponentInChildren<PlayerActionController>();
+        actionController.onBasicActionExecuted += OnBasicActionExecuted;
     }
 
     private void OnDestroy()
     {
-        if (health != null)
-            health.onDie -= OnDie;
+        health.onDie -= OnDie;
+        actionController.onBasicActionExecuted -= OnBasicActionExecuted;
     }
 
     public void TakeDamage(int amount)
@@ -33,6 +38,12 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player died");
         gameObject.SetActive(false);
+    }
+
+    private void OnBasicActionExecuted()
+    {
+        actionPoints++;
+        Debug.Log("Gained 1 AP. Current AP: " + actionPoints);
     }
 
 }
