@@ -2,13 +2,16 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] private Stats stats;
+	[SerializeField] private Stats stats;
 	private Health health;
 
 	private void Awake()
 	{
-		health = new Health(stats.health);
-		health.onDie += OnDie;
+		if (stats != null)
+		{
+			health = new Health(stats.health);
+			health.onDie += OnDie;
+		}
 	}
 
 	private void OnDestroy()
