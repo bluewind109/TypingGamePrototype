@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour
 {
 	[SerializeField] private Stats stats;
+	[SerializeField] private IActionController actionController;
 	private Health health;
 
 	private void Awake()
