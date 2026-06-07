@@ -1082,7 +1082,7 @@ PrefabInstance:
     - target: {fileID: 2135844129529458992, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
       propertyPath: testAction
       value: 
-      objectReference: {fileID: 11400000, guid: 2786615757d2a19489f3e24cf0820814, type: 2}
+      objectReference: {fileID: 11400000, guid: e68f8c67c32d8204e9d8ceaba052a5e4, type: 2}
     - target: {fileID: 2135844129529458992, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
       propertyPath: sentenceDisplay
       value: 

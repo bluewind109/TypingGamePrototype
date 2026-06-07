@@ -29,8 +29,7 @@ public class SentenceManager : MonoBehaviour
         wordTimer.onWordTimeout += OnSentenceTimedout;
     }
 
-    [ContextMenu("Test Load Action")]
-    private void TestLoadAction()
+    public void TestLoadAction()
     {
         // Create a test action here
         LoadAction(testAction);
