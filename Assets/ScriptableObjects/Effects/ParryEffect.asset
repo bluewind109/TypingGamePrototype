@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: ParryEffect
   m_EditorClassIdentifier: Assembly-CSharp::ParryEffect
   effectName: Parry
-  targetType: 0
-  targetTeam: 0
+  effectType: 2

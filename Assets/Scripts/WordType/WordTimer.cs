@@ -4,17 +4,30 @@ public class WordTimer : MonoBehaviour
 {
     public System.Action onWordTimeout;
 
-    [SerializeField] private float wordDelay = 1.5f;
+    [SerializeField] private float wordDuration = 10.0f;
+    [SerializeField] private TMPro.TextMeshProUGUI timerText;
 
-    private float nextWordTime = 0f;
+    private float wordTimer = 0f;
+
+    public void StartTimer()
+    {
+        wordTimer = Time.time + wordDuration;
+    }
 
     void Update()
     {
-        if (Time.time >= nextWordTime)
+        if (wordTimer == 0f) return; // Timer not started
+        if (Time.time >= wordTimer) return; // Already timed out
+
+        if (Time.time >= wordTimer)
         {
             onWordTimeout?.Invoke();
-            nextWordTime = Time.time + wordDelay;
-            wordDelay *= 0.99f; // Decrease delay for next word
+        }
+        else
+        {
+            float remainingTime = wordTimer - Time.time;
+            if (timerText != null) 
+                timerText.text = remainingTime.ToString("F1");
         }
     }
 }

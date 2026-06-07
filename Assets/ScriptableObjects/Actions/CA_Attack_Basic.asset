@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50d0a2f793b82e4d960bb4009a73d4e, type: 3}
   m_Name: CA_Attack_Basic
   m_EditorClassIdentifier: Assembly-CSharp::CombatAction
-  tags: 
+  tags: 0100000000000000
   actionName: Basic Attack
   actionIcon: {fileID: 0}
   effects:
   - effect: {fileID: 11400000, guid: d77c053fd6f859342a73335f0e1185bc, type: 2}
     potency: 1
+    targetType: 0
+    targetTeam: 0

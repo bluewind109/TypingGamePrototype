@@ -33,4 +33,20 @@ public class CombatAction : ScriptableObject
             effect.effect.ApplyEffect(); // Replace null with the actual target GameObject
         }
     }
+
+    public void IncreaseEffectPotency(int index)
+    {
+        if (index >= 0 && index < effects.Count)
+        {
+            effects[index].IncreasePotency();
+        }
+    }
+
+    public void DecreaseEffectPotency(int index)
+    {
+        if (index >= 0 && index < effects.Count)
+        {
+            effects[index].DecreasePotency();
+        }
+    }
 }

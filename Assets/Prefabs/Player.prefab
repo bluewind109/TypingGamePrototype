@@ -184,4 +184,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   stats: {fileID: 11400000, guid: 3d328970ff7bd6847a04a9c113813b55, type: 2}
-  actionController: {fileID: 0}
+  actionController: {fileID: 4761633000122434448}

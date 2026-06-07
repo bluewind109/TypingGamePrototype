@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: HealEffect
   m_EditorClassIdentifier: Assembly-CSharp::HealEffect
   effectName: Heal
-  targetType: 0
-  targetTeam: 1
+  effectType: 1

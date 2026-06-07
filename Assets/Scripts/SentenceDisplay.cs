@@ -1,22 +1,22 @@
 using UnityEngine;
 
-public class WordDisplay : MonoBehaviour
+public class SentenceDisplay : MonoBehaviour
 {
     [SerializeField] private TMPro.TextMeshProUGUI text;
 
-    public void SetWord(string word)
+    public void SetSentence(string sentence)
     {
-        text.text = word;
-        text.color = Color.white; // Reset color when setting a new word
+        text.text = sentence;
+        text.color = Color.white; // Reset color when setting a new sentence
     }
 
     public void RemoveLetter()
     {
         text.text = text.text.Remove(0, 1);
-        text.color = Color.red; // Current active word
+        text.color = Color.red; // Current active sentence
     }
 
-    public void RemoveWord()
+    public void RemoveSentence()
     {
         // gameObject.SetActive(false);
         // Destroy(gameObject);
