@@ -30,6 +30,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
 
     void Start()
     {
+        sentenceManager.Reset();
         actionMenu.ShowMenu();
         _ = skillMenu.Init(config.skills);
     }

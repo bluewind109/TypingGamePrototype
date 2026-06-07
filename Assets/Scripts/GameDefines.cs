@@ -59,3 +59,10 @@ public enum ActionButtonType
     BasicDefend = 1,
     Skill = 2,
 }
+
+public enum SentenceState
+{
+    Active = 0,
+    Pending = 1,
+    Finished = 2,
+}

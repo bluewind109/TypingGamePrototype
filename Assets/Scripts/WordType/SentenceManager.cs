@@ -6,7 +6,9 @@ public class SentenceManager : MonoBehaviour
     public System.Action<CombatAction> onActionTyped;
 
     [Header("Components")]
-    [SerializeField] private SentenceDisplay sentenceDisplay;
+    [SerializeField] private SentenceDisplay sentenceDisplay_Current;
+    [SerializeField] private SentenceDisplay sentenceDisplay_Next;
+    [SerializeField] private SentenceDisplay sentenceDisplay_Finished;
     [SerializeField] private WordInput wordInput;
     [SerializeField] private WordTimer wordTimer;
 
@@ -29,6 +31,17 @@ public class SentenceManager : MonoBehaviour
         wordTimer.onWordTimeout += OnSentenceTimedout;
     }
 
+    public void Reset()
+    {
+        sentences.Clear();
+        activeSentence = null;
+        effectIndex = 0;
+        wordInput.ToggleInput(false);
+        sentenceDisplay_Current.RemoveSentence();
+        sentenceDisplay_Next.RemoveSentence();
+        sentenceDisplay_Finished.RemoveSentence();
+    }
+
     public void TestLoadAction()
     {
         // Create a test action here
@@ -46,6 +59,7 @@ public class SentenceManager : MonoBehaviour
 
         effectIndex = 0;
         SetActiveSentence(sentences[0]);
+        SetPendingSentence(GetPendingSentence());
         wordInput.ToggleInput(true);
     }
 
@@ -56,15 +70,30 @@ public class SentenceManager : MonoBehaviour
 
         var resultSentence = effectWord + " " + targetWord;
 
-        Sentence sentence = new Sentence(resultSentence, sentenceDisplay);
+        Sentence sentence = new Sentence(resultSentence, sentenceDisplay_Current);
         sentences.Add(sentence);
     }
 
     private void SetActiveSentence(Sentence sentence)
     {
         activeSentence = sentence;
-        sentenceDisplay.SetSentence(sentence.sentence);
+        sentenceDisplay_Current.SetSentence(sentence.sentence, SentenceState.Active);
         wordTimer.StartTimer();
+    }
+
+    private void SetPendingSentence(Sentence sentence)
+    {
+        if (sentence == null)
+        {
+            sentenceDisplay_Next.RemoveSentence();
+            return;
+        }
+        sentenceDisplay_Next.SetSentence(sentence.sentence, SentenceState.Pending);
+    }
+
+    private void SetFinishedSentence(Sentence sentence)
+    {
+        sentenceDisplay_Finished.SetSentence(sentence.sentence, SentenceState.Finished);
     }
 
     private Sentence GetNextSentence()
@@ -72,6 +101,15 @@ public class SentenceManager : MonoBehaviour
         if (sentences.Count > 0)
         {
             return sentences[0];
+        }
+        return null;
+    }
+
+    private Sentence GetPendingSentence()
+    {
+        if (sentences.Count > 1)
+        {
+            return sentences[1];
         }
         return null;
     }
@@ -101,6 +139,7 @@ public class SentenceManager : MonoBehaviour
 
         if (HasActiveSentence && activeSentence.SentenceTyped())
         {
+            SetFinishedSentence(activeSentence);
             sentences.Remove(activeSentence);
             effectIndex++;
             var nextSentence = GetNextSentence();
@@ -114,6 +153,7 @@ public class SentenceManager : MonoBehaviour
             else
             {
                 SetActiveSentence(nextSentence);
+                SetPendingSentence(GetPendingSentence());
             }
         }
     }
@@ -138,7 +178,7 @@ public class Sentence
         this.sentence = sentence;
         typeIndex = 0;
         this.sentenceDisplay = sentenceDisplay;
-        this.sentenceDisplay.SetSentence(sentence);
+        this.sentenceDisplay.SetSentence(sentence, SentenceState.Active);
     }
 
     public char GetNextLetter()

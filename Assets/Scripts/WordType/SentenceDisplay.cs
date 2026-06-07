@@ -5,17 +5,37 @@ public class SentenceDisplay : MonoBehaviour
 {
     [SerializeField] private TMPro.TextMeshProUGUI text;
 
+    [Header("Colors")]
     [SerializeField] private Color typedColor = Color.yellow;
     [SerializeField] private Color remainingColor = Color.white;
     [SerializeField] private Color completedColor = Color.green;
+    [Header("Color By State")]
+    [SerializeField] private Color pendingColor = new Color(1f, 1f, 1f, 10f / 255f);
+    [SerializeField] private Color finishedColor = new Color(0f, 1f, 0f, 10f / 255f);
 
     private string fullSentence = string.Empty;
     private int typedCount = 0;
 
-    public void SetSentence(string sentence)
+    public void SetSentence(string sentence, SentenceState sentenceState = SentenceState.Active)
     {
         fullSentence = sentence ?? string.Empty;
-        typedCount = 0;
+
+        switch (sentenceState)
+        {
+            case SentenceState.Active:
+                text.color = remainingColor;
+                typedCount = 0;
+                break;
+            case SentenceState.Pending:
+                text.color = pendingColor;
+                typedCount = 0;
+                break;
+            case SentenceState.Finished:
+                text.color = finishedColor;
+                typedCount = fullSentence.Length;
+                break;
+        }
+
         UpdateDisplay();
     }
 
@@ -32,8 +52,9 @@ public class SentenceDisplay : MonoBehaviour
 
     public void RemoveSentence()
     {
-        // gameObject.SetActive(false);
-        // Destroy(gameObject);
+        fullSentence = string.Empty;
+        typedCount = 0;
+        UpdateDisplay();
     }
 
     private void UpdateDisplay()
