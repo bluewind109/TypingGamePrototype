@@ -52,3 +52,10 @@ public enum EffectType
     Heal = 1,
     Shield = 2,
 }
+
+public enum ActionButtonType
+{
+    BasicAttack = 0,
+    BasicDefend = 1,
+    Skill = 2,
+}
