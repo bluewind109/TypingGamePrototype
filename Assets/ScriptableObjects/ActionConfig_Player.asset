@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActionConfig
   basicAttack: {fileID: 11400000, guid: ba891f451a4a8324799cc15fe4650807, type: 2}
   basicDefend: {fileID: 11400000, guid: 2786615757d2a19489f3e24cf0820814, type: 2}
-  skills: []
+  skills:
+  - {fileID: 11400000, guid: e68f8c67c32d8204e9d8ceaba052a5e4, type: 2}
+  - {fileID: 11400000, guid: a3d9efc4ac4478040aff91601431ac59, type: 2}

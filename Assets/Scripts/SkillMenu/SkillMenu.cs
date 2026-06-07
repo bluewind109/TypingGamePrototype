@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
-[RequireComponent(typeof(ActionMenuInput))]
-public class ActionMenu : MonoBehaviour
+public class SkillMenu : MonoBehaviour
 {
-    public Action<ActionButtonType> onActionButtonPressed;
-    public Action onSkillPressed;
+    public Action<CombatAction> onActionButtonPressed;
+    public Action onBackPressed;
+
+    [SerializeField] private SkillItemUI skillItemPrefab;
 
     private ActionMenuInput input;
-    private List<ActionItemUI> items = new List<ActionItemUI>();
+    private List<SkillItemUI> items = new List<SkillItemUI>();
 
     private int selectedIndex = 0;
     private int totalActions => items.Count;
@@ -17,10 +19,18 @@ public class ActionMenu : MonoBehaviour
     void Awake()
     {
         input = GetComponent<ActionMenuInput>();
+    }
 
+    public async Task Init(List<CombatAction> skills)
+    {
+        foreach (var skill in skills)
+        {
+            var item = Instantiate(skillItemPrefab, transform);
+            item.SetData(skill);
+            items.Add(item);
+        }
 
-        items = new List<ActionItemUI>(GetComponentsInChildren<ActionItemUI>());
-
+        await Task.Yield(); // Wait a frame to ensure all UI elements are initialized
         if (items.Count > 0)
         {
             UpdateSelection();
@@ -74,7 +84,7 @@ public class ActionMenu : MonoBehaviour
     #region Input Handling
     private void OnBack()
     {
-        // HideMenu();
+        onBackPressed?.Invoke();
     }
 
     private void OnActionSelect()
@@ -83,22 +93,8 @@ public class ActionMenu : MonoBehaviour
 
         // Handle action selection based on the selectedIndex
         var selectedItem = items[selectedIndex];
-
-        switch (selectedItem.ButtonType)
-        {
-            case ActionButtonType.BasicAttack:
-            case ActionButtonType.BasicDefend:
-                Debug.Log($"<color=green>{selectedItem.ButtonType}</color> selected");
-                onActionButtonPressed?.Invoke(selectedItem.ButtonType);
-                break;
-            case ActionButtonType.Skill:
-                Debug.Log("<color=yellow>Skill</color> selected");
-                onSkillPressed?.Invoke();
-                break;
-            default:
-                Debug.Log("<color=red>Unknown action</color> selected");
-                break;
-        }
+        CombatAction action = selectedItem.ActionData;
+        onActionButtonPressed?.Invoke(action);
     }
 
     private void OnNavigateDown()

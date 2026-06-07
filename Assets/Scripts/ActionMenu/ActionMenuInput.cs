@@ -8,7 +8,7 @@ public class ActionMenuInput : MonoBehaviour
     public Action onBack;
     public Action onEnter;
 
-    private bool isEnabled = true;
+    private bool isEnabled = false;
 
     public void ToggleInput(bool enabled)
     {

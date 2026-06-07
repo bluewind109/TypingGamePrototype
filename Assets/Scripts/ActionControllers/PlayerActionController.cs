@@ -1,25 +1,44 @@
+using System;
 using UnityEngine;
 
 public class PlayerActionController : MonoBehaviour, IActionController
 {
-    public System.Action onBasicActionExecuted;
+    public Action onBasicActionExecuted;
 
+    [Header("Components")]
     [SerializeField] private ActionConfig config;
     [SerializeField] private SentenceManager sentenceManager;
-    [SerializeField] private GameObject actionUI;
+
+    [Header("UI References")]
+    [SerializeField] private ActionMenu actionMenu;
+    [SerializeField] private SkillMenu skillMenu;
 
     void Awake()
     {
         sentenceManager.onActionTyped += OnActionTyped;
+        actionMenu.onActionButtonPressed += HandleActionButton;
+        actionMenu.onSkillPressed += OnActionSkillPressed;
+        skillMenu.onActionButtonPressed += OnActionSelected;
+        skillMenu.onBackPressed += OnSkillMenuBack;
+    }
+
+    void Start()
+    {
+        actionMenu.ShowMenu();
+        _ = skillMenu.Init(config.skills);
     }
 
     void OnDestroy()
     {
         sentenceManager.onActionTyped -= OnActionTyped;
+        actionMenu.onActionButtonPressed -= HandleActionButton;
+        actionMenu.onSkillPressed -= OnActionSkillPressed;
+        skillMenu.onActionButtonPressed -= OnActionSelected;
+        skillMenu.onBackPressed -= OnSkillMenuBack;
     }
 
     // Selected from UI
-    public void OnActionSelected(CombatAction action, GameObject target)
+    public void OnActionSelected(CombatAction action)
     {
         sentenceManager.LoadAction(action);
     }
@@ -33,5 +52,33 @@ public class PlayerActionController : MonoBehaviour, IActionController
         }
 
         typedAction.Execute();
+    }
+
+    private void HandleActionButton(ActionButtonType type)
+    {
+        switch (type)
+        {
+            case ActionButtonType.BasicAttack:
+                Debug.Log("<color=yellow>Attack</color> selected");
+                break;
+            case ActionButtonType.BasicDefend:
+                Debug.Log("<color=yellow>Defend</color> selected");
+                break;
+            default:
+                Debug.Log("<color=red>Unknown action</color> selected");
+                break;
+        }
+    }
+
+    private void OnActionSkillPressed()
+    {
+        actionMenu.HideMenu();
+        skillMenu.ShowMenu();
+    }
+
+    private void OnSkillMenuBack()
+    {
+        skillMenu.HideMenu();
+        actionMenu.ShowMenu();
     }
 }

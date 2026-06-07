@@ -49,4 +49,19 @@ public class CombatAction : ScriptableObject
             effects[index].DecreasePotency();
         }
     }
+
+    public bool IsBasicAction()
+    {
+        return tags.Contains(ActionTag.Basic);
+    }
+
+    public bool IsAttack()
+    {
+        return tags.Contains(ActionTag.Attack);
+    }
+
+    public bool IsDefend()
+    {
+        return tags.Contains(ActionTag.Defend);
+    }
 }

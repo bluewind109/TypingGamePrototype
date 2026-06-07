@@ -6,5 +6,5 @@ public class ActionConfig : ScriptableObject
 {
     public CombatAction basicAttack;
     public CombatAction basicDefend;
-    public List<CombatAction> skills = new List<CombatAction>();
+    public List<CombatAction> skills = new List<CombatAction>(); // 3 skills max
 }

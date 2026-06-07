@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IActionController
 {
-    void OnActionSelected(CombatAction action, GameObject target);
+    void OnActionSelected(CombatAction action);
 }
