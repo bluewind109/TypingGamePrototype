@@ -12,12 +12,15 @@ public class PlayerActionController : MonoBehaviour, IActionController
     [Header("UI References")]
     [SerializeField] private ActionMenu actionMenu;
     [SerializeField] private SkillMenu skillMenu;
+    [SerializeField] private TMPro.TextMeshProUGUI menuTitleText;
 
     void Awake()
     {
         sentenceManager.onActionTyped += OnActionTyped;
+        actionMenu.onMenuOpened += () => menuTitleText.text = "Actions";
         actionMenu.onActionButtonPressed += HandleActionButton;
         actionMenu.onSkillPressed += OnActionSkillPressed;
+        skillMenu.onMenuOpened += () => menuTitleText.text = "Skills";
         skillMenu.onActionButtonPressed += OnActionSelected;
         skillMenu.onBackPressed += OnSkillMenuBack;
     }
@@ -35,11 +38,16 @@ public class PlayerActionController : MonoBehaviour, IActionController
         actionMenu.onSkillPressed -= OnActionSkillPressed;
         skillMenu.onActionButtonPressed -= OnActionSelected;
         skillMenu.onBackPressed -= OnSkillMenuBack;
+        skillMenu.onMenuOpened -= () => menuTitleText.text = "Skills";
+        actionMenu.onMenuOpened -= () => menuTitleText.text = "Actions";
     }
 
     // Selected from UI
     public void OnActionSelected(CombatAction action)
     {
+        menuTitleText.text = string.Empty;
+        actionMenu.HideMenu();
+        skillMenu.HideMenu();
         sentenceManager.LoadAction(action);
     }
 
@@ -52,6 +60,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
         }
 
         typedAction.Execute();
+        actionMenu.ShowMenu();
     }
 
     private void HandleActionButton(ActionButtonType type)
@@ -60,9 +69,11 @@ public class PlayerActionController : MonoBehaviour, IActionController
         {
             case ActionButtonType.BasicAttack:
                 Debug.Log("<color=yellow>Attack</color> selected");
+                sentenceManager.LoadAction(config.basicAttack);
                 break;
             case ActionButtonType.BasicDefend:
                 Debug.Log("<color=yellow>Defend</color> selected");
+                sentenceManager.LoadAction(config.basicDefend);
                 break;
             default:
                 Debug.Log("<color=red>Unknown action</color> selected");

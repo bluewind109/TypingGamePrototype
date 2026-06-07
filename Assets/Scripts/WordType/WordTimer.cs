@@ -14,6 +14,13 @@ public class WordTimer : MonoBehaviour
         wordTimer = Time.time + wordDuration;
     }
 
+    public void StopTimer()
+    {
+        wordTimer = 0f;
+        if (timerText != null)
+            timerText.text = string.Empty;
+    }
+
     void Update()
     {
         if (wordTimer == 0f) return; // Timer not started

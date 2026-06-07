@@ -37,6 +37,12 @@ public class SentenceManager : MonoBehaviour
 
     public void LoadAction(CombatAction action)
     {
+        if (HasActiveSentence)
+        {
+            Debug.LogWarning("<color=red>Already has active sentence. Cannot load new action.</color>");
+            return;
+        }
+
         this.action = action;
         effects = action.effects;
         foreach (var effect in action.effects)
@@ -107,6 +113,7 @@ public class SentenceManager : MonoBehaviour
             if (nextSentence == null)
             {
                 wordInput.ToggleInput(false);
+                wordTimer.StopTimer();
                 activeSentence = null;
                 onActionTyped?.Invoke(action);
             }

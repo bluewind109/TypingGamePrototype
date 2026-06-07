@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SkillMenu : MonoBehaviour
 {
+    public Action onMenuOpened;
     public Action<CombatAction> onActionButtonPressed;
     public Action onBackPressed;
 
@@ -65,6 +66,7 @@ public class SkillMenu : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         input.ToggleInput(true);
+        onMenuOpened?.Invoke();
     }
 
     public void HideMenu()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Text;
 
 public class SentenceDisplay : MonoBehaviour
 {
@@ -39,11 +40,32 @@ public class SentenceDisplay : MonoBehaviour
     {
         string typedPart = fullSentence.Substring(0, typedCount);
         string remainingPart = fullSentence.Substring(typedCount);
+        string typedPartDisplay = BuildTypedPartDisplay(typedPart, ColorUtility.ToHtmlStringRGB(typedColor));
 
-        text.text = $"<color=#{ColorUtility.ToHtmlStringRGB(typedColor)}>{typedPart}</color><color=#{ColorUtility.ToHtmlStringRGB(remainingColor)}>{remainingPart}</color>";
+        text.text = $"<color=#{ColorUtility.ToHtmlStringRGB(typedColor)}>{typedPartDisplay}</color><color=#{ColorUtility.ToHtmlStringRGB(remainingColor)}>{remainingPart}</color>";
         if (typedCount >= fullSentence.Length)
         {
             text.text = $"<color=#{ColorUtility.ToHtmlStringRGB(completedColor)}>{fullSentence}</color>";
         }
+    }
+
+    private static string BuildTypedPartDisplay(string typedPart, string typedSpaceCueColorHtml)
+    {
+        StringBuilder builder = new StringBuilder(typedPart.Length * 12);
+
+        foreach (char character in typedPart)
+        {
+            if (character == ' ')
+            {
+                // Replace typed spaces with a strong marker so players can clearly confirm gap input.
+                builder.Append($"<color=#{typedSpaceCueColorHtml}><b>_</b></color>");
+            }
+            else
+            {
+                builder.Append(character);
+            }
+        }
+
+        return builder.ToString();
     }
 }

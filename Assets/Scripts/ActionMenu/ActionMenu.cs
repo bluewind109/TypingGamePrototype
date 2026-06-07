@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(ActionMenuInput))]
 public class ActionMenu : MonoBehaviour
 {
+    public Action onMenuOpened;
     public Action<ActionButtonType> onActionButtonPressed;
     public Action onSkillPressed;
 
@@ -55,6 +56,7 @@ public class ActionMenu : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         input.ToggleInput(true);
+        onMenuOpened?.Invoke();
     }
 
     public void HideMenu()
