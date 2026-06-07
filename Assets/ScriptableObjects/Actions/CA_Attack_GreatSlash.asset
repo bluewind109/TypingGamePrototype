@@ -20,3 +20,4 @@ MonoBehaviour:
     potency: 3
     targetType: 0
     targetTeam: 0
+  apCost: 2

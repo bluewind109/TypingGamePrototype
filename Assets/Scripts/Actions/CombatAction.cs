@@ -8,6 +8,8 @@ public class CombatAction : ScriptableObject
     public string actionName;
     public Sprite actionIcon;
     public List<EffectInfo> effects = new List<EffectInfo>();
+    [Min(0)]
+    public int apCost = 0;
 
     public IReadOnlyList<ActionTag> Tags => tags;
 

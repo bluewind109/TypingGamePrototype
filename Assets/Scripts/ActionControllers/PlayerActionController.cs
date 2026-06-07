@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerActionController : MonoBehaviour, IActionController
 {
     public Action onBasicActionExecuted;
+    public Action<int> onSkillUsed;
 
     [Header("Components")]
     [SerializeField] private ActionConfig config;
@@ -13,6 +14,8 @@ public class PlayerActionController : MonoBehaviour, IActionController
     [SerializeField] private ActionMenu actionMenu;
     [SerializeField] private SkillMenu skillMenu;
     [SerializeField] private TMPro.TextMeshProUGUI menuTitleText;
+
+    private int currentAP = 0;
 
     void Awake()
     {
@@ -45,6 +48,18 @@ public class PlayerActionController : MonoBehaviour, IActionController
     // Selected from UI
     public void OnActionSelected(CombatAction action)
     {
+        if (sentenceManager.HasActiveSentence)
+        {
+            Debug.Log("<color=red>Cannot select new action while another action is active.</color>");
+            return;
+        }
+
+        if (currentAP < action.apCost)
+        {
+            Debug.Log("<color=red>Not enough AP to use this skill.</color>");
+            return;
+        }
+
         menuTitleText.text = string.Empty;
         actionMenu.HideMenu();
         skillMenu.HideMenu();
@@ -61,6 +76,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
 
         typedAction.Execute();
         actionMenu.ShowMenu();
+        onSkillUsed?.Invoke(typedAction.apCost);
     }
 
     private void HandleActionButton(ActionButtonType type)
@@ -91,5 +107,10 @@ public class PlayerActionController : MonoBehaviour, IActionController
     {
         skillMenu.HideMenu();
         actionMenu.ShowMenu();
+    }
+
+    public void UpdateAP(int newAP)
+    {
+        currentAP = newAP;
     }
 }
