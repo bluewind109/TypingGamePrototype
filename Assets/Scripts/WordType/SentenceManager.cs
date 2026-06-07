@@ -9,7 +9,7 @@ public class SentenceManager : MonoBehaviour
     [SerializeField] private SentenceDisplay sentenceDisplay;
     [SerializeField] private WordInput wordInput;
     [SerializeField] private WordTimer wordTimer;
-    
+
     [Header("Test")]
     [SerializeField] private CombatAction testAction;
 
@@ -39,13 +39,14 @@ public class SentenceManager : MonoBehaviour
     {
         this.action = action;
         effects = action.effects;
-        foreach ( var effect in action.effects)
+        foreach (var effect in action.effects)
         {
             AddSentence(effect);
         }
 
         effectIndex = 0;
         SetActiveSentence(sentences[0]);
+        wordInput.ToggleInput(true);
     }
 
     public void AddSentence(EffectInfo effectInfo)
@@ -105,6 +106,7 @@ public class SentenceManager : MonoBehaviour
             var nextSentence = GetNextSentence();
             if (nextSentence == null)
             {
+                wordInput.ToggleInput(false);
                 activeSentence = null;
                 onActionTyped?.Invoke(action);
             }
@@ -119,7 +121,7 @@ public class SentenceManager : MonoBehaviour
     {
         if (action == null) return;
         if (action.effects == null || action.effects.Count <= effectIndex) return;
-        
+
         action.DecreaseEffectPotency(effectIndex);
     }
 }

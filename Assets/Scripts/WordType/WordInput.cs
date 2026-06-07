@@ -4,8 +4,17 @@ public class WordInput : MonoBehaviour
 {
     public System.Action<char> onLetterTyped;
 
+    private bool isEnabled = false;
+
+    public void ToggleInput(bool enabled)
+    {
+        isEnabled = enabled;
+    }
+
     void Update()
     {
+        if (!isEnabled) return;
+
         foreach (char letter in Input.inputString)
         {
             if (!IsAllowedCharacter(letter)) continue;
