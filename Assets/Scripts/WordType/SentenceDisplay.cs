@@ -4,16 +4,29 @@ public class SentenceDisplay : MonoBehaviour
 {
     [SerializeField] private TMPro.TextMeshProUGUI text;
 
+    [SerializeField] private Color typedColor = Color.yellow;
+    [SerializeField] private Color remainingColor = Color.white;
+    [SerializeField] private Color completedColor = Color.green;
+
+    private string fullSentence = string.Empty;
+    private int typedCount = 0;
+
     public void SetSentence(string sentence)
     {
-        text.text = sentence;
-        text.color = Color.white; // Reset color when setting a new sentence
+        fullSentence = sentence ?? string.Empty;
+        typedCount = 0;
+        UpdateDisplay();
     }
 
     public void RemoveLetter()
     {
-        text.text = text.text.Remove(0, 1);
-        text.color = Color.red; // Current active sentence
+        if (typedCount >= fullSentence.Length)
+        {
+            return;
+        }
+
+        typedCount++;
+        UpdateDisplay();
     }
 
     public void RemoveSentence()
@@ -25,5 +38,17 @@ public class SentenceDisplay : MonoBehaviour
     void Update()
     {
         // transform.Translate(0f, -fallSpeed * Time.deltaTime, 0f);
+    }
+
+    private void UpdateDisplay()
+    {
+        string typedPart = fullSentence.Substring(0, typedCount);
+        string remainingPart = fullSentence.Substring(typedCount);
+
+        text.text = $"<color=#{ColorUtility.ToHtmlStringRGB(typedColor)}>{typedPart}</color><color=#{ColorUtility.ToHtmlStringRGB(remainingColor)}>{remainingPart}</color>";
+        if (typedCount >= fullSentence.Length)
+        {
+            text.text = $"<color=#{ColorUtility.ToHtmlStringRGB(completedColor)}>{fullSentence}</color>";
+        }
     }
 }
