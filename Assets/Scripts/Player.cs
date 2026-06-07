@@ -52,13 +52,13 @@ public class Player : MonoBehaviour
     {
         actionPoints = Mathf.Min(actionPoints + 1, MAX_ACTION_POINTS);
         onActionPointsChanged?.Invoke(actionPoints);
-        Debug.Log("Gained 1 AP. Current AP: " + actionPoints);
+        // Debug.Log("Gained 1 AP. Current AP: " + actionPoints);
     }
     
     private void OnSkillUsed(int apCost)
     {
         actionPoints = Mathf.Max(actionPoints - apCost, 0);
         onActionPointsChanged?.Invoke(actionPoints);
-        Debug.Log("Used skill with AP cost: " + apCost + ". Current AP: " + actionPoints);
+        // Debug.Log("Used skill with AP cost: " + apCost + ". Current AP: " + actionPoints);
     }
 }
