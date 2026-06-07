@@ -263,7 +263,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1080264374644118000, guid: 2c3d8d2c499516f4cae10b60bddb8c44, type: 3}
       propertyPath: m_Name
-      value: ActionItem (2)
+      value: ActionItem_Skill
       objectReference: {fileID: 0}
     - target: {fileID: 4962938242667885740, guid: 2c3d8d2c499516f4cae10b60bddb8c44, type: 3}
       propertyPath: m_text
@@ -1313,7 +1313,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1080264374644118000, guid: 2c3d8d2c499516f4cae10b60bddb8c44, type: 3}
       propertyPath: m_Name
-      value: ActionItem (1)
+      value: ActionItem_Defend
       objectReference: {fileID: 0}
     - target: {fileID: 4962938242667885740, guid: 2c3d8d2c499516f4cae10b60bddb8c44, type: 3}
       propertyPath: m_text
@@ -1874,7 +1874,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1080264374644118000, guid: 2c3d8d2c499516f4cae10b60bddb8c44, type: 3}
       propertyPath: m_Name
-      value: ActionItem
+      value: ActionItem_Attack
       objectReference: {fileID: 0}
     - target: {fileID: 4962938242667885740, guid: 2c3d8d2c499516f4cae10b60bddb8c44, type: 3}
       propertyPath: m_text
