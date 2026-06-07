@@ -222,6 +222,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &178740941 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2135844129529458992, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+  m_PrefabInstance: {fileID: 3329460410841075434}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07c73993dd7a494d96470f7c9cc52b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SentenceManager
 --- !u!1 &419345295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,6 +1061,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4761633000122434448, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
+      propertyPath: sentenceManager
+      value: 
+      objectReference: {fileID: 178740941}
     - target: {fileID: 5510737961868205281, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4

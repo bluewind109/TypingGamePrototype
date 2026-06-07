@@ -117,6 +117,9 @@ public class SentenceManager : MonoBehaviour
 
     private void OnSentenceTimedout()
     {
+        if (action == null) return;
+        if (action.effects == null || action.effects.Count <= effectIndex) return;
+        
         action.DecreaseEffectPotency(effectIndex);
     }
 }

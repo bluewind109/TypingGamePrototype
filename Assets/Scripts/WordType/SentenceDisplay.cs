@@ -35,11 +35,6 @@ public class SentenceDisplay : MonoBehaviour
         // Destroy(gameObject);
     }
 
-    void Update()
-    {
-        // transform.Translate(0f, -fallSpeed * Time.deltaTime, 0f);
-    }
-
     private void UpdateDisplay()
     {
         string typedPart = fullSentence.Substring(0, typedCount);
