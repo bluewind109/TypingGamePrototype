@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class HealthDisplay : MonoBehaviour
+public class Health_UI : MonoBehaviour
 {
     [SerializeField] private Entity entity;
     [SerializeField] private TMPro.TextMeshProUGUI healthText;

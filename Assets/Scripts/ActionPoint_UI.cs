@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActionPointUI : MonoBehaviour
+public class ActionPoint_UI : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private List<Image> apIcons = new List<Image>();
