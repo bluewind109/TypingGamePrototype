@@ -5,5 +5,5 @@ public abstract class Effect : ScriptableObject
     public string effectName;
     public EffectType effectType;
 
-    public abstract void ApplyEffect();
+    public abstract void ApplyEffect(Entity target, int potency);
 }

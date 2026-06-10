@@ -8,8 +8,8 @@ public class ParryEffect : Effect
         effectName = "Parry";
     }
 
-    public override void ApplyEffect()
+    public override void ApplyEffect(Entity target, int potency)
     {
-        // Implement parry application logic here
+        Debug.Log("Parry effect triggered.");
     }
 }

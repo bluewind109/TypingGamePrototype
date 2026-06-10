@@ -27,15 +27,6 @@ public class CombatAction : ScriptableObject
         return tags.Contains(tag);
     }
 
-    public void Execute()
-    {
-        foreach (var effect in effects)
-        {
-            // Implement effect application logic here
-            effect.effect.ApplyEffect(); // Replace null with the actual target GameObject
-        }
-    }
-
     public void IncreaseEffectPotency(int index)
     {
         if (index >= 0 && index < effects.Count)

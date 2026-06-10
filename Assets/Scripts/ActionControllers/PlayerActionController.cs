@@ -11,6 +11,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
     [SerializeField] private ActionConfig config;
     [SerializeField] private SentenceManager sentenceManager;
     private EffectHandler effectHandler;
+    private Player player;
     [Header("UI References")]
     [SerializeField] private ActionMenu actionMenu;
     [SerializeField] private SkillMenu skillMenu;
@@ -21,7 +22,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
     void Awake()
     {
         effectHandler = GetComponent<EffectHandler>();
-        effectHandler.Initialize(GetComponent<Player>(), enemy);
+        player = GetComponent<Player>();
         sentenceManager.onActionTyped += OnActionTyped;
         actionMenu.onMenuOpened += () => menuTitleText.text = "Actions";
         actionMenu.onActionButtonPressed += HandleActionButton;
@@ -78,7 +79,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
             onBasicActionExecuted?.Invoke();
         }
 
-        typedAction.Execute();
+        effectHandler.HandleAction(typedAction, player, enemy);
         actionMenu.ShowMenu();
         onSkillUsed?.Invoke(typedAction.apCost);
     }

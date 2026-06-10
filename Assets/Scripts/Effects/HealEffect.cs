@@ -8,9 +8,13 @@ public class HealEffect : Effect
         effectName = "Heal";
     }
 
-    public override void ApplyEffect()
+    public override void ApplyEffect(Entity target, int potency)
     {
-        // Implement heal application logic here
-        
+        if (target == null)
+        {
+            return;
+        }
+
+        target.Heal(potency);
     }
 }

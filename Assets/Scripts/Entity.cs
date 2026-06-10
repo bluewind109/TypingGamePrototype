@@ -2,8 +2,8 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    [SerializeField] private Stats stats;
-    private Health health;
+    [SerializeField] protected Stats stats;
+    protected Health health;
 
     protected virtual void Awake()
     {

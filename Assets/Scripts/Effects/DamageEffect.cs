@@ -8,9 +8,13 @@ public class DamageEffect : Effect
         effectName = "Damage";
     }
 
-    public override void ApplyEffect()
+    public override void ApplyEffect(Entity target, int potency)
     {
-        // Implement damage application logic here
-        
+        if (target == null)
+        {
+            return;
+        }
+
+        target.TakeDamage(potency);
     }
 }
