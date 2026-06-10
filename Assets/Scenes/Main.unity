@@ -412,6 +412,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a07c73993dd7a494d96470f7c9cc52b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SentenceManager
+--- !u!114 &266103567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6803460785461153767, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
+  m_PrefabInstance: {fileID: 8766031390804391386}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3e9f63ef95d1143866197af5a2cfc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BasicEnemy
 --- !u!1 &276769419
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,6 +497,8 @@ MonoBehaviour:
   typedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   remainingColor: {r: 1, g: 1, b: 1, a: 1}
   completedColor: {r: 0, g: 1, b: 0, a: 1}
+  pendingColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  finishedColor: {r: 0, g: 1, b: 0, a: 0.039215688}
 --- !u!1 &311796802
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,6 +1424,8 @@ MonoBehaviour:
   typedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   remainingColor: {r: 1, g: 1, b: 1, a: 1}
   completedColor: {r: 0, g: 1, b: 0, a: 1}
+  pendingColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  finishedColor: {r: 0, g: 1, b: 0, a: 0.039215688}
 --- !u!114 &1261602589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1834,6 +1849,8 @@ MonoBehaviour:
   typedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   remainingColor: {r: 1, g: 1, b: 1, a: 1}
   completedColor: {r: 0, g: 1, b: 0, a: 1}
+  pendingColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  finishedColor: {r: 0, g: 1, b: 0, a: 0.039215688}
 --- !u!114 &1671828071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2443,6 +2460,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6465240378076363520, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 266103567}
     - target: {fileID: 8754370595885996352, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
       propertyPath: m_Name
       value: Player

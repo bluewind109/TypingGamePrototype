@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a50d0a2f793b82e4d960bb4009a73d4e, type: 3}
-  m_Name: CA_Attack_DoubleHit
+  m_Name: CA_Attack_DoubleAttack
   m_EditorClassIdentifier: Assembly-CSharp::CombatAction
   tags: 0100000003000000
   actionName: Double Attack

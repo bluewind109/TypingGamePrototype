@@ -1,51 +1,33 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerActionController)), RequireComponent(typeof(Health))]
-public class Player : MonoBehaviour
+[RequireComponent(typeof(PlayerActionController))]
+public class Player : Entity
 {
     public Action<int> onActionPointsChanged;
 
-    [SerializeField] private Stats stats;
-    [SerializeField] private PlayerActionController actionController;
+    private PlayerActionController actionController;
 
-    private Health health;
     private int actionPoints = 0;
     public int ActionPoints => actionPoints;
 
     private const int MAX_ACTION_POINTS = 3;
 
-    private void Awake()
+    protected override void Awake()
     {
-        health = new Health(stats.health);
-        health.onDie += OnDie;
+        base.Awake();
+        actionController = GetComponent<PlayerActionController>();
         actionController.onBasicActionExecuted += OnBasicActionExecuted;
         actionController.onSkillUsed += OnSkillUsed;
         onActionPointsChanged += actionController.UpdateAP;
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
-        health.onDie -= OnDie;
+        base.OnDestroy();
         actionController.onBasicActionExecuted -= OnBasicActionExecuted;
         actionController.onSkillUsed -= OnSkillUsed;
         onActionPointsChanged -= actionController.UpdateAP;
-    }
-
-    public void TakeDamage(int amount)
-    {
-        health.TakeDamage(amount);
-    }
-
-    public void Heal(int amount)
-    {
-        health.Heal(amount);
-    }
-
-    private void OnDie()
-    {
-        Debug.Log("Player died");
-        gameObject.SetActive(false);
     }
 
     private void OnBasicActionExecuted()

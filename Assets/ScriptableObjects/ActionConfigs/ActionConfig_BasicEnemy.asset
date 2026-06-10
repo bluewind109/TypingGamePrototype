@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b5fbaf30c132c429b748e576709e24, type: 3}
+  m_Name: ActionConfig_BasicEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::ActionConfig
+  basicAttack: {fileID: 11400000, guid: ba891f451a4a8324799cc15fe4650807, type: 2}
+  basicDefend: {fileID: 11400000, guid: 2786615757d2a19489f3e24cf0820814, type: 2}
+  skills:
+  - {fileID: 11400000, guid: e68f8c67c32d8204e9d8ceaba052a5e4, type: 2}
+  - {fileID: 11400000, guid: a3d9efc4ac4478040aff91601431ac59, type: 2}
