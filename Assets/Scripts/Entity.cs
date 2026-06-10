@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     [SerializeField] protected Stats stats;
-    protected Health health;
+    public Health health { get; protected set; }
 
     protected virtual void Awake()
     {
@@ -16,7 +16,10 @@ public abstract class Entity : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        health.onDie -= OnDie;
+        if (health != null)
+        {
+            health.onDie -= OnDie;
+        }
     }
 
     public virtual void TakeDamage(int amount)
