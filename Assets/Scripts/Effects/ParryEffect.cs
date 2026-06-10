@@ -10,6 +10,6 @@ public class ParryEffect : Effect
 
     public override void ApplyEffect(Entity target, int potency)
     {
-        Debug.Log("Parry effect triggered.");
+        // TODO add parry buff to target, which blocks the next incoming damage and then removes itself
     }
 }

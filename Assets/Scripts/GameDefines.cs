@@ -66,3 +66,10 @@ public enum SentenceState
     Pending = 1,
     Finished = 2,
 }
+
+public enum StatusEffectType
+{
+    Parry = 0,
+    Burn = 1,
+    Poison = 2,
+}

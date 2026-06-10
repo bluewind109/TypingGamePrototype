@@ -37,4 +37,9 @@ public abstract class Entity : MonoBehaviour
         Debug.Log("Entity died");
         // gameObject.SetActive(false);
     }
+
+    void ApplyStatusEffect(StatusEffectType effectType)
+    {
+        // TODO apply status effect to this entity
+    }
 }
