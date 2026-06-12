@@ -169,3 +169,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc6de383a8d93741b55386685b85136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EffectHandler
+  statusEffectPrefab: {fileID: 923860244382564026, guid: bfbe954cbeab61e469ee06f69e58ef1f, type: 3}
+  statusEffectContainer: {fileID: 0}

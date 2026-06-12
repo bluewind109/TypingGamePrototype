@@ -19,7 +19,7 @@ public class WordInput : MonoBehaviour
         {
             if (!IsAllowedCharacter(letter)) continue;
             onLetterTyped?.Invoke(letter);
-            Debug.Log("Typed letter: " + letter);
+            // Debug.Log("Typed letter: " + letter);
         }
     }
 
@@ -30,7 +30,7 @@ public class WordInput : MonoBehaviour
     /// <returns></returns>
     private bool IsAllowedCharacter(char _letter)
     {
-        Debug.Log("Allowed character: " + _letter);
+        // Debug.Log("Allowed character: " + _letter);
         return char.IsLetter(_letter) || _letter == ' ' || _letter == '-';
     }
 

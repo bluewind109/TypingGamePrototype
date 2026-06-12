@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class EffectHandler : MonoBehaviour
 {
-    private List<StatusEffect> activeStatusEffects = new List<StatusEffect>();
+    [SerializeField] private StatusEffect statusEffectPrefab;
+    [SerializeField] private Transform statusEffectContainer;
+
+    private List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     private void Update()
     {
@@ -72,72 +75,45 @@ public class EffectHandler : MonoBehaviour
         StatusEffect existing = FindStatusEffect(effectType);
         if (existing != null)
         {
-            existing.currentStacks = Mathf.Min(existing.currentStacks + stackDelta, existing.maxStacks);
-            if (duration > 0f)
-            {
-                existing.timer = Mathf.Max(existing.timer, duration);
-            }
-
+            existing.UpdateStack(stackDelta);
             return;
         }
 
-        StatusEffect newStatus = new StatusEffect
-        {
-            effectType = effectType,
-            currentStacks = Mathf.Min(stackDelta, maxStacks),
-            maxStacks = maxStacks,
-            timer = duration,
-        };
+        StatusEffect newStatusInstance = Instantiate(statusEffectPrefab, statusEffectContainer);
+        newStatusInstance.Initialize(effectType, stackDelta, duration);
 
-        newStatus.onStatusEffectTimedOut += OnStatusEffectTimedOut;
-        activeStatusEffects.Add(newStatus);
+        newStatusInstance.onStatusEffectTimedOut += OnStatusEffectTimedOut;
+        statusEffects.Add(newStatusInstance);
     }
 
     private bool TryConsumeParry()
     {
         StatusEffect parry = FindStatusEffect(StatusEffectType.Parry);
-        if (parry == null)
-        {
-            return false;
-        }
+        if (parry == null) return false;
 
-        parry.currentStacks--;
-        if (parry.currentStacks <= 0)
-        {
-            activeStatusEffects.Remove(parry);
-        }
-
+        parry.UpdateStack(-1);
         return true;
     }
 
     private void TickStatusEffects(float deltaTime)
     {
-        foreach (StatusEffect status in activeStatusEffects)
+        foreach (StatusEffect status in statusEffects)
         {
-            status.Tick(deltaTime);
+            status.UpdateDuration(deltaTime);
         }
     }
 
     private void OnStatusEffectTimedOut(StatusEffectType effectType)
     {
-        // Remove 1 stack of status effect
-        var statusEffect = FindStatusEffect(effectType);
-        if (statusEffect != null)
-        {
-            statusEffect.currentStacks--;
-            if (statusEffect.currentStacks <= 0)
-            {
-                activeStatusEffects.Remove(statusEffect);
-            }
-        }
+        // var statusEffect = FindStatusEffect(effectType);
     }
 
     private StatusEffect FindStatusEffect(StatusEffectType effectType)
     {
-        for (int i = 0; i < activeStatusEffects.Count; i++)
+        for (int i = 0; i < statusEffects.Count; i++)
         {
-            StatusEffect status = activeStatusEffects[i];
-            if (status.effectType == effectType)
+            StatusEffect status = statusEffects[i];
+            if (status.EffectType == effectType)
             {
                 return status;
             }
@@ -146,12 +122,12 @@ public class EffectHandler : MonoBehaviour
         return null;
     }
 
-    private static bool IsStatusEffect(Effect effect)
+    private bool IsStatusEffect(Effect effect)
     {
         return effect.effectType == EffectType.Shield || effect is ParryEffect;
     }
 
-    private static StatusEffectType ResolveStatusType(Effect effect)
+    private StatusEffectType ResolveStatusType(Effect effect)
     {
         if (effect is ParryEffect)
         {
