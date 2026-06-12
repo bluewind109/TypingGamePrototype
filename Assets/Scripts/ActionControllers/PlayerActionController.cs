@@ -89,11 +89,11 @@ public class PlayerActionController : MonoBehaviour, IActionController
         switch (type)
         {
             case ActionButtonType.BasicAttack:
-                Debug.Log("<color=yellow>Attack</color> selected");
+                // Debug.Log("<color=yellow>Attack</color> selected");
                 sentenceManager.LoadAction(config.basicAttack);
                 break;
             case ActionButtonType.BasicDefend:
-                Debug.Log("<color=yellow>Defend</color> selected");
+                // Debug.Log("<color=yellow>Defend</color> selected");
                 sentenceManager.LoadAction(config.basicDefend);
                 break;
             default:
