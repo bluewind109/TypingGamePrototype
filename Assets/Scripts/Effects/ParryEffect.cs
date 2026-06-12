@@ -10,6 +10,6 @@ public class ParryEffect : Effect
 
     public override void ApplyEffect(Entity target, int potency)
     {
-        // TODO add parry buff to target, which blocks the next incoming damage and then removes itself
+        // TODO apply parry buff to target, which blocks the next incoming damage and then removes itself
     }
 }

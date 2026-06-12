@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4914531379284536953}
   - component: {fileID: 6803460785461153767}
   - component: {fileID: 9217186888030045680}
+  - component: {fileID: 6870661430265285101}
   - component: {fileID: 4847784631936663361}
   m_Layer: 0
   m_Name: BasicEnemy
@@ -60,6 +61,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyActionController
   config: {fileID: 11400000, guid: 43a6ac13339d74549a44c81992f4e9e1, type: 2}
+--- !u!114 &6870661430265285101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893849415538194473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc6de383a8d93741b55386685b85136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffectHandler
 --- !u!212 &4847784631936663361
 SpriteRenderer:
   serializedVersion: 2
