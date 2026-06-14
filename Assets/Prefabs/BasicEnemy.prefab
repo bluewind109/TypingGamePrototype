@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6803460785461153767}
   - component: {fileID: 9217186888030045680}
   - component: {fileID: 6870661430265285101}
+  - component: {fileID: 6114909040665136951}
   - component: {fileID: 4847784631936663361}
   m_Layer: 0
   m_Name: BasicEnemy
@@ -61,9 +62,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyActionController
   config: {fileID: 11400000, guid: 43a6ac13339d74549a44c81992f4e9e1, type: 2}
-  turnDelay: 2
-  attackPattern: 00000000000000000200000003000000
+  actionTimer: {fileID: 6114909040665136951}
+  actionDelay: 3
+  attackPattern:
+  - {fileID: 11400000, guid: ba891f451a4a8324799cc15fe4650807, type: 2}
+  - {fileID: 11400000, guid: ba891f451a4a8324799cc15fe4650807, type: 2}
+  - {fileID: 11400000, guid: e68f8c67c32d8204e9d8ceaba052a5e4, type: 2}
+  - {fileID: 11400000, guid: a3d9efc4ac4478040aff91601431ac59, type: 2}
   playerTarget: {fileID: 0}
+  actionBar: {fileID: 0}
 --- !u!114 &6870661430265285101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +85,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EffectHandler
   statusEffectPrefab: {fileID: 923860244382564026, guid: bfbe954cbeab61e469ee06f69e58ef1f, type: 3}
   statusEffectContainer: {fileID: 0}
+--- !u!114 &6114909040665136951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893849415538194473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684739440b08ee5458cedea5871eb136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Timer
+  progressBar: {fileID: 0}
 --- !u!212 &4847784631936663361
 SpriteRenderer:
   serializedVersion: 2

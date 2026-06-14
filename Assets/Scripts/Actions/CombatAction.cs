@@ -22,6 +22,11 @@ public class CombatAction : ScriptableObject
 
     }
 
+    public Sprite GetIcon()
+    {
+        return actionIcon != null ? actionIcon : null;
+    }
+
     public bool HasTag(ActionTag tag)
     {
         return tags.Contains(tag);

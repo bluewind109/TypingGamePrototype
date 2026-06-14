@@ -12,6 +12,16 @@ public abstract class Enemy : Entity
 		actionController = GetComponent<EnemyActionController>();
 	}
 
+	void Start()
+	{
+		OnSpawn();
+	}
+
+	public virtual void OnSpawn()
+	{
+		actionController.StartTurn();
+	}
+
 	public override void TakeDamage(int amount)
 	{
 		base.TakeDamage(amount);
@@ -21,6 +31,6 @@ public abstract class Enemy : Entity
 	{
 		base.OnDie();
 		// TODO enemy stop all actions and disable itself
-
+		actionController.Deactivate();
 	}
 }
