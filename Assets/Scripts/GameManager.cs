@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
     public static GameManager Instance { get; private set; }
 
     [SerializeField] private Player player;
+    [SerializeField] private Enemy currentEnemy;
 
-    private void Awake()
+    private GameState currentState = GameState.None;
+
+    void Awake()
     {
         if (Instance == null)
         {
@@ -19,5 +23,38 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Add any game management logic here, such as score tracking, level management, etc.
+    void Start()
+    {
+        StartTurn();
+    }
+
+    void SetState(GameState newState)
+    {
+        if (currentState == newState) return;
+        currentState = newState;
+    }
+
+    public void StartTurn()
+    {
+        SetState(GameState.TurnStart);
+    }
+
+    public void StartCombat()
+    {
+        SetState(GameState.Combat);
+    }
+
+    public void EndTurn()
+    {
+        SetState(GameState.TurnEnd);
+    }
+}
+
+public enum GameState
+{
+    None = -1,
+    TurnStart,
+    Combat,
+    TurnEnd,
+    Victory,
 }
