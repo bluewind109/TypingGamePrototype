@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatAction
   tags: 0100000003000000
   actionName: Great Slash
-  actionIcon: {fileID: 0}
+  actionIcon: {fileID: 21300000, guid: 782abf14fde90134b829008a828ee72b, type: 3}
   effects:
   - effect: {fileID: 11400000, guid: d77c053fd6f859342a73335f0e1185bc, type: 2}
     potency: 3
