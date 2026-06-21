@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerActionController : MonoBehaviour, IActionController
@@ -16,6 +17,8 @@ public class PlayerActionController : MonoBehaviour, IActionController
     [SerializeField] private ActionMenu actionMenu;
     [SerializeField] private SkillMenu skillMenu;
     [SerializeField] private TMPro.TextMeshProUGUI menuTitleText;
+
+    private List<CombatAction> actionQueue = new List<CombatAction>();
 
     private int currentAP = 0;
 
@@ -68,7 +71,17 @@ public class PlayerActionController : MonoBehaviour, IActionController
         menuTitleText.text = string.Empty;
         actionMenu.HideMenu();
         skillMenu.HideMenu();
-        sentenceManager.LoadAction(action);
+
+        actionQueue.Add(action);
+    }
+
+    void GetNextAction()
+    {
+        if (actionQueue.Count == 0) return;
+
+        CombatAction nextAction = actionQueue[0];
+        actionQueue.RemoveAt(0);
+        sentenceManager.LoadAction(nextAction);
     }
 
     private void OnActionTyped(CombatAction typedAction)

@@ -6,6 +6,27 @@ public class GameDefines
 
 }
 
+/// <summary>
+/// 1/ Turn Start: 
+/// - Show Enemy incoming actions
+/// - Player selects action to put into queue (max action is 6 by default)
+/// - When done selecting, player can start combat phase
+/// 2/ Combat:
+/// - Player has to type the action to execute it
+/// - Enemy executes its actions in order in intervals (e.g., every 2 seconds)
+/// 3/ Turn End:
+/// - Resolve any status effects, cooldowns, and other end-of-turn mechanics
+/// - If enemy is still alive, start a new turn
+/// </summary>
+public enum GameState
+{
+    None = -1,
+    TurnStart,
+    Combat,
+    TurnEnd,
+    Victory,
+}
+
 [Serializable]
 public class EffectInfo
 {

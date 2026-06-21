@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager Instance { get; private set; }
 
     [SerializeField] private Player player;
@@ -48,13 +47,4 @@ public class GameManager : MonoBehaviour
     {
         SetState(GameState.TurnEnd);
     }
-}
-
-public enum GameState
-{
-    None = -1,
-    TurnStart,
-    Combat,
-    TurnEnd,
-    Victory,
 }
