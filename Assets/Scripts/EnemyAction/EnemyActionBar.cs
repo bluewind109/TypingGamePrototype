@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyActionBar : MonoBehaviour
 {    
-    public System.Action onTurnEnd;
-
     [SerializeField] private EnemyActionItem actionItemPrefab;
     [SerializeField] private float itemGap = 15f;
 
@@ -32,7 +30,7 @@ public class EnemyActionBar : MonoBehaviour
         SetActiveItem();
     }
 
-    void SetActiveItem()
+    public void SetActiveItem()
     {
         if (actionItems.Count > 0)
         {
@@ -40,7 +38,7 @@ public class EnemyActionBar : MonoBehaviour
         }
     }
 
-    bool IsTurnEnd()
+    public bool IsPatternFinished()
     {
         return actionItems.Count == 0;
     }
@@ -54,9 +52,8 @@ public class EnemyActionBar : MonoBehaviour
         Destroy(transform.GetChild(0).gameObject);
         actionItems.RemoveAt(0);
 
-        if (IsTurnEnd())
+        if (IsPatternFinished())
         {
-            onTurnEnd?.Invoke();
             return;
         }
 
@@ -70,7 +67,7 @@ public class EnemyActionBar : MonoBehaviour
 
     private void UpdateItemPosition(int index)
     {
-        Debug.Log($"Updating position for item {index}");
+        // Debug.Log($"Updating position for item {index}");
         RectTransform itemRect = transform.GetChild(index).GetComponent<RectTransform>();
         itemRect.anchoredPosition = new Vector2(index * (itemRect.sizeDelta.x + itemGap) * -1, 0);
     }

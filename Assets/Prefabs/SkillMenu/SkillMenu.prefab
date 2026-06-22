@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillMenu
   skillItemPrefab: {fileID: 3701331529732398517, guid: 1673d402faf767a4a8eb9b1da9412a37, type: 3}
+  input: {fileID: 9139812283808355706}
 --- !u!114 &9139812283808355706
 MonoBehaviour:
   m_ObjectHideFlags: 0

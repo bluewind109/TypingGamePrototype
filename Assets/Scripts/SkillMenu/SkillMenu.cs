@@ -10,8 +10,8 @@ public class SkillMenu : MonoBehaviour
     public Action onBackPressed;
 
     [SerializeField] private SkillItemUI skillItemPrefab;
-
-    private ActionMenuInput input;
+    [SerializeField] private ActionMenuInput input;
+    
     private List<SkillItemUI> items = new List<SkillItemUI>();
 
     private int selectedIndex = 0;

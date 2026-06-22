@@ -11,6 +11,8 @@ public class Player : Entity
     private int actionPoints = 0;
     public int ActionPoints => actionPoints;
 
+    public bool IsResolved { get; private set; } = false;
+
     private const int MAX_ACTION_POINTS = 3;
 
     protected override void Awake()
@@ -30,17 +32,35 @@ public class Player : Entity
         onActionPointsChanged -= actionController.UpdateAP;
     }
 
+    public override void StartTurn()
+    {
+        actionController.StartTurn();
+    }
+
+    public override void StartCombat()
+    {
+        actionController.StartCombat();
+    }
+
+    public override void EndTurn()
+    {
+        actionController.EndTurn();
+		IsResolved = true;
+    }
+
     private void OnBasicActionExecuted()
     {
         actionPoints = Mathf.Min(actionPoints + 1, MAX_ACTION_POINTS);
         onActionPointsChanged?.Invoke(actionPoints);
         // Debug.Log("Gained 1 AP. Current AP: " + actionPoints);
     }
-    
+
     private void OnSkillUsed(int apCost)
     {
         actionPoints = Mathf.Max(actionPoints - apCost, 0);
         onActionPointsChanged?.Invoke(actionPoints);
         // Debug.Log("Used skill with AP cost: " + apCost + ". Current AP: " + actionPoints);
     }
+
+
 }

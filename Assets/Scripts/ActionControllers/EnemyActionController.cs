@@ -4,8 +4,10 @@ using System;
 
 public class EnemyActionController : MonoBehaviour, IActionController
 {
-    [SerializeField] private ActionConfig config;
-    [SerializeField] private Timer actionTimer;
+	public Action onPatternFinished;
+
+	[SerializeField] private ActionConfig config;
+	[SerializeField] private Timer actionTimer;
 
 	[SerializeField] private float actionDelay = 10f;
 	[SerializeField] private List<CombatAction> attackPattern = new List<CombatAction>();
@@ -22,15 +24,31 @@ public class EnemyActionController : MonoBehaviour, IActionController
 	{
 		enemy = GetComponent<Enemy>();
 		effectHandler = GetComponent<EffectHandler>();
-		actionBar.onTurnEnd += OnTurnEnd;
 		actionTimer.onTimerComplete += ExecuteNextAction;
 	}
-	
+
 	void OnDestroy()
 	{
-		actionBar.onTurnEnd -= OnTurnEnd;
 		actionTimer.onTimerComplete -= ExecuteNextAction;
 	}
+
+	public void StartTurn()
+	{
+		actionBar.Initialize(config);
+		_ = actionBar.InitializeTurn(attackPattern);
+		patternIndex = 0;
+	}
+
+	public void StartCombat()
+	{
+		StartNextAction();
+	}
+
+	public void EndTurn()
+	{
+		// TODO Resolve any end-of-turn effects here if needed.
+	}
+
 
 	private void Update()
 	{
@@ -47,14 +65,6 @@ public class EnemyActionController : MonoBehaviour, IActionController
 		actionTimer.StopTimer();
 	}
 
-	public void StartTurn()
-	{
-		actionBar.Initialize(config);
-		_ = actionBar.InitializeTurn(attackPattern);
-		patternIndex = 0;
-		SetNextAction();
-	}
-
 	private void ExecuteNextAction()
 	{
 		CombatAction nextAction = GetNextAction();
@@ -62,11 +72,20 @@ public class EnemyActionController : MonoBehaviour, IActionController
 
 		effectHandler.HandleAction(nextAction, enemy, playerTarget);
 		actionBar.OnActionExecuted();
-		SetNextAction();
+
+		if (actionBar.IsPatternFinished())
+		{
+			onPatternFinished?.Invoke();
+			GameManager.Instance.EndTurn();
+			return;
+		}
+
+		StartNextAction();
 	}
 
-	private void SetNextAction()
+	private void StartNextAction()
 	{
+		actionBar.SetActiveItem();
 		actionTimer.StartTimer(actionDelay);
 	}
 
@@ -77,11 +96,5 @@ public class EnemyActionController : MonoBehaviour, IActionController
 		CombatAction action = attackPattern[patternIndex];
 		patternIndex = (patternIndex + 1) % attackPattern.Count;
 		return action;
-	}
-
-	private void OnTurnEnd()
-	{
-		actionTimer.StopTimer();
-		StartTurn();
 	}
 }

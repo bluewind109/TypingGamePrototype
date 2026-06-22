@@ -42,6 +42,11 @@ public class SentenceManager : MonoBehaviour
         sentenceDisplay_Finished.RemoveSentence();
     }
 
+    public void ToggleInput(bool enabled)
+    {
+        wordInput.ToggleInput(enabled);
+    }
+
     public void TestLoadAction()
     {
         // Create a test action here
@@ -60,7 +65,6 @@ public class SentenceManager : MonoBehaviour
         effectIndex = 0;
         SetActiveSentence(sentences[0]);
         SetPendingSentence(GetPendingSentence());
-        wordInput.ToggleInput(true);
     }
 
     public void AddSentence(EffectInfo effectInfo)
@@ -145,7 +149,6 @@ public class SentenceManager : MonoBehaviour
             var nextSentence = GetNextSentence();
             if (nextSentence == null)
             {
-                wordInput.ToggleInput(false);
                 wordTimer.StopTimer();
                 activeSentence = null;
                 onActionTyped?.Invoke(action);

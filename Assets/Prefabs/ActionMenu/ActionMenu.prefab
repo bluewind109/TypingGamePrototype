@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21f4794887912248b0b6170705b8fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActionMenu
+  input: {fileID: 442169494721175283}
 --- !u!114 &442169494721175283
 MonoBehaviour:
   m_ObjectHideFlags: 0

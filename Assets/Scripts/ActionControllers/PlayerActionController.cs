@@ -21,6 +21,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
     private List<CombatAction> actionQueue = new List<CombatAction>();
 
     private int currentAP = 0;
+    private int maxAction = 6;
 
     void Awake()
     {
@@ -53,6 +54,27 @@ public class PlayerActionController : MonoBehaviour, IActionController
         actionMenu.onMenuOpened -= () => menuTitleText.text = "Actions";
     }
 
+    public void StartTurn()
+    {
+        actionMenu.ShowMenu();
+        skillMenu.HideMenu();
+        sentenceManager.ToggleInput(false);
+    }
+
+    public void StartCombat()
+    {
+        actionMenu.HideMenu();
+        skillMenu.HideMenu();
+        sentenceManager.ToggleInput(true);
+    }
+
+    public void EndTurn()
+    {
+        actionMenu.HideMenu();
+        skillMenu.HideMenu();
+        sentenceManager.ToggleInput(false);
+    }
+
     // Selected from UI
     public void OnActionSelected(CombatAction action)
     {
@@ -69,10 +91,19 @@ public class PlayerActionController : MonoBehaviour, IActionController
         }
 
         menuTitleText.text = string.Empty;
-        actionMenu.HideMenu();
-        skillMenu.HideMenu();
+        AddActionToQueue(action);
+    }
+
+    private void AddActionToQueue(CombatAction action)
+    {
+        if (actionQueue.Count >= maxAction) return;
 
         actionQueue.Add(action);
+
+        if (actionQueue.Count >= maxAction)
+        {
+            GameManager.Instance.StartCombat();
+        }
     }
 
     void GetNextAction()
@@ -102,12 +133,10 @@ public class PlayerActionController : MonoBehaviour, IActionController
         switch (type)
         {
             case ActionButtonType.BasicAttack:
-                // Debug.Log("<color=yellow>Attack</color> selected");
-                sentenceManager.LoadAction(config.basicAttack);
+                AddActionToQueue(config.basicAttack);
                 break;
             case ActionButtonType.BasicDefend:
-                // Debug.Log("<color=yellow>Defend</color> selected");
-                sentenceManager.LoadAction(config.basicDefend);
+                AddActionToQueue(config.basicDefend);
                 break;
             default:
                 Debug.Log("<color=red>Unknown action</color> selected");

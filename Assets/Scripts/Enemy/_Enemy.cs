@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Enemy : Entity
 {
 	private EnemyActionController actionController;
+    public bool IsResolved { get; private set; } = false;
 
 	protected override void Awake()
 	{
@@ -17,9 +18,25 @@ public abstract class Enemy : Entity
 		OnSpawn();
 	}
 
-	public virtual void OnSpawn()
+	public override void StartTurn()
 	{
 		actionController.StartTurn();
+	}
+
+	public override void StartCombat()
+	{
+		actionController.StartCombat();
+	}
+
+	public override void EndTurn()
+	{
+		actionController.EndTurn();
+		IsResolved = true;
+	}
+
+	public virtual void OnSpawn()
+	{
+		StartTurn();
 	}
 
 	public override void TakeDamage(int amount)
@@ -32,5 +49,6 @@ public abstract class Enemy : Entity
 		base.OnDie();
 		// TODO enemy stop all actions and disable itself
 		actionController.Deactivate();
+		IsResolved = true;
 	}
 }

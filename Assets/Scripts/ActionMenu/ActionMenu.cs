@@ -9,7 +9,7 @@ public class ActionMenu : MonoBehaviour
     public Action<ActionButtonType> onActionButtonPressed;
     public Action onSkillPressed;
 
-    private ActionMenuInput input;
+    [SerializeField] private ActionMenuInput input;
     private List<ActionItemUI> items = new List<ActionItemUI>();
 
     private int selectedIndex = 0;
