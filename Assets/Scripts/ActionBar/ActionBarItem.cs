@@ -11,6 +11,9 @@ public class ActionBarItem : MonoBehaviour
     [SerializeField] private Color defaultColor = Color.white;
     [SerializeField] private Color activeColor = Color.green;
 
+    private Vector2 targetPosition;
+    private float moveSpeed = 10f;
+
     void Awake()
     {
         canvasGroup.alpha = 0f;
@@ -33,16 +36,26 @@ public class ActionBarItem : MonoBehaviour
         bg.color = isActive ? activeColor : defaultColor;
     }
 
+    public void SetTargetPosition(Vector2 position)
+    {
+        targetPosition = position;
+    }
+
+    void Update()
+    {
+        transform.localPosition = Vector2.Lerp(transform.localPosition, targetPosition, Time.deltaTime * moveSpeed);
+    }
+
     private async Task FadeIn()
     {
-        float duration = 0.5f; // Duration of the fade-in effect
+        float duration = 0.25f; // Duration of the fade-in effect
         canvasGroup.alpha = 0f; // Start fully transparent
         await canvasGroup.DOFade(1f, duration).AsyncWaitForCompletion();
     }
 
     public async Task FadeOutAndDestroy()
     {
-        float duration = 0.5f; // Duration of the fade-out effect
+        float duration = 0.25f; // Duration of the fade-out effect
         // Fade out the item over the specified duration
         await canvasGroup.DOFade(0f, duration).AsyncWaitForCompletion();
         Destroy(gameObject);

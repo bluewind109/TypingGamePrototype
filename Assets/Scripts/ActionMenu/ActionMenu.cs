@@ -90,11 +90,11 @@ public class ActionMenu : MonoBehaviour
         {
             case ActionButtonType.BasicAttack:
             case ActionButtonType.BasicDefend:
-                Debug.Log($"<color=green>{selectedItem.ButtonType}</color> selected");
+                // Debug.Log($"<color=green>{selectedItem.ButtonType}</color> selected");
                 onActionButtonPressed?.Invoke(selectedItem.ButtonType);
                 break;
             case ActionButtonType.Skill:
-                Debug.Log("<color=yellow>Skill</color> selected");
+                // Debug.Log("<color=yellow>Skill</color> selected");
                 onSkillPressed?.Invoke();
                 break;
             default:

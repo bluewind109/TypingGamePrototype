@@ -74,6 +74,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
 
     public void EndTurn()
     {
+        actionBar.ClearActionBar();
         actionMenu.HideMenu();
         skillMenu.HideMenu();
         sentenceManager.ToggleInput(false);
@@ -106,7 +107,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
         actionBar.AddAction(action);
 
         string actionNames = string.Join(", ", actionQueue.ConvertAll(a => a.name));
-        Debug.Log($"<color=blue>Current queue:</color> {actionNames}");
+        // Debug.Log($"<color=blue>Current queue:</color> {actionNames}");
 
         if (actionQueue.Count >= maxAction)
         {
