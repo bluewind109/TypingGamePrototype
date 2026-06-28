@@ -20,6 +20,7 @@ public abstract class Enemy : Entity
 
 	public override void StartTurn()
 	{
+		Debug.Log($"[Enemy] StartTurn");
 		actionController.StartTurn();
 	}
 
@@ -36,7 +37,7 @@ public abstract class Enemy : Entity
 
 	public virtual void OnSpawn()
 	{
-		StartTurn();
+		// StartTurn();
 	}
 
 	public override void TakeDamage(int amount)

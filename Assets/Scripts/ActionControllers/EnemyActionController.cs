@@ -34,7 +34,6 @@ public class EnemyActionController : MonoBehaviour, IActionController
 
 	public void StartTurn()
 	{
-		actionBar.Initialize(config);
 		_ = actionBar.InitializeTurn(attackPattern);
 		patternIndex = 0;
 	}

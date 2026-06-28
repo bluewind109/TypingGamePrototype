@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3714852336388297327}
   - component: {fileID: 3142441747215146867}
   - component: {fileID: 8915399769815453416}
+  - component: {fileID: 2139256176432949179}
   m_Layer: 5
-  m_Name: EnemyActionItem
+  m_Name: ActionBarItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f039db9628ab849a82ed611b4dc857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyActionItem
+  canvasGroup: {fileID: 2139256176432949179}
   bg: {fileID: 8803633801757396291}
   actionIcon: {fileID: 1175514016030590937}
   defaultColor: {r: 1, g: 1, b: 1, a: 0.02745098}
@@ -75,6 +77,18 @@ MonoBehaviour:
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!225 &2139256176432949179
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695152080996738154}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2032771577671280712
 GameObject:
   m_ObjectHideFlags: 0

@@ -1288,6 +1288,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758340534}
   m_CullTransparentMesh: 1
+--- !u!1 &930867580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 930867581}
+  - component: {fileID: 930867582}
+  m_Layer: 5
+  m_Name: PlayerActionBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &930867581
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930867580}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1787523821}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 100, y: -400}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &930867582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930867580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89bdeed72bdd77a47a72d3c6f520a9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerActionBar
+  actionItemPrefab: {fileID: 3142441747215146867, guid: ea81c9cc0051f5544b134ee030a6f037, type: 3}
+  itemGap: 15
 --- !u!1 &1013845578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,6 +2108,7 @@ RectTransform:
   - {fileID: 121460190}
   - {fileID: 2101261296}
   - {fileID: 139569049}
+  - {fileID: 930867581}
   - {fileID: 1218654796}
   m_Father: {fileID: 18298332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2794,6 +2845,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 266103567}
     - target: {fileID: 6465240378076363520, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
+      propertyPath: actionBar
+      value: 
+      objectReference: {fileID: 930867582}
+    - target: {fileID: 6465240378076363520, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
       propertyPath: skillMenu
       value: 
       objectReference: {fileID: 5122896668420701709}
@@ -3474,7 +3529,7 @@ PrefabInstance:
       objectReference: {fileID: 139569050}
     - target: {fileID: 9217186888030045680, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
       propertyPath: actionDelay
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9217186888030045680, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
       propertyPath: playerTarget

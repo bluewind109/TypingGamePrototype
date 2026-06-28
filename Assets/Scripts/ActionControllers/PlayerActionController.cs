@@ -13,10 +13,13 @@ public class PlayerActionController : MonoBehaviour, IActionController
     [SerializeField] private SentenceManager sentenceManager;
     private EffectHandler effectHandler;
     private Player player;
-    [Header("UI References")]
+    [Header("Action menu UI")]
     [SerializeField] private ActionMenu actionMenu;
     [SerializeField] private SkillMenu skillMenu;
     [SerializeField] private TMPro.TextMeshProUGUI menuTitleText;
+
+    [Header("Action Queue UI")]
+    [SerializeField] private PlayerActionBar actionBar;
 
     private List<CombatAction> actionQueue = new List<CombatAction>();
 
@@ -66,6 +69,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
         actionMenu.HideMenu();
         skillMenu.HideMenu();
         sentenceManager.ToggleInput(true);
+        GetNextAction();
     }
 
     public void EndTurn()
@@ -99,6 +103,10 @@ public class PlayerActionController : MonoBehaviour, IActionController
         if (actionQueue.Count >= maxAction) return;
 
         actionQueue.Add(action);
+        actionBar.AddAction(action);
+
+        string actionNames = string.Join(", ", actionQueue.ConvertAll(a => a.name));
+        Debug.Log($"<color=blue>Current queue:</color> {actionNames}");
 
         if (actionQueue.Count >= maxAction)
         {
@@ -124,8 +132,9 @@ public class PlayerActionController : MonoBehaviour, IActionController
         }
 
         effectHandler.HandleAction(typedAction, player, enemy);
-        actionMenu.ShowMenu();
         onSkillUsed?.Invoke(typedAction.apCost);
+        actionBar.OnActionExecuted();
+        GetNextAction();
     }
 
     private void HandleActionButton(ActionButtonType type)
