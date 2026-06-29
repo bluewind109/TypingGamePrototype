@@ -456,6 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyActionBar
   actionItemPrefab: {fileID: 3142441747215146867, guid: ea81c9cc0051f5544b134ee030a6f037, type: 3}
   itemGap: 15
+  isReverseOrder: 1
 --- !u!114 &178740941 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2135844129529458992, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
@@ -1338,6 +1339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerActionBar
   actionItemPrefab: {fileID: 3142441747215146867, guid: ea81c9cc0051f5544b134ee030a6f037, type: 3}
   itemGap: 15
+  isReverseOrder: 0
 --- !u!1 &1013845578
 GameObject:
   m_ObjectHideFlags: 0
@@ -3529,7 +3531,7 @@ PrefabInstance:
       objectReference: {fileID: 139569050}
     - target: {fileID: 9217186888030045680, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
       propertyPath: actionDelay
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9217186888030045680, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
       propertyPath: playerTarget

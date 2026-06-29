@@ -6,6 +6,7 @@ public class ActionBar : MonoBehaviour
 {
     [SerializeField] protected ActionBarItem actionItemPrefab;
     [SerializeField] protected float itemGap = 15f;
+    [SerializeField] protected bool isReverseOrder = false; // If true, items will be added from right to left.
 
     protected List<ActionBarItem> actionItems = new List<ActionBarItem>();
     public bool IsPatternFinished() => actionItems.Count == 0;
@@ -58,7 +59,8 @@ public class ActionBar : MonoBehaviour
     {
         RectTransform itemRect = actionItems[index].GetComponent<RectTransform>();
         ActionBarItem item = actionItems[index];
-        Vector2 targetPosition = new Vector2(index * (itemRect.sizeDelta.x + itemGap) * 1, 0);
+        float direction = isReverseOrder ? -1 : 1;
+        Vector2 targetPosition = new Vector2(index * (itemRect.sizeDelta.x + itemGap) * direction, 0);
 
         if (immediate)
         {
