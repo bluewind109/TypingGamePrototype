@@ -75,7 +75,7 @@ public class EnemyActionController : MonoBehaviour, IActionController
 		if (actionBar.IsPatternFinished())
 		{
 			onPatternFinished?.Invoke();
-			GameManager.Instance.EndTurn();
+			// GameManager.Instance.EndTurn();
 			return;
 		}
 

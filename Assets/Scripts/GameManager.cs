@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Enemy currentEnemy;
 
-    private GameState currentState = GameState.None;
+    private GamePhase skillSelectionPhase;
+    private GamePhase combatPhase;
+    private GamePhase currentPhase = null;
 
     void Awake()
     {
@@ -24,69 +26,25 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        StartTurn();
+        skillSelectionPhase = new SkillSelectionPhase();
+        combatPhase = new CombatPhase();
+        SetPhase(skillSelectionPhase);
     }
 
     void Update()
     {
-        switch (currentState)
+        if (currentPhase != null)
         {
-            case GameState.TurnStart:
-                // Handle any turn start logic if needed
-                break;
-            case GameState.Combat:
-                // Handle combat logic if needed
-                break;
-            case GameState.TurnEnd:
-                // Handle any turn end logic if needed
-                if (player.IsResolved && currentEnemy.IsResolved)
-                {
-                    StartTurn();
-                }
-                break;
-            case GameState.Victory:
-                // Handle victory logic if needed
-                break;
+            currentPhase.Update();
         }
     }
 
-    void SetState(GameState newState)
+    void SetPhase(GamePhase newPhase)
     {
-        if (currentState == newState) return;
-        currentState = newState;
+        if (newPhase == null) return;
+        if (newPhase == currentPhase) return;
 
-        switch (currentState)
-        {
-            case GameState.TurnStart:
-                player.StartTurn();
-                currentEnemy.StartTurn();
-                break;
-            case GameState.Combat:
-                player.StartCombat();
-                currentEnemy.StartCombat();
-                break;
-            case GameState.TurnEnd:
-                player.EndTurn();
-                currentEnemy.EndTurn();
-                break;
-            case GameState.Victory:
-                // Handle victory state
-                break;
-        }
-    }
-
-    public void StartTurn()
-    {
-        SetState(GameState.TurnStart);
-    }
-
-    public void StartCombat()
-    {
-        SetState(GameState.Combat);
-    }
-
-    public void EndTurn()
-    {
-        SetState(GameState.TurnEnd);
+        currentPhase = newPhase;
+        currentPhase.Begin();
     }
 }

@@ -111,7 +111,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
 
         if (actionQueue.Count >= maxAction)
         {
-            GameManager.Instance.StartCombat();
+            // GameManager.Instance.StartCombat();
         }
     }
 

@@ -18,14 +18,7 @@ public class GameDefines
 /// - Resolve any status effects, cooldowns, and other end-of-turn mechanics
 /// - If enemy is still alive, start a new turn
 /// </summary>
-public enum GameState
-{
-    None = -1,
-    TurnStart,
-    Combat,
-    TurnEnd,
-    Victory,
-}
+
 
 [Serializable]
 public class EffectInfo
