@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerActionController : MonoBehaviour, IActionController
+public class PlayerActionController : MonoBehaviour
 {
     public Action onBasicActionExecuted;
     public Action<int> onSkillUsed;
@@ -11,7 +11,6 @@ public class PlayerActionController : MonoBehaviour, IActionController
     [Header("Components")]
     [SerializeField] private ActionConfig config;
     [SerializeField] private SentenceManager sentenceManager;
-    private EffectHandler effectHandler;
     private Player player;
     [Header("Action menu UI")]
     [SerializeField] private ActionMenu actionMenu;
@@ -28,7 +27,6 @@ public class PlayerActionController : MonoBehaviour, IActionController
 
     void Awake()
     {
-        effectHandler = GetComponent<EffectHandler>();
         player = GetComponent<Player>();
         sentenceManager.onActionTyped += OnActionTyped;
         actionMenu.onMenuOpened += () => menuTitleText.text = "Actions";
@@ -132,9 +130,7 @@ public class PlayerActionController : MonoBehaviour, IActionController
             onBasicActionExecuted?.Invoke();
         }
 
-        effectHandler.HandleAction(typedAction, player, enemy);
         onSkillUsed?.Invoke(typedAction.apCost);
-        actionBar.OnActionExecuted();
         GetNextAction();
     }
 

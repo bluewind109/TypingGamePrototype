@@ -1,7 +1,9 @@
 public class CombatPhase : GamePhase
 {
+	public CombatPhase(Player player, Enemy enemy) : base(player, enemy)
+	{
+	}
 
-	
 	public override void Begin()
 	{
 		

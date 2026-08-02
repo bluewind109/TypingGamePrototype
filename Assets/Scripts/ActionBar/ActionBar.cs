@@ -5,62 +5,83 @@ using System.Collections.Generic;
 public class ActionBar : MonoBehaviour
 {
     [SerializeField] protected ActionBarItem actionItemPrefab;
-    [SerializeField] protected float itemGap = 15f;
     [SerializeField] protected bool isReverseOrder = false; // If true, items will be added from right to left.
 
-    protected List<ActionBarItem> actionItems = new List<ActionBarItem>();
-    public bool IsPatternFinished() => actionItems.Count == 0;
+    private const int INITIAL_ITEM_IN_POOL = 6;
+    private float _itemGap = 15f;
+    protected Stack<ActionBarItem> _actionItemPool = new Stack<ActionBarItem>();
+
+    protected List<ActionBarItem> _actionItems = new List<ActionBarItem>();
+
+    void Awake()
+    {
+        // Pre-instantiate a pool of ActionBarItems to avoid runtime instantiation overhead.
+        for (int i = 0; i < INITIAL_ITEM_IN_POOL; i++)
+        {
+            ActionBarItem item = Instantiate(actionItemPrefab, transform);
+            item.gameObject.SetActive(false);
+            _actionItemPool.Push(item);
+        }
+    }
+
+    private ActionBarItem GetAvailableActionItem()
+    {
+        if (_actionItemPool.Count > 0)
+        {
+            ActionBarItem item = _actionItemPool.Pop();
+            item.gameObject.SetActive(true);
+            return item;
+        }
+        else
+        {
+            ActionBarItem item = Instantiate(actionItemPrefab, transform);
+            item.gameObject.SetActive(true);
+            return item;
+        }
+    }
 
     public virtual void AddAction(CombatAction action)
     {
-        ActionBarItem item = Instantiate(actionItemPrefab, transform);
+        ActionBarItem item = GetAvailableActionItem();
         item.Initialize(action.GetIcon());
-        actionItems.Add(item);
-        UpdateItemPosition(actionItems.Count - 1, true);
+        _actionItems.Add(item);
+        UpdateItemPosition(_actionItems.Count - 1, true);
     }
 
-    public virtual void SetActiveItem()
+    public void SetActiveAction(int index = 0)
     {
-        if (actionItems.Count == 0) return;
-        actionItems[0].SetActive(true);
-    }
-
-    // Remove the first item in the bar (the one that was just executed) 
-    // and shift the remaining items left.
-    public virtual void OnActionExecuted()
-    {
-        // Destroy the first item (the one that was just executed).
-        _ = RemoveCurrentActionBarItem();
-
-        if (IsPatternFinished())
-        {
-            return;
-        }
-
-        SetActiveItem();
+        if (_actionItems.Count == 0) return;
+        _actionItems[index].SetActive(true);
     }
 
     protected virtual async Task RemoveCurrentActionBarItem()
     {
-        if (actionItems.Count == 0) return;
+        if (_actionItems.Count == 0) return;
 
-        ActionBarItem firstItem = actionItems[0];
+        ActionBarItem firstItem = _actionItems[0];
         await firstItem.FadeOutAndDestroy();
-        actionItems.RemoveAt(0);
+        _actionItems.RemoveAt(0);
+        ReleaseActionItemToPool(firstItem);
 
         // Shift remaining items left.
-        for (var i = 0; i < actionItems.Count; i++)
+        for (var i = 0; i < _actionItems.Count; i++)
         {
             UpdateItemPosition(i);
         }
     }
 
+    private void ReleaseActionItemToPool(ActionBarItem item)
+    {
+        item.gameObject.SetActive(false);
+        _actionItemPool.Push(item);
+    }
+
     protected virtual void UpdateItemPosition(int index, bool immediate = false)
     {
-        RectTransform itemRect = actionItems[index].GetComponent<RectTransform>();
-        ActionBarItem item = actionItems[index];
+        RectTransform itemRect = _actionItems[index].GetComponent<RectTransform>();
+        ActionBarItem item = _actionItems[index];
         float direction = isReverseOrder ? -1 : 1;
-        Vector2 targetPosition = new Vector2(index * (itemRect.sizeDelta.x + itemGap) * direction, 0);
+        Vector2 targetPosition = new Vector2(index * (itemRect.sizeDelta.x + _itemGap) * direction, 0);
 
         if (immediate)
         {
@@ -73,16 +94,16 @@ public class ActionBar : MonoBehaviour
 
     protected virtual void ClearImmediateItems()
     {
-        if (actionItems.Count == 0) return;
+        if (_actionItems.Count == 0) return;
 
-        for (int i = 0; i < actionItems.Count; i++)
+        for (int i = 0; i < _actionItems.Count; i++)
         {
-            if (actionItems[i] != null)
+            if (_actionItems[i] != null)
             {
-                Destroy(actionItems[i].gameObject);
+                Destroy(_actionItems[i].gameObject);
             }
         }
 
-        actionItems.Clear();
+        _actionItems.Clear();
     }
 }

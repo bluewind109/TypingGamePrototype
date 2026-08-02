@@ -26,6 +26,22 @@ public abstract class Entity : MonoBehaviour
     public abstract void StartCombat();
     public abstract void EndTurn();
 
+    public virtual void ReceiveEffect(EffectInfo effectInfo)
+    {
+        switch (effectInfo.type)
+        {
+            case EffectType.Damage:
+                TakeDamage(effectInfo.potency);
+                break;
+            case EffectType.Heal:
+                Heal(effectInfo.potency);
+                break;
+            default:
+                Debug.LogWarning("Unhandled effect type: " + effectInfo.type);
+                break;
+        }
+    }
+
     public virtual void TakeDamage(int amount)
     {
         health.TakeDamage(amount);

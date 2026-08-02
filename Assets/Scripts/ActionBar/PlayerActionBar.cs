@@ -3,10 +3,10 @@ public class PlayerActionBar : ActionBar
 {
     public void ClearActionBar()
     {
-        foreach (ActionBarItem item in actionItems)
+        foreach (ActionBarItem item in _actionItems)
         {
             _ = item.FadeOutAndDestroy();
         }
-        actionItems.Clear();
+        _actionItems.Clear();
     }
 }

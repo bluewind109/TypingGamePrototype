@@ -1,0 +1,12 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>520</x><y>500</y><w>240</w><h>170</h></coordinates><panel_attributes>/Class/
+*ActionManager*
+--
+- ActionBar actionBar
+- List&lt;CombatAction&gt; actionQueue
+--
+- UpdateActiveAction()
++ GetNextAction() : CombatAction
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>890</x><y>480</y><w>180</w><h>150</h></coordinates><panel_attributes>/Class/
+*CombatAction*
+--
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>

@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        skillSelectionPhase = new SkillSelectionPhase();
-        combatPhase = new CombatPhase();
+        skillSelectionPhase = new SkillSelectionPhase(player, currentEnemy);
+        combatPhase = new CombatPhase(player, currentEnemy);
         SetPhase(skillSelectionPhase);
     }
 

@@ -2,9 +2,13 @@ using UnityEngine;
 
 public abstract class GamePhase
 {
-	public GamePhase()
+	private Player player;
+	private Enemy currentEnemy;
+
+	public GamePhase(Player player, Enemy enemy)
 	{
-		
+		this.player = player;
+		this.currentEnemy = enemy;
 	}
 
     public abstract void Begin();

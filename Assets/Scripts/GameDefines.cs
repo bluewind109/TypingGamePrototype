@@ -24,6 +24,7 @@ public class GameDefines
 public class EffectInfo
 {
     public Effect effect;
+    public EffectType type;
     public int potency; // e.g., amount of damage or healing
     public TargetType targetType;
     public TargetTeam targetTeam;

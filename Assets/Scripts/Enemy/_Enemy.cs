@@ -1,36 +1,47 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyActionController))]
 public abstract class Enemy : Entity
 {
-	private EnemyActionController actionController;
-    public bool IsResolved { get; private set; } = false;
+	public Action onTurnFinished;
+
+	[SerializeField] private Player player;
+	[SerializeField] private ActionConfig config;
+	[SerializeField] private Timer actionTimer;
+
+	private ActionManager actionManager;
+	public bool IsResolved { get; private set; } = false;
 
 	protected override void Awake()
 	{
 		base.Awake();
-		actionController = GetComponent<EnemyActionController>();
+		actionManager = GetComponent<ActionManager>();
 	}
 
 	void Start()
 	{
+		actionTimer.onTimerComplete += OnActionTimerComplete;
+
 		OnSpawn();
+	}
+
+	protected override void OnDestroy()
+	{
+		base.OnDestroy();
+		actionTimer.onTimerComplete -= OnActionTimerComplete;
 	}
 
 	public override void StartTurn()
 	{
-		actionController.StartTurn();
+		
 	}
 
 	public override void StartCombat()
 	{
-		actionController.StartCombat();
 	}
 
 	public override void EndTurn()
 	{
-		actionController.EndTurn();
 		IsResolved = true;
 	}
 
@@ -39,16 +50,49 @@ public abstract class Enemy : Entity
 		// StartTurn();
 	}
 
-	public override void TakeDamage(int amount)
-	{
-		base.TakeDamage(amount);
-	}
-
 	protected override void OnDie()
 	{
 		base.OnDie();
 		// TODO enemy stop all actions and disable itself
-		actionController.Deactivate();
 		IsResolved = true;
+	}
+
+	/// <summary>
+	/// This method is called when the action timer completes, 
+	/// indicating that the enemy's current action has finished executing.
+	/// Get current action and play it
+	/// Get next action in the queue
+	/// If there is next action, reset the action timer
+	/// Else send the signal that the enemy has finished its turn
+	/// </summary>
+	private void OnActionTimerComplete()
+	{
+		// Get current action and play it
+		CombatAction action = actionManager.GetCurrentAction();
+		PlayAction(action);
+	}
+
+	private void PlayAction(CombatAction action)
+	{
+		if (action == null) return;
+		foreach (EffectInfo effect in action.effects)
+		{
+			Entity targetEntity = null; ;
+			switch (effect.targetTeam)
+			{
+				case TargetTeam.Self:
+					targetEntity = this;
+					break;
+				case TargetTeam.Ally:
+					break;
+				case TargetTeam.Enemy:
+					targetEntity = player;
+					break;
+				default:
+					break;
+			}
+
+			targetEntity?.ReceiveEffect(effect);
+		}
 	}
 }

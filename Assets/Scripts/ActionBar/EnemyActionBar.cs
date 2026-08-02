@@ -15,6 +15,6 @@ public class EnemyActionBar : ActionBar
             AddAction(action);
             await Task.Delay(250);
         }
-        SetActiveItem();
+        SetActiveAction();
     }
 }
