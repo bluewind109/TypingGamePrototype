@@ -10,7 +10,6 @@ public abstract class Enemy : Entity
 	[SerializeField] private Timer actionTimer;
 
 	private ActionManager actionManager;
-	public bool IsResolved { get; private set; } = false;
 
 	protected override void Awake()
 	{
@@ -31,20 +30,6 @@ public abstract class Enemy : Entity
 		actionTimer.onTimerComplete -= OnActionTimerComplete;
 	}
 
-	public override void StartTurn()
-	{
-
-	}
-
-	public override void StartCombat()
-	{
-	}
-
-	public override void EndTurn()
-	{
-		IsResolved = true;
-	}
-
 	public virtual void OnSpawn()
 	{
 		// StartTurn();
@@ -54,7 +39,6 @@ public abstract class Enemy : Entity
 	{
 		base.OnDie();
 		// TODO enemy stop all actions and disable itself
-		IsResolved = true;
 	}
 
 	/// <summary>

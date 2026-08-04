@@ -32,21 +32,6 @@ public class Player : Entity
         onActionPointsChanged -= actionController.UpdateAP;
     }
 
-    public override void StartTurn()
-    {
-        actionController.StartTurn();
-    }
-
-    public override void StartCombat()
-    {
-        actionController.StartCombat();
-    }
-
-    public override void EndTurn()
-    {
-        actionController.EndTurn();
-		IsResolved = true;
-    }
 
     private void OnBasicActionExecuted()
     {

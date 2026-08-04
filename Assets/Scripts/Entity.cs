@@ -22,9 +22,10 @@ public abstract class Entity : MonoBehaviour
         }
     }
 
-    public abstract void StartTurn();
-    public abstract void StartCombat();
-    public abstract void EndTurn();
+    public virtual void PlayAction()
+    {
+        
+    }
 
     public virtual void TakeDamage(int potency)
     {

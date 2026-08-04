@@ -12,8 +12,6 @@ public class PlayerActionController : MonoBehaviour
     [SerializeField] private SentenceManager sentenceManager;
     private Player player;
     [Header("Action menu UI")]
-    [SerializeField] private ActionMenu actionMenu;
-    [SerializeField] private SkillMenu skillMenu;
     [SerializeField] private TMPro.TextMeshProUGUI menuTitleText;
 
     [Header("Action Queue UI")]
@@ -28,53 +26,18 @@ public class PlayerActionController : MonoBehaviour
     {
         player = GetComponent<Player>();
         sentenceManager.onActionTyped += OnActionTyped;
-        actionMenu.onMenuOpened += () => menuTitleText.text = "Actions";
-        actionMenu.onActionButtonPressed += HandleActionButton;
-        actionMenu.onSkillPressed += OnActionSkillPressed;
-        skillMenu.onMenuOpened += () => menuTitleText.text = "Skills";
-        skillMenu.onActionButtonPressed += OnActionSelected;
-        skillMenu.onBackPressed += OnSkillMenuBack;
+
     }
 
     void Start()
     {
         sentenceManager.Reset();
-        actionMenu.ShowMenu();
-        _ = skillMenu.Init(config.skills);
     }
 
     void OnDestroy()
     {
         sentenceManager.onActionTyped -= OnActionTyped;
-        actionMenu.onActionButtonPressed -= HandleActionButton;
-        actionMenu.onSkillPressed -= OnActionSkillPressed;
-        skillMenu.onActionButtonPressed -= OnActionSelected;
-        skillMenu.onBackPressed -= OnSkillMenuBack;
-        skillMenu.onMenuOpened -= () => menuTitleText.text = "Skills";
-        actionMenu.onMenuOpened -= () => menuTitleText.text = "Actions";
-    }
 
-    public void StartTurn()
-    {
-        actionMenu.ShowMenu();
-        skillMenu.HideMenu();
-        sentenceManager.ToggleInput(false);
-    }
-
-    public void StartCombat()
-    {
-        actionMenu.HideMenu();
-        skillMenu.HideMenu();
-        sentenceManager.ToggleInput(true);
-        GetNextAction();
-    }
-
-    public void EndTurn()
-    {
-        // actionBar.ClearActionBar();
-        actionMenu.HideMenu();
-        skillMenu.HideMenu();
-        sentenceManager.ToggleInput(false);
     }
 
     // Selected from UI
@@ -151,14 +114,10 @@ public class PlayerActionController : MonoBehaviour
 
     private void OnActionSkillPressed()
     {
-        actionMenu.HideMenu();
-        skillMenu.ShowMenu();
     }
 
     private void OnSkillMenuBack()
     {
-        skillMenu.HideMenu();
-        actionMenu.ShowMenu();
     }
 
     public void UpdateAP(int newAP)
