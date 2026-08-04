@@ -53,11 +53,10 @@ public class ActionBarItem : MonoBehaviour
         await canvasGroup.DOFade(1f, duration).AsyncWaitForCompletion();
     }
 
-    public async Task FadeOutAndDestroy()
+    public async Task FadeOut()
     {
         float duration = 0.25f; // Duration of the fade-out effect
         // Fade out the item over the specified duration
         await canvasGroup.DOFade(0f, duration).AsyncWaitForCompletion();
-        Destroy(gameObject);
     }
 }

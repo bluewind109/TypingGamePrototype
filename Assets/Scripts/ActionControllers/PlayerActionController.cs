@@ -7,7 +7,6 @@ public class PlayerActionController : MonoBehaviour
     public Action onBasicActionExecuted;
     public Action<int> onSkillUsed;
 
-    [SerializeField] private Enemy enemy;
     [Header("Components")]
     [SerializeField] private ActionConfig config;
     [SerializeField] private SentenceManager sentenceManager;
@@ -18,7 +17,7 @@ public class PlayerActionController : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI menuTitleText;
 
     [Header("Action Queue UI")]
-    [SerializeField] private PlayerActionBar actionBar;
+    [SerializeField] private ActionBar actionBar;
 
     private List<CombatAction> actionQueue = new List<CombatAction>();
 
@@ -72,7 +71,7 @@ public class PlayerActionController : MonoBehaviour
 
     public void EndTurn()
     {
-        actionBar.ClearActionBar();
+        // actionBar.ClearActionBar();
         actionMenu.HideMenu();
         skillMenu.HideMenu();
         sentenceManager.ToggleInput(false);

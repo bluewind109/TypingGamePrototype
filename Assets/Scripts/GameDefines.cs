@@ -18,28 +18,6 @@ public class GameDefines
 /// - Resolve any status effects, cooldowns, and other end-of-turn mechanics
 /// - If enemy is still alive, start a new turn
 /// </summary>
-
-
-[Serializable]
-public class EffectInfo
-{
-    public Effect effect;
-    public EffectType type;
-    public int potency; // e.g., amount of damage or healing
-    public TargetType targetType;
-    public TargetTeam targetTeam;
-
-    public void IncreasePotency()
-    {
-        potency *= 2;
-    }
-
-    public void DecreasePotency()
-    {
-        potency = Mathf.Max(1, potency / 2);
-    }
-}
-
 public enum ActionTag
 {
     Basic = 0,
@@ -61,25 +39,11 @@ public enum TargetTeam
     Self = 2,
 }
 
-public enum EffectType
-{
-    Damage = 0,
-    Heal = 1,
-    Shield = 2,
-}
-
 public enum ActionButtonType
 {
     BasicAttack = 0,
     BasicDefend = 1,
     Skill = 2,
-}
-
-public enum SentenceState
-{
-    Active = 0,
-    Pending = 1,
-    Finished = 2,
 }
 
 public enum StatusEffectType

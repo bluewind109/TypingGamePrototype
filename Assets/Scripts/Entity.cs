@@ -26,30 +26,19 @@ public abstract class Entity : MonoBehaviour
     public abstract void StartCombat();
     public abstract void EndTurn();
 
-    public virtual void ReceiveEffect(EffectInfo effectInfo)
+    public virtual void TakeDamage(int potency)
     {
-        switch (effectInfo.type)
-        {
-            case EffectType.Damage:
-                TakeDamage(effectInfo.potency);
-                break;
-            case EffectType.Heal:
-                Heal(effectInfo.potency);
-                break;
-            default:
-                Debug.LogWarning("Unhandled effect type: " + effectInfo.type);
-                break;
-        }
+        health.TakeDamage(potency);
     }
 
-    public virtual void TakeDamage(int amount)
+    public virtual void Heal(int potency)
     {
-        health.TakeDamage(amount);
+        health.Heal(potency);
     }
 
-    public virtual void Heal(int amount)
+    public virtual void ReceiveShield(int potency)
     {
-        health.Heal(amount);
+        // Implement shield logic here
     }
 
     protected virtual void OnDie()

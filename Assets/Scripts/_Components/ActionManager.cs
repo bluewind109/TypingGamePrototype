@@ -28,6 +28,6 @@ public class ActionManager : MonoBehaviour
 
         int firstActionIndex = 0;
         CombatAction activeAction = _actionQueue[firstActionIndex];
-        actionBar.SetActiveAction(firstActionIndex);
+        actionBar.SetActiveAction();
     }
 }

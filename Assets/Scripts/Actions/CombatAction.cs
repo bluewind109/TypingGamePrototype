@@ -21,6 +21,33 @@ public class CombatAction : ScriptableObject
         }
 
     }
+    
+    public void Use(Entity target)
+    {
+        foreach (EffectInfo effect in effects)
+        {
+            ResolveEffect(effect, target);
+        }
+    }
+
+    private void ResolveEffect(EffectInfo effect, Entity target)
+    {
+        if (effect == null || target == null) return;
+        switch (effect.type)
+        {
+            case EffectType.Damage:
+                target.TakeDamage(effect.potency);
+                break;
+            case EffectType.Heal:
+                target.Heal(effect.potency);
+                break;
+            case EffectType.Shield:
+                target.ReceiveShield(effect.potency);
+                break;
+            default:
+                break;
+        }
+    }
 
     public Sprite GetIcon()
     {

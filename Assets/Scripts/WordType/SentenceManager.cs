@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SentenceState
+{
+    Active = 0,
+    Pending = 1,
+    Finished = 2,
+}
+
 public class SentenceManager : MonoBehaviour
 {
     public System.Action<CombatAction> onActionTyped;
@@ -69,7 +76,7 @@ public class SentenceManager : MonoBehaviour
 
     public void AddSentence(EffectInfo effectInfo)
     {
-        var effectWord = WordGenerator.GetWordForEffect(effectInfo.effect.effectType);
+        var effectWord = WordGenerator.GetWordForEffect(effectInfo.type);
         var targetWord = WordGenerator.GetWordForTarget(effectInfo.targetTeam);
 
         var resultSentence = effectWord + " " + targetWord;

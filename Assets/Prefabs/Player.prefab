@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 5510737961868205281}
   - component: {fileID: 6839632704271022320}
   - component: {fileID: 6465240378076363520}
-  - component: {fileID: 8433657440612770760}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -157,17 +156,4 @@ MonoBehaviour:
   actionMenu: {fileID: 0}
   skillMenu: {fileID: 0}
   menuTitleText: {fileID: 0}
---- !u!114 &8433657440612770760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8754370595885996352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc6de383a8d93741b55386685b85136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EffectHandler
-  statusEffectPrefab: {fileID: 923860244382564026, guid: bfbe954cbeab61e469ee06f69e58ef1f, type: 3}
-  statusEffectContainer: {fileID: 0}
+  actionBar: {fileID: 0}

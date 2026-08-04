@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4914531379284536953}
   - component: {fileID: 6803460785461153767}
-  - component: {fileID: 9217186888030045680}
-  - component: {fileID: 6870661430265285101}
   - component: {fileID: 6114909040665136951}
   - component: {fileID: 4847784631936663361}
   m_Layer: 0
@@ -49,42 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicEnemy
   stats: {fileID: 11400000, guid: 582ce6f2d19059d49aa8c97b64202467, type: 2}
---- !u!114 &9217186888030045680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5893849415538194473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8321a9a1d779c314b913438c08f7b329, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyActionController
-  config: {fileID: 11400000, guid: 43a6ac13339d74549a44c81992f4e9e1, type: 2}
-  actionTimer: {fileID: 6114909040665136951}
-  actionDelay: 3
-  attackPattern:
-  - {fileID: 11400000, guid: ba891f451a4a8324799cc15fe4650807, type: 2}
-  - {fileID: 11400000, guid: ba891f451a4a8324799cc15fe4650807, type: 2}
-  - {fileID: 11400000, guid: e68f8c67c32d8204e9d8ceaba052a5e4, type: 2}
-  - {fileID: 11400000, guid: a3d9efc4ac4478040aff91601431ac59, type: 2}
-  playerTarget: {fileID: 0}
-  actionBar: {fileID: 0}
---- !u!114 &6870661430265285101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5893849415538194473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc6de383a8d93741b55386685b85136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EffectHandler
-  statusEffectPrefab: {fileID: 923860244382564026, guid: bfbe954cbeab61e469ee06f69e58ef1f, type: 3}
-  statusEffectContainer: {fileID: 0}
+  player: {fileID: 0}
+  config: {fileID: 0}
+  actionTimer: {fileID: 0}
 --- !u!114 &6114909040665136951
 MonoBehaviour:
   m_ObjectHideFlags: 0
