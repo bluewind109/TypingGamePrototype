@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Enemy currentEnemy;
 
+    private GameState _currentGameState;
+
     private GamePhase skillSelectionPhase;
     private GamePhase combatPhase;
     private GamePhase currentPhase = null;
