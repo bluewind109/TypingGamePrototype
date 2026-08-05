@@ -14,9 +14,6 @@ public class PlayerActionController : MonoBehaviour
     [Header("Action menu UI")]
     [SerializeField] private TMPro.TextMeshProUGUI menuTitleText;
 
-    [Header("Action Queue UI")]
-    [SerializeField] private ActionBar actionBar;
-
     private List<CombatAction> actionQueue = new List<CombatAction>();
 
     private int currentAP = 0;
@@ -64,7 +61,7 @@ public class PlayerActionController : MonoBehaviour
         if (actionQueue.Count >= maxAction) return;
 
         actionQueue.Add(action);
-        actionBar.AddAction(action);
+        // actionBar.AddAction(action);
 
         string actionNames = string.Join(", ", actionQueue.ConvertAll(a => a.name));
         // Debug.Log($"<color=blue>Current queue:</color> {actionNames}");

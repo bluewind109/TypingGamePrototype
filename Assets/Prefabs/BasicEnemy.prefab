@@ -48,8 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BasicEnemy
   stats: {fileID: 11400000, guid: 582ce6f2d19059d49aa8c97b64202467, type: 2}
   player: {fileID: 0}
-  config: {fileID: 0}
-  actionTimer: {fileID: 0}
+  config: {fileID: 11400000, guid: 43a6ac13339d74549a44c81992f4e9e1, type: 2}
+  actionTimer: {fileID: 6114909040665136951}
 --- !u!114 &6114909040665136951
 MonoBehaviour:
   m_ObjectHideFlags: 0

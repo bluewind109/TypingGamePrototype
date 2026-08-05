@@ -4,14 +4,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] private Player player;
-    [SerializeField] private Enemy currentEnemy;
+    [SerializeField] private Player _player;
+    [SerializeField] private Enemy _currentEnemy;
+
+    private InitState _initState;
+    private GameplayState _gameplayState;
+    private GameOverState _gameOverState;
 
     private GameState _currentGameState;
-
-    private GamePhase skillSelectionPhase;
-    private GamePhase combatPhase;
-    private GamePhase currentPhase = null;
 
     void Awake()
     {
@@ -28,25 +28,32 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        skillSelectionPhase = new SkillSelectionPhase(player, currentEnemy);
-        combatPhase = new CombatPhase(player, currentEnemy);
-        SetPhase(skillSelectionPhase);
+        _initState = new InitState();
+        _gameplayState = new GameplayState(_player, _currentEnemy);
+        _gameOverState = new GameOverState();
+
+        ChangeGameState(_initState);
     }
 
     void Update()
     {
-        if (currentPhase != null)
-        {
-            currentPhase.Update();
-        }
+        _currentGameState?.Update();
     }
 
-    void SetPhase(GamePhase newPhase)
+    private void ChangeGameState(GameState newGameState)
     {
-        if (newPhase == null) return;
-        if (newPhase == currentPhase) return;
+        if (newGameState == null)
+        {
+            Debug.LogError("New game state is null!");
+            return;
+        }
 
-        currentPhase = newPhase;
-        currentPhase.Begin();
+        _currentGameState = newGameState;
+        _currentGameState.Enter();
+    }
+
+    public void EnterGameplayState()
+    {
+        ChangeGameState(_gameplayState);
     }
 }

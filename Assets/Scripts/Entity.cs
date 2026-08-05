@@ -22,6 +22,11 @@ public abstract class Entity : MonoBehaviour
         }
     }
 
+    public virtual void UpdateEntity()
+    {
+        
+    }
+
     public virtual void PlayAction()
     {
         

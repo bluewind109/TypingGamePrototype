@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36837bbb774dd2a478ce878bbb566b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActionBar
-  actionItemPrefab: {fileID: 0}
+  actionItemPrefab: {fileID: 3142441747215146867, guid: ea81c9cc0051f5544b134ee030a6f037, type: 3}
   isReverseOrder: 0
 --- !u!114 &178740941 stripped
 MonoBehaviour:
@@ -2501,7 +2501,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 904072743936377077}
     - target: {fileID: 2443430182989014270, guid: 76c68fcbe12443b418c27545814631bc, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 904072743936377077}
+    - target: {fileID: 2443430182989014270, guid: 76c68fcbe12443b418c27545814631bc, type: 3}
       propertyPath: currentEnemy
+      value: 
+      objectReference: {fileID: 266103567}
+    - target: {fileID: 2443430182989014270, guid: 76c68fcbe12443b418c27545814631bc, type: 3}
+      propertyPath: _currentEnemy
       value: 
       objectReference: {fileID: 266103567}
     - target: {fileID: 2443430182989014270, guid: 76c68fcbe12443b418c27545814631bc, type: 3}
@@ -2897,6 +2905,10 @@ PrefabInstance:
       propertyPath: progressBar
       value: 
       objectReference: {fileID: 1925273189}
+    - target: {fileID: 6803460785461153767, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 904072743936377077}
     - target: {fileID: 6870661430265285101, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
       propertyPath: statusEffectContainer
       value: 
