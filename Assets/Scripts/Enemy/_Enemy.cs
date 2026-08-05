@@ -1,97 +1,115 @@
 using System;
 using UnityEngine;
 
-public abstract class Enemy : Entity
+public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 {
-	public Action onTurnFinished;
+	public event Action onDie;
 
-	[SerializeField] private Player player;
-	[SerializeField] private ActionConfig config;
-	[SerializeField] private Timer actionTimer;
+	[SerializeField] private Stats _stats;
+	[SerializeField] private Health _health;
+
+	[SerializeField] private Player _player;
+	[SerializeField] private ActionConfig _config;
+	[SerializeField] private Timer _actionTimer;
+	[SerializeField] private float _actionInterval = 5f;
+
+	public Player Player { get => _player; }
+	public ActionConfig Config { get => _config; }
 
 	private ActionManager actionManager;
 
-	protected override void Awake()
+	protected virtual void Awake()
 	{
-		base.Awake();
 		actionManager = GetComponent<ActionManager>();
 	}
 
-	void Start()
+	public virtual void Initialize(Player player, Timer timer)
 	{
-		actionTimer.onTimerComplete += OnActionTimerComplete;
+		this._player = player;
+		this._actionTimer = timer;
 
-		OnSpawn();
+		_actionTimer.onTimerComplete += OnActionTimerComplete;
+
+		if (_stats != null)
+		{
+			_health.Initialize(_stats.health);
+			_health.onDie += OnDie;
+		}
+
+		SetupSkills();
+		StartActionTimer();
 	}
 
-	protected override void OnDestroy()
+	protected abstract void SetupSkills();
+
+	protected void StartActionTimer()
 	{
-		base.OnDestroy();
-		actionTimer.onTimerComplete -= OnActionTimerComplete;
+		if (_actionTimer == null) return;
+		_actionTimer.Play(_actionInterval);
 	}
 
-	public virtual void OnSpawn()
+	protected virtual void OnDestroy()
 	{
-		// StartTurn();
+		_actionTimer.onTimerComplete -= OnActionTimerComplete;
 	}
 
-	protected override void OnDie()
+	public virtual void UpdateEntity()
 	{
-		base.OnDie();
-		// TODO enemy stop all actions and disable itself
+		_actionTimer?.UpdateTime();
+	}
+
+	protected virtual void OnDie()
+	{
+		Debug.Log("Enemy died");
+		_actionTimer.Pause();
+		// gameObject.SetActive(false);
 	}
 
 	/// <summary>
-	/// This method is called when the action timer completes, 
+	/// - This method is called when the action timer completes, 
 	/// indicating that the enemy's current action has finished executing.
-	/// Get current action and play it
-	/// Get next action in the queue
-	/// If there is next action, reset the action timer
-	/// Else send the signal that the enemy has finished its turn
+	/// - Get current action and play it
+	/// - Get next action in the queue
+	/// - Reset the action timer
 	/// </summary>
-	private void OnActionTimerComplete()
-	{
-		// Get current action and play it
-		CombatAction action = actionManager.GetCurrentAction();
-		PlayAction(action);
-	}
+	protected abstract void OnActionTimerComplete();
 
-	private void PlayAction(CombatAction action)
+	protected void PlayAction(CombatAction action)
 	{
 		if (action == null) return;
 		foreach (EffectInfo effect in action.effects)
 		{
-			Entity targetEntity = null; ;
+			GameObject target = null;
 			switch (effect.targetTeam)
 			{
 				case TargetTeam.Self:
-					targetEntity = this;
+					target = gameObject;
 					break;
 				case TargetTeam.Ally:
 					break;
 				case TargetTeam.Enemy:
-					targetEntity = player;
+					target = Player.gameObject;
 					break;
 				default:
 					break;
 			}
 
-			action.Use(targetEntity);
+			action.Use(target);
 		}
 	}
 
-	// public async Task InitializeTurn(List<CombatAction> upcomingActions)
-	// {
-	// 	ClearImmediateItems();
+	public virtual void TakeDamage(int potency)
+	{
+		_health.TakeDamage(potency);
+	}
 
-	// 	if (upcomingActions == null || upcomingActions.Count == 0) return;
+	public virtual void Heal(int potency)
+	{
+		_health.Heal(potency);
+	}
 
-	// 	for (var i = 0; i < upcomingActions.Count; i++)
-	// 	{
-	// 		CombatAction action = upcomingActions[i];
-	// 		AddAction(action);
-	// 		await Task.Delay(250);
-	// 	}
-	// 	SetActiveAction();
-	// }
+	public virtual void ReceiveShield(int potency)
+	{
+		// Implement shield logic here
+	}
 }

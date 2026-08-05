@@ -22,7 +22,7 @@ public class CombatAction : ScriptableObject
 
     }
     
-    public void Use(Entity target)
+    public void Use(GameObject target)
     {
         foreach (EffectInfo effect in effects)
         {
@@ -30,19 +30,19 @@ public class CombatAction : ScriptableObject
         }
     }
 
-    private void ResolveEffect(EffectInfo effect, Entity target)
+    private void ResolveEffect(EffectInfo effect, GameObject target)
     {
         if (effect == null || target == null) return;
         switch (effect.type)
         {
             case EffectType.Damage:
-                target.TakeDamage(effect.potency);
+                target.GetComponent<IDamageable>()?.TakeDamage(effect.potency);
                 break;
             case EffectType.Heal:
-                target.Heal(effect.potency);
+                target.GetComponent<IHealable>()?.Heal(effect.potency);
                 break;
             case EffectType.Shield:
-                target.ReceiveShield(effect.potency);
+                target.GetComponent<IShieldable>()?.ReceiveShield(effect.potency);
                 break;
             default:
                 break;

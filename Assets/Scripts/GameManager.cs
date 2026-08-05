@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Player _player;
     [SerializeField] private Enemy _currentEnemy;
+    [SerializeField] private Timer _actionTimer;
 
     private InitState _initState;
     private GameplayState _gameplayState;
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        _initState = new InitState();
+        _initState = new InitState(_player, _currentEnemy, _actionTimer);
         _gameplayState = new GameplayState(_player, _currentEnemy);
         _gameOverState = new GameOverState();
 

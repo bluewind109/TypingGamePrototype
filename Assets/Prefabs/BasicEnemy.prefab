@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3018640394487219244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3562614256774113222}
+  - component: {fileID: 8486939631363338001}
+  m_Layer: 0
+  m_Name: Health
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3562614256774113222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3018640394487219244}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4914531379284536953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8486939631363338001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3018640394487219244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3080a32bc82e1ea4f927db2ebbe18bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  _healthUI: {fileID: 0}
+  CurrentHealth: 0
+  MaxHealth: 0
 --- !u!1 &5893849415538194473
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +57,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4914531379284536953}
   - component: {fileID: 6803460785461153767}
-  - component: {fileID: 6114909040665136951}
   - component: {fileID: 4847784631936663361}
   m_Layer: 0
   m_Name: BasicEnemy
@@ -31,7 +77,8 @@ Transform:
   m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3562614256774113222}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6803460785461153767
@@ -46,23 +93,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c3e9f63ef95d1143866197af5a2cfc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicEnemy
-  stats: {fileID: 11400000, guid: 582ce6f2d19059d49aa8c97b64202467, type: 2}
-  player: {fileID: 0}
-  config: {fileID: 11400000, guid: 43a6ac13339d74549a44c81992f4e9e1, type: 2}
-  actionTimer: {fileID: 6114909040665136951}
---- !u!114 &6114909040665136951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5893849415538194473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684739440b08ee5458cedea5871eb136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Timer
-  progressBar: {fileID: 0}
+  _stats: {fileID: 11400000, guid: 582ce6f2d19059d49aa8c97b64202467, type: 2}
+  _health: {fileID: 8486939631363338001}
+  _player: {fileID: 0}
+  _config: {fileID: 11400000, guid: 43a6ac13339d74549a44c81992f4e9e1, type: 2}
+  _actionTimer: {fileID: 0}
+  _actionInterval: 5
 --- !u!212 &4847784631936663361
 SpriteRenderer:
   serializedVersion: 2

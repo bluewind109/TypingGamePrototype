@@ -612,6 +612,17 @@ MonoBehaviour:
   m_FlexibleWidth: 0
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &316394724 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8006877028857975895, guid: 5184bbb1fb950ce4e9f1d2b02e43ea7f, type: 3}
+  m_PrefabInstance: {fileID: 3841408107024041702}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01964931946a0124fafaa2b214181d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthDisplay
 --- !u!1 &319640333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,6 +1443,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1218654796}
+  - component: {fileID: 1218654797}
   m_Layer: 5
   m_Name: EnemyActionTimer
   m_TagString: Untagged
@@ -1459,6 +1471,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -120}
   m_SizeDelta: {x: 750, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1218654797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218654795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684739440b08ee5458cedea5871eb136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Timer
+  progressBar: {fileID: 1925273189}
 --- !u!1 &1261602586
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,6 +2530,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 904072743936377077}
     - target: {fileID: 2443430182989014270, guid: 76c68fcbe12443b418c27545814631bc, type: 3}
+      propertyPath: _actionTimer
+      value: 
+      objectReference: {fileID: 1218654797}
+    - target: {fileID: 2443430182989014270, guid: 76c68fcbe12443b418c27545814631bc, type: 3}
       propertyPath: currentEnemy
       value: 
       objectReference: {fileID: 266103567}
@@ -2529,6 +2558,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 702443572124391756, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
+      propertyPath: _healthUI
+      value: 
+      objectReference: {fileID: 5620330137125598779}
     - target: {fileID: 5510737961868205281, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -2752,6 +2785,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6342062908341505390, guid: cac0051a52281344cb1a9882e9498c70, type: 3}
   m_PrefabInstance: {fileID: 358212507141738268}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5620330137125598779 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3931714933981700455, guid: cac0051a52281344cb1a9882e9498c70, type: 3}
+  m_PrefabInstance: {fileID: 358212507141738268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01964931946a0124fafaa2b214181d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthDisplay
 --- !u!1001 &7168487297023850148
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2901,30 +2945,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 6114909040665136951, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
-      propertyPath: progressBar
+    - target: {fileID: 8486939631363338001, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
+      propertyPath: _healthUI
       value: 
-      objectReference: {fileID: 1925273189}
-    - target: {fileID: 6803460785461153767, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 904072743936377077}
-    - target: {fileID: 6870661430265285101, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
-      propertyPath: statusEffectContainer
-      value: 
-      objectReference: {fileID: 2101261296}
-    - target: {fileID: 9217186888030045680, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
-      propertyPath: actionBar
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9217186888030045680, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
-      propertyPath: actionDelay
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9217186888030045680, guid: 1bee4fbb665f4a5478dbfc1c63e4fc76, type: 3}
-      propertyPath: playerTarget
-      value: 
-      objectReference: {fileID: 904072743936377077}
+      objectReference: {fileID: 316394724}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

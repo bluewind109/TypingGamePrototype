@@ -4,7 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ActionConfig", menuName = "Configs")]
 public class ActionConfig : ScriptableObject
 {
-    public CombatAction basicAttack;
-    public CombatAction basicDefend;
-    public List<CombatAction> skills = new List<CombatAction>(); // 3 skills max
+    public List<CombatAction> basicSkills = new List<CombatAction>();
+    public List<CombatAction> advancedSkills = new List<CombatAction>();
 }

@@ -98,10 +98,10 @@ public class PlayerActionController : MonoBehaviour
         switch (type)
         {
             case ActionButtonType.BasicAttack:
-                AddActionToQueue(config.basicAttack);
+                // AddActionToQueue(config.basicAttack);
                 break;
             case ActionButtonType.BasicDefend:
-                AddActionToQueue(config.basicDefend);
+                // AddActionToQueue(config.basicDefend);
                 break;
             default:
                 Debug.Log("<color=red>Unknown action</color> selected");

@@ -12,7 +12,7 @@ public class Timer : MonoBehaviour
     public bool IsPaused { get; private set; }
     public bool IsRunning => timer > 0;
 
-    private void Update()
+    public void UpdateTime()
     {
         if (IsPaused) return;
 
@@ -28,25 +28,25 @@ public class Timer : MonoBehaviour
         UpdateProgressBar();
     }
 
-    public void StartTimer(float newDuration)
+    public void Play(float newDuration)
     {
         duration = newDuration;
         timer = duration;
         UpdateProgressBar();
     }
 
-    public void StopTimer()
+    public void Stop()
     {
         timer = 0;
         UpdateProgressBar();
     }
 
-    public void PauseTimer()
+    public void Pause()
     {
         IsPaused = true;
     }
 
-    public void ResumeTimer()
+    public void Resume()
     {
         IsPaused = false;
     }

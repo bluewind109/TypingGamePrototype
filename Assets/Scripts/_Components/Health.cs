@@ -1,35 +1,41 @@
 using UnityEngine;
 
-public class Health
+public class Health : MonoBehaviour
 {
     public System.Action onDie;
     public System.Action<int> onHealthChanged;
 
-    public int currentHealth;
-    public int maxHealth;
+    [SerializeField] private Health_UI _healthUI;
 
-    public Health(int maxHealth)
+    public int CurrentHealth;
+    public int MaxHealth;
+
+    public void Initialize(int maxHealth)
     {
-        this.maxHealth = maxHealth;
-        this.currentHealth = maxHealth;
+        this.MaxHealth = maxHealth;
+        this.CurrentHealth = maxHealth;
+        _healthUI?.UpdateHealthText(CurrentHealth);
     }
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        onHealthChanged?.Invoke(currentHealth);
-        if (currentHealth <= 0)
+        CurrentHealth -= damage;
+        onHealthChanged?.Invoke(CurrentHealth);
+        _healthUI?.UpdateHealthText(CurrentHealth);
+        Debug.Log($"Health: {CurrentHealth}/{MaxHealth}");
+        if (CurrentHealth <= 0)
         {
-            currentHealth = 0;
+            CurrentHealth = 0;
             onDie?.Invoke();
         }
     }
 
     public void Heal(int amount)
     {
-        currentHealth += amount;
-        onHealthChanged?.Invoke(currentHealth);
-        if (currentHealth > maxHealth)
-            currentHealth = maxHealth;
+        CurrentHealth += amount;
+        onHealthChanged?.Invoke(CurrentHealth);
+        _healthUI?.UpdateHealthText(CurrentHealth);
+        if (CurrentHealth > MaxHealth)
+            CurrentHealth = MaxHealth;
     }
 }
