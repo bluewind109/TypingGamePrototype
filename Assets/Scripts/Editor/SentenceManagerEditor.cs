@@ -12,7 +12,7 @@ public class SentenceManagerEditor : Editor
 
         if (GUILayout.Button("Generate New Sentence"))
         {
-            sentenceManager.TestLoadAction();
+            
         }
     }
 }

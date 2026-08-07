@@ -171,6 +171,7 @@ Transform:
   m_Children:
   - {fileID: 7348359269150331422}
   - {fileID: 8133080568933565}
+  - {fileID: 2436058916302484840}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6839632704271022320
@@ -200,5 +201,105 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerActionController
   config: {fileID: 11400000, guid: 526b7d18d2daae74caeb1384d02422ae, type: 2}
-  sentenceManager: {fileID: 0}
+  sentenceManager: {fileID: 1336081937732170631}
   menuTitleText: {fileID: 0}
+--- !u!1001 &1094020232468726455
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5510737961868205281}
+    m_Modifications:
+    - target: {fileID: 1770723186060208502, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_Name
+      value: SentenceManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2135844129529458992, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: _wordInput
+      value: 
+      objectReference: {fileID: 7912235332475791759}
+    - target: {fileID: 2135844129529458992, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: testAction
+      value: 
+      objectReference: {fileID: 11400000, guid: e68f8c67c32d8204e9d8ceaba052a5e4, type: 2}
+    - target: {fileID: 2135844129529458992, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: _sentenceDisplayPrefab
+      value: 
+      objectReference: {fileID: 4174429099412486964, guid: e886b5f05967d034fab335085076aebb, type: 3}
+    - target: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297704971594941373, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+      propertyPath: timerText
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+--- !u!114 &1336081937732170631 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2135844129529458992, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+  m_PrefabInstance: {fileID: 1094020232468726455}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07c73993dd7a494d96470f7c9cc52b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SentenceManager
+--- !u!4 &2436058916302484840 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3377738442128652255, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+  m_PrefabInstance: {fileID: 1094020232468726455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7912235332475791759 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7125633077344217912, guid: e6dcecc01942d14499246d15b6f2e25d, type: 3}
+  m_PrefabInstance: {fileID: 1094020232468726455}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9139a98606e163c4999e7e5bc8358b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WordInput

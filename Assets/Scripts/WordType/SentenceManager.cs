@@ -13,116 +13,43 @@ public class SentenceManager : MonoBehaviour
     public System.Action<CombatAction> onActionTyped;
 
     [Header("Components")]
-    [SerializeField] private SentenceDisplay sentenceDisplay_Current;
-    [SerializeField] private SentenceDisplay sentenceDisplay_Next;
-    [SerializeField] private SentenceDisplay sentenceDisplay_Finished;
-    [SerializeField] private WordInput wordInput;
-    [SerializeField] private WordTimer wordTimer;
+    [SerializeField] private Transform _sentenceContainer;
+    [SerializeField] private SentenceDisplay _sentenceDisplayPrefab;
+    [SerializeField] private WordInput _wordInput;
 
-    [Header("Test")]
-    [SerializeField] private CombatAction testAction;
+    private List<SentenceDisplay> _sentenceDisplays = new List<SentenceDisplay>();
+    private List<Sentence> _sentences = new List<Sentence>();
+    private List<CombatAction> _actions;
+    private CombatAction _action;
+    private Sentence _activeSentence;
 
-    List<Sentence> sentences = new List<Sentence>();
-
-    public bool HasActiveSentence => activeSentence != null;
-
-    private CombatAction action;
-    private List<EffectInfo> effects;
-    private Sentence activeSentence;
-
-    private int effectIndex = 0;
+    public bool HasActiveSentence => _activeSentence != null;
 
     void Start()
     {
-        wordInput.onLetterTyped += TypeLetter;
-        wordTimer.onWordTimeout += OnSentenceTimedout;
+        _wordInput.onLetterTyped += TypeLetter;
+    }
+
+    public void Initialize(List<CombatAction> actions)
+    {
+        _actions = actions;
+        foreach (CombatAction action in _actions)
+        {
+            SentenceDisplay sentenceDisplayInstance = Instantiate(_sentenceDisplayPrefab, _sentenceContainer);
+            _sentenceDisplays.Add(sentenceDisplayInstance);
+        }
     }
 
     public void Reset()
     {
-        sentences.Clear();
-        activeSentence = null;
-        effectIndex = 0;
-        wordInput.ToggleInput(false);
-        sentenceDisplay_Current.RemoveSentence();
-        sentenceDisplay_Next.RemoveSentence();
-        sentenceDisplay_Finished.RemoveSentence();
+        _sentences.Clear();
+        _activeSentence = null;
+        _wordInput.ToggleInput(false);
     }
 
     public void ToggleInput(bool enabled)
     {
-        wordInput.ToggleInput(enabled);
-    }
-
-    public void TestLoadAction()
-    {
-        // Create a test action here
-        LoadAction(testAction);
-    }
-
-    public void LoadAction(CombatAction action)
-    {
-        this.action = action;
-        effects = action.effects;
-        foreach (var effect in action.effects)
-        {
-            AddSentence(effect);
-        }
-
-        effectIndex = 0;
-        SetActiveSentence(sentences[0]);
-        SetPendingSentence(GetPendingSentence());
-    }
-
-    public void AddSentence(EffectInfo effectInfo)
-    {
-        var effectWord = WordGenerator.GetWordForEffect(effectInfo.type);
-        var targetWord = WordGenerator.GetWordForTarget(effectInfo.targetTeam);
-
-        var resultSentence = effectWord + " " + targetWord;
-
-        Sentence sentence = new Sentence(resultSentence, sentenceDisplay_Current);
-        sentences.Add(sentence);
-    }
-
-    private void SetActiveSentence(Sentence sentence)
-    {
-        activeSentence = sentence;
-        sentenceDisplay_Current.SetSentence(sentence.sentence, SentenceState.Active);
-        wordTimer.StartTimer();
-    }
-
-    private void SetPendingSentence(Sentence sentence)
-    {
-        if (sentence == null)
-        {
-            sentenceDisplay_Next.RemoveSentence();
-            return;
-        }
-        sentenceDisplay_Next.SetSentence(sentence.sentence, SentenceState.Pending);
-    }
-
-    private void SetFinishedSentence(Sentence sentence)
-    {
-        sentenceDisplay_Finished.SetSentence(sentence.sentence, SentenceState.Finished);
-    }
-
-    private Sentence GetNextSentence()
-    {
-        if (sentences.Count > 0)
-        {
-            return sentences[0];
-        }
-        return null;
-    }
-
-    private Sentence GetPendingSentence()
-    {
-        if (sentences.Count > 1)
-        {
-            return sentences[1];
-        }
-        return null;
+        _wordInput.ToggleInput(enabled);
     }
 
     private void TypeLetter(char letter)
@@ -130,53 +57,32 @@ public class SentenceManager : MonoBehaviour
         if (HasActiveSentence)
         {
             // Check if letter was next
-            if (activeSentence.GetNextLetter() == letter)
+            if (_activeSentence.GetNextLetter() == letter)
             {
-                activeSentence.TypeLetter();
+                _activeSentence.TypeLetter();
             }
         }
         else
         {
-            foreach (Sentence sentence in sentences)
+            foreach (Sentence sentence in _sentences)
             {
                 if (sentence.GetNextLetter() == letter)
                 {
-                    activeSentence = sentence;
+                    _activeSentence = sentence;
                     sentence.TypeLetter();
                     break;
                 }
             }
         }
 
-        if (HasActiveSentence && activeSentence.SentenceTyped())
+        if (HasActiveSentence && _activeSentence.SentenceTyped())
         {
-            SetFinishedSentence(activeSentence);
-            sentences.Remove(activeSentence);
-            effectIndex++;
-            var nextSentence = GetNextSentence();
-            if (nextSentence == null)
-            {
-                wordTimer.StopTimer();
-                activeSentence = null;
-                onActionTyped?.Invoke(action);
-            }
-            else
-            {
-                SetActiveSentence(nextSentence);
-                SetPendingSentence(GetPendingSentence());
-            }
+            // onActionTyped?.Invoke(_action);
         }
-    }
-
-    private void OnSentenceTimedout()
-    {
-        if (action == null) return;
-        if (action.effects == null || action.effects.Count <= effectIndex) return;
-
-        action.DecreaseEffectPotency(effectIndex);
     }
 }
 
+[System.Serializable]
 public class Sentence
 {
     public string sentence;
