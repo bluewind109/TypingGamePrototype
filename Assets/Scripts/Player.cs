@@ -41,7 +41,7 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 
     public void UpdateEntity()
     {
-        // Player-specific update logic can be added here
+        _actionController.UpdateController();
     }
 
     private void OnBasicActionExecuted()

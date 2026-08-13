@@ -11,7 +11,7 @@ public class WordInput : MonoBehaviour
         isEnabled = enabled;
     }
 
-    void Update()
+    public void UpdateInput()
     {
         if (!isEnabled) return;
 

@@ -1,12 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum SentenceState
-{
-    Active = 0,
-    Pending = 1,
-    Finished = 2,
-}
 
 public class SentenceManager : MonoBehaviour
 {
@@ -15,15 +9,13 @@ public class SentenceManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Transform _sentenceContainer;
     [SerializeField] private SentenceDisplay _sentenceDisplayPrefab;
+    [SerializeField] private SentenceDisplay _activeSentenceDisplay;
     [SerializeField] private WordInput _wordInput;
 
-    private List<SentenceDisplay> _sentenceDisplays = new List<SentenceDisplay>();
     private List<Sentence> _sentences = new List<Sentence>();
     private List<CombatAction> _actions;
     private CombatAction _action;
     private Sentence _activeSentence;
-
-    public bool HasActiveSentence => _activeSentence != null;
 
     void Start()
     {
@@ -35,16 +27,15 @@ public class SentenceManager : MonoBehaviour
         _actions = actions;
         foreach (CombatAction action in _actions)
         {
-            SentenceDisplay sentenceDisplayInstance = Instantiate(_sentenceDisplayPrefab, _sentenceContainer);
-            _sentenceDisplays.Add(sentenceDisplayInstance);
-        }
-    }
+            Sentence sentence = new Sentence(
+                action.actionName,
+                Instantiate(_sentenceDisplayPrefab, _sentenceContainer)
+            );
 
-    public void Reset()
-    {
-        _sentences.Clear();
-        _activeSentence = null;
-        _wordInput.ToggleInput(false);
+            _sentences.Add(sentence);
+        }
+
+        _activeSentence = new Sentence("", _activeSentenceDisplay);
     }
 
     public void ToggleInput(bool enabled)
@@ -52,49 +43,38 @@ public class SentenceManager : MonoBehaviour
         _wordInput.ToggleInput(enabled);
     }
 
+    public void UpdateGameplay()
+    {
+        _wordInput.UpdateInput();
+    }
+
     private void TypeLetter(char letter)
     {
-        if (HasActiveSentence)
+        foreach (Sentence sentence in _sentences)
         {
-            // Check if letter was next
-            if (_activeSentence.GetNextLetter() == letter)
+            if (sentence.GetNextLetter() == letter)
             {
-                _activeSentence.TypeLetter();
+                _activeSentence = sentence;
+                sentence.TypeLetter();
+                break;
             }
-        }
-        else
-        {
-            foreach (Sentence sentence in _sentences)
-            {
-                if (sentence.GetNextLetter() == letter)
-                {
-                    _activeSentence = sentence;
-                    sentence.TypeLetter();
-                    break;
-                }
-            }
-        }
-
-        if (HasActiveSentence && _activeSentence.SentenceTyped())
-        {
-            // onActionTyped?.Invoke(_action);
         }
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class Sentence
 {
     public string sentence;
     private int typeIndex;
-    private SentenceDisplay sentenceDisplay;
+    private SentenceDisplay _sentenceDisplay;
 
     public Sentence(string sentence, SentenceDisplay sentenceDisplay)
     {
         this.sentence = sentence;
         typeIndex = 0;
-        this.sentenceDisplay = sentenceDisplay;
-        this.sentenceDisplay.SetSentence(sentence, SentenceState.Active);
+        _sentenceDisplay = sentenceDisplay;
+        _sentenceDisplay.SetSentence(sentence);
     }
 
     public char GetNextLetter()
@@ -105,16 +85,19 @@ public class Sentence
     public void TypeLetter()
     {
         typeIndex++;
-        sentenceDisplay.RemoveLetter();
     }
 
-    public bool SentenceTyped()
+    public bool IsSentenceTyped()
     {
         bool sentenceTyped = typeIndex >= sentence.Length;
-        if (sentenceTyped)
-        {
-            sentenceDisplay.RemoveSentence();
-        }
         return sentenceTyped;
     }
+}
+
+[Serializable]
+public class TypedSentence
+{
+    public string sentence;
+    private int typeIndex;
+    
 }

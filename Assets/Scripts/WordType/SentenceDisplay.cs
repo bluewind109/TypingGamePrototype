@@ -16,43 +16,10 @@ public class SentenceDisplay : MonoBehaviour
     private string fullSentence = string.Empty;
     private int typedCount = 0;
 
-    public void SetSentence(string sentence, SentenceState sentenceState = SentenceState.Active)
+    public void SetSentence(string sentence)
     {
         fullSentence = sentence ?? string.Empty;
-
-        switch (sentenceState)
-        {
-            case SentenceState.Active:
-                text.color = remainingColor;
-                typedCount = 0;
-                break;
-            case SentenceState.Pending:
-                text.color = pendingColor;
-                typedCount = 0;
-                break;
-            case SentenceState.Finished:
-                text.color = finishedColor;
-                typedCount = fullSentence.Length;
-                break;
-        }
-
-        UpdateDisplay();
-    }
-
-    public void RemoveLetter()
-    {
-        if (typedCount >= fullSentence.Length)
-        {
-            return;
-        }
-
-        typedCount++;
-        UpdateDisplay();
-    }
-
-    public void RemoveSentence()
-    {
-        fullSentence = string.Empty;
+        text.color = remainingColor;
         typedCount = 0;
         UpdateDisplay();
     }

@@ -10,28 +10,30 @@ public class PlayerActionController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private ActionConfig config;
     [SerializeField] private SentenceManager sentenceManager;
-    private Player player;
-    [Header("Action menu UI")]
-    [SerializeField] private TMPro.TextMeshProUGUI menuTitleText;
 
-    private int currentAP = 0;
-    private int maxAction = 6;
+    private Player _player;
+    private int _currentAP = 0;
 
     void Awake()
     {
-        player = GetComponent<Player>();
+        _player = GetComponent<Player>();
         sentenceManager.onActionTyped += OnActionTyped;
     }
 
     void Start()
     {
         sentenceManager.Initialize(config.GetAllSkills());
+        sentenceManager.ToggleInput(true);
     }
 
     void OnDestroy()
     {
         sentenceManager.onActionTyped -= OnActionTyped;
+    }
 
+    public void UpdateController()
+    {
+        sentenceManager.UpdateGameplay();
     }
 
     private void OnActionTyped(CombatAction typedAction)
@@ -61,6 +63,6 @@ public class PlayerActionController : MonoBehaviour
 
     public void UpdateAP(int newAP)
     {
-        currentAP = newAP;
+        _currentAP = newAP;
     }
 }
