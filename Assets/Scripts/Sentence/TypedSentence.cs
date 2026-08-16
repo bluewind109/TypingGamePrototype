@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class TypedSentence
@@ -11,6 +12,17 @@ public class TypedSentence
     {
         _sentenceDisplay = sentenceDisplay;
         UpdateText("");
+    }
+
+    public void Clear()
+    {
+        UpdateText("");
+    }
+
+    public List<string> GetWords()
+    {
+        List<string> words = new List<string>(_sentence.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+        return words;
     }
 
     public void AddLetter(char letter)

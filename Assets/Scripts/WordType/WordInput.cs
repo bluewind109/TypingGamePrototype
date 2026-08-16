@@ -3,9 +3,9 @@ using System;
 
 public class WordInput : MonoBehaviour
 {
-    public Action<char> onLetterTyped;
-    public Action onBackspaceTyped;
-    public Action OnEnterTyped;
+    public Action<char> LetterTyped;
+    public Action BackspaceTyped;
+    public Action EnterTyped;
 
     private bool isEnabled = false;
 
@@ -25,15 +25,15 @@ public class WordInput : MonoBehaviour
             if (!IsAllowedCharacter(letter)) continue;
             if (letter == '\b')
             {
-                onBackspaceTyped?.Invoke();
+                BackspaceTyped?.Invoke();
             }
             else if (letter == '\n' || letter == '\r')
             {
-                OnEnterTyped?.Invoke();
+                EnterTyped?.Invoke();
             }
             else
             {
-                onLetterTyped?.Invoke(letter);
+                LetterTyped?.Invoke(letter);
                 // Debug.Log("Typed letter: " + letter);
             }
         }

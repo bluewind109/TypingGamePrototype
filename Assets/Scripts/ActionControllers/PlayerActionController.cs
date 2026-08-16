@@ -17,7 +17,7 @@ public class PlayerActionController : MonoBehaviour
     void Awake()
     {
         _player = GetComponent<Player>();
-        sentenceManager.onActionTyped += OnActionTyped;
+        sentenceManager.onActionsTyped += OnActionsTyped;
     }
 
     void Start()
@@ -28,7 +28,7 @@ public class PlayerActionController : MonoBehaviour
 
     void OnDestroy()
     {
-        sentenceManager.onActionTyped -= OnActionTyped;
+        sentenceManager.onActionsTyped -= OnActionsTyped;
     }
 
     public void UpdateController()
@@ -36,29 +36,9 @@ public class PlayerActionController : MonoBehaviour
         sentenceManager.UpdateGameplay();
     }
 
-    private void OnActionTyped(CombatAction typedAction)
+    private void OnActionsTyped(List<CombatAction> typedActions)
     {
-        // Give player 1 AP if the action is a basic attack or basic defend
-        if (typedAction.HasTag(ActionTag.Basic))
-        {
-            onBasicActionExecuted?.Invoke();
-        }
 
-        onSkillUsed?.Invoke(typedAction.apCost);
-    }
-
-    private void HandleActionButton(ActionButtonType type)
-    {
-        switch (type)
-        {
-            case ActionButtonType.BasicAttack:
-                break;
-            case ActionButtonType.BasicDefend:
-                break;
-            default:
-                Debug.Log("<color=red>Unknown action</color> selected");
-                break;
-        }
     }
 
     public void UpdateAP(int newAP)
