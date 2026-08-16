@@ -1975,6 +1975,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6465240378076363520, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 266103567}
+    - target: {fileID: 6465240378076363520, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
       propertyPath: menuTitleText
       value: 
       objectReference: {fileID: 758340536}

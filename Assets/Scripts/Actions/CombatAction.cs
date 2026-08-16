@@ -21,14 +21,6 @@ public class CombatAction : ScriptableObject
         }
 
     }
-    
-    public void Use(GameObject target)
-    {
-        foreach (EffectInfo effect in effects)
-        {
-            ResolveEffect(effect, target);
-        }
-    }
 
     private void ResolveEffect(EffectInfo effect, GameObject target)
     {

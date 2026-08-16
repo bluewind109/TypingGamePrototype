@@ -9,6 +9,27 @@ public class EffectInfo
     public TargetType targetType;
     public TargetTeam targetTeam;
 
+    public void Apply(GameObject target)
+    {
+        if (target == null) return;
+
+        switch (type)
+        {
+            case EffectType.Damage:
+                target.GetComponent<IDamageable>()?.TakeDamage(potency);
+                break;
+            case EffectType.Heal:
+                target.GetComponent<IHealable>()?.Heal(potency);
+                break;
+            case EffectType.Shield:
+                target.GetComponent<IShieldable>()?.ReceiveShield(potency);
+                break;
+            default:
+                Debug.LogWarning($"Effect type {type} not implemented.");
+                break;
+        }
+    }
+
     public void IncreasePotency()
     {
         potency *= 2;

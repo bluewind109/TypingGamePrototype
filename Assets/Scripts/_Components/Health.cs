@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
         CurrentHealth -= damage;
         onHealthChanged?.Invoke(CurrentHealth);
         _healthUI?.UpdateHealthText(CurrentHealth);
-        Debug.Log($"Health: {CurrentHealth}/{MaxHealth}");
+        // Debug.Log($"Health: {CurrentHealth}/{MaxHealth}");
         if (CurrentHealth <= 0)
         {
             CurrentHealth = 0;

@@ -79,22 +79,23 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 		if (action == null) return;
 		foreach (EffectInfo effect in action.effects)
 		{
-			GameObject target = null;
-			switch (effect.targetTeam)
-			{
-				case TargetTeam.Self:
-					target = gameObject;
-					break;
-				case TargetTeam.Ally:
-					break;
-				case TargetTeam.Enemy:
-					target = Player.gameObject;
-					break;
-				default:
-					break;
-			}
+			GameObject target = GetTarget(effect.targetTeam);
+			effect.Apply(target);
+		}
+	}
 
-			action.Use(target);
+	private GameObject GetTarget(TargetTeam targetTeam)
+	{
+		switch (targetTeam)
+		{
+			case TargetTeam.Self:
+				return gameObject;
+			case TargetTeam.Ally:
+				return null; // Implement ally targeting logic if needed
+			case TargetTeam.Enemy:
+				return Player.gameObject;
+			default:
+				return null;
 		}
 	}
 
