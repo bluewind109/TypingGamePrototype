@@ -9,23 +9,24 @@ public class SentenceManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Transform _sentenceContainer;
     [SerializeField] private SentenceDisplay _sentenceDisplayPrefab;
-    [SerializeField] private SentenceDisplay _activeSentenceDisplay;
+    [SerializeField] private SentenceDisplay _typedSentenceDisplay;
     [SerializeField] private WordInput _wordInput;
 
     private List<Sentence> _sentences = new List<Sentence>();
-    private List<CombatAction> _actions;
-    private CombatAction _action;
-    private Sentence _activeSentence;
+    private List<CombatAction> _availableActions;
+    private TypedSentence _typedSentence;
 
     void Start()
     {
-        _wordInput.onLetterTyped += TypeLetter;
+        _wordInput.onLetterTyped += OnLetterTyped;
+        _wordInput.onBackspaceTyped += OnBackspaceTyped;
+        _wordInput.OnEnterTyped += OnEnterTyped;
     }
 
-    public void Initialize(List<CombatAction> actions)
+    public void Initialize(List<CombatAction> availableActions)
     {
-        _actions = actions;
-        foreach (CombatAction action in _actions)
+        _availableActions = availableActions;
+        foreach (CombatAction action in _availableActions)
         {
             Sentence sentence = new Sentence(
                 action.actionName,
@@ -35,7 +36,7 @@ public class SentenceManager : MonoBehaviour
             _sentences.Add(sentence);
         }
 
-        _activeSentence = new Sentence("", _activeSentenceDisplay);
+        _typedSentence = new TypedSentence(_typedSentenceDisplay);
     }
 
     public void ToggleInput(bool enabled)
@@ -48,56 +49,24 @@ public class SentenceManager : MonoBehaviour
         _wordInput.UpdateInput();
     }
 
-    private void TypeLetter(char letter)
+    public void ResetTypedSentence()
     {
-        foreach (Sentence sentence in _sentences)
-        {
-            if (sentence.GetNextLetter() == letter)
-            {
-                _activeSentence = sentence;
-                sentence.TypeLetter();
-                break;
-            }
-        }
+        _typedSentence = new TypedSentence(_typedSentenceDisplay);
+    }
+
+    private void OnLetterTyped(char letter)
+    {
+        _typedSentence.AddLetter(letter);
+    }
+
+    private void OnBackspaceTyped()
+    {
+        _typedSentence.RemoveLastLetter();
+    }
+
+    private void OnEnterTyped()
+    {
+        // TODO - Check if typed sentence matches any available action
     }
 }
 
-[Serializable]
-public class Sentence
-{
-    public string sentence;
-    private int typeIndex;
-    private SentenceDisplay _sentenceDisplay;
-
-    public Sentence(string sentence, SentenceDisplay sentenceDisplay)
-    {
-        this.sentence = sentence;
-        typeIndex = 0;
-        _sentenceDisplay = sentenceDisplay;
-        _sentenceDisplay.SetSentence(sentence);
-    }
-
-    public char GetNextLetter()
-    {
-        return sentence[typeIndex];
-    }
-
-    public void TypeLetter()
-    {
-        typeIndex++;
-    }
-
-    public bool IsSentenceTyped()
-    {
-        bool sentenceTyped = typeIndex >= sentence.Length;
-        return sentenceTyped;
-    }
-}
-
-[Serializable]
-public class TypedSentence
-{
-    public string sentence;
-    private int typeIndex;
-    
-}

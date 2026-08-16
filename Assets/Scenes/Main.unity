@@ -1382,6 +1382,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8224854924486368636, guid: aa55d23db514172459f77be540a1359b, type: 3}
   m_PrefabInstance: {fileID: 6258742165829279356}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1779472616 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4897425453697892023, guid: aa55d23db514172459f77be540a1359b, type: 3}
+  m_PrefabInstance: {fileID: 6258742165829279356}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3161e2f980acf842972df88cf9992a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SentenceDisplay
 --- !u!1 &1787523820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,6 +1930,10 @@ PrefabInstance:
       propertyPath: _sentenceContainer
       value: 
       objectReference: {fileID: 1274713207}
+    - target: {fileID: 1336081937732170631, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
+      propertyPath: _typedSentenceDisplay
+      value: 
+      objectReference: {fileID: 1779472616}
     - target: {fileID: 5510737961868205281, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -2056,6 +2071,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1787523821}
     m_Modifications:
+    - target: {fileID: 322411977903227394, guid: aa55d23db514172459f77be540a1359b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 322411977903227394, guid: aa55d23db514172459f77be540a1359b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3394977385996835586, guid: aa55d23db514172459f77be540a1359b, type: 3}
       propertyPath: m_Name
       value: ActiveSentence
