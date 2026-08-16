@@ -40,7 +40,7 @@ public class TypedSentence
 
     private void UpdateText(string newText)
     {
-        Debug.Log($"Typed sentence updated: <color=green>{newText}</color>");
+        // Debug.Log($"Typed sentence updated: <color=green>{newText}</color>");
         _sentence = newText;
         UpdateDisplay();
     }
