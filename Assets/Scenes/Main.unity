@@ -1717,7 +1717,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804b4ec1b6428b5419380c56eabbdb38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActionPointUI
-  player: {fileID: 904072743936377077}
   apIcons:
   - {fileID: 11677489}
   - {fileID: 617518052}
@@ -1982,6 +1981,10 @@ PrefabInstance:
       propertyPath: menuTitleText
       value: 
       objectReference: {fileID: 758340536}
+    - target: {fileID: 6839632704271022320, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
+      propertyPath: _actionPointUI
+      value: 
+      objectReference: {fileID: 1945704176}
     - target: {fileID: 8754370595885996352, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
       propertyPath: m_Name
       value: Player

@@ -67,10 +67,15 @@ public class CombatAction : ScriptableObject
         }
     }
 
-    public bool IsBasicAction()
+    public bool IsBasic()
     {
         return tags.Contains(ActionTag.Basic);
     }
+
+	public bool IsSkill()
+	{
+		return tags.Contains(ActionTag.Skill);
+	}
 
     public bool IsAttack()
     {

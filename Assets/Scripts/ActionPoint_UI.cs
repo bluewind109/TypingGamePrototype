@@ -4,19 +4,9 @@ using UnityEngine.UI;
 
 public class ActionPoint_UI : MonoBehaviour
 {
-    [SerializeField] private Player player;
     [SerializeField] private List<Image> apIcons = new List<Image>();
 
-    private void Start()
-    {
-        if (player != null)
-        {
-            player.onActionPointsChanged += UpdateAPDisplay;
-            UpdateAPDisplay(player.ActionPoints); // Initialize display
-        }
-    }
-
-    private void UpdateAPDisplay(int currentAP)
+    public void UpdateUI(int currentAP)
     {
         for (int i = 0; i < apIcons.Count; i++)
         {

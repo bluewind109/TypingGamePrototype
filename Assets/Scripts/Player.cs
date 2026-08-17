@@ -4,8 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerActionController))]
 public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 {
-    public Action<int> onActionPointsChanged;
-
     [SerializeField] protected Stats _stats;
     [SerializeField] private Health _health;
 
@@ -13,6 +11,7 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 
     private int _actionPoints = 0;
     public int ActionPoints => _actionPoints;
+	[SerializeField] private ActionPoint_UI _actionPointUI;
 
     public bool IsResolved { get; private set; } = false;
 
@@ -29,9 +28,14 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
         _actionController = GetComponent<PlayerActionController>();
     }
 
+	void Start()
+	{
+		_actionPointUI.UpdateUI(_actionPoints);
+	}
+
     void OnDestroy()
     {
-        
+        _health.onDie -= OnDie;
     }
 
     public void UpdateEntity()
@@ -58,5 +62,11 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 	public void ReceiveShield(int potency)
 	{
 		// Implement shield logic here
+	}
+
+	public void UpdateActionPoint(int amount)
+	{
+		_actionPoints = Mathf.Clamp(_actionPoints + amount, 0, MAX_ACTION_POINTS);
+		_actionPointUI.UpdateUI(_actionPoints);
 	}
 }
