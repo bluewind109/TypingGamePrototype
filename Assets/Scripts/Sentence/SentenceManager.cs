@@ -9,7 +9,7 @@ public class SentenceManager : MonoBehaviour
 	[Header("Components")]
 	[SerializeField] private Transform _sentenceContainer;
 	[SerializeField] private SentenceDisplay _sentenceDisplayPrefab;
-	[SerializeField] private SentenceDisplay _typedSentenceDisplay;
+	[SerializeField] private ActiveSentenceDisplay _typedSentenceDisplay;
 	[SerializeField] private WordInput _wordInput;
 
 	private List<Sentence> _sentences = new List<Sentence>();
