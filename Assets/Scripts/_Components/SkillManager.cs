@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionManager : MonoBehaviour
+public class SkillManager : MonoBehaviour
 {
     [SerializeField] private ActionBar actionBar;
 
-    private List<CombatAction> _actionQueue = new List<CombatAction>();
+    private List<Skill> _actionQueue = new List<Skill>();
 
-    public CombatAction GetCurrentAction()
+    public Skill GetCurrentAction()
     {
         if (_actionQueue.Count > 0)
         {
-            CombatAction action = _actionQueue[0];
+            Skill action = _actionQueue[0];
             _actionQueue.RemoveAt(0);
             return action;
         }
@@ -27,7 +27,7 @@ public class ActionManager : MonoBehaviour
         if (_actionQueue.Count == 0) return;
 
         int firstActionIndex = 0;
-        CombatAction activeAction = _actionQueue[firstActionIndex];
+        Skill activeAction = _actionQueue[firstActionIndex];
         actionBar.SetActiveAction();
     }
 }

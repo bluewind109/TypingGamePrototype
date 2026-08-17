@@ -1,23 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CombatAction", menuName = "CombatActions")]
-public class CombatAction : ScriptableObject
+[CreateAssetMenu(fileName = "Skill", menuName = "Skills")]
+public class Skill : ScriptableObject
 {
-    public List<ActionTag> tags = new List<ActionTag>();
+    public List<SkillTag> tags = new List<SkillTag>();
     public string actionName;
     public Sprite actionIcon;
     public List<EffectInfo> effects = new List<EffectInfo>();
     [Min(0)]
     public int apCost = 0;
 
-    public IReadOnlyList<ActionTag> Tags => tags;
+    public IReadOnlyList<SkillTag> Tags => tags;
 
     protected virtual void OnEnable()
     {
         if (tags == null)
         {
-            tags = new List<ActionTag>();
+            tags = new List<SkillTag>();
         }
 
     }
@@ -46,7 +46,7 @@ public class CombatAction : ScriptableObject
         return actionIcon != null ? actionIcon : null;
     }
 
-    public bool HasTag(ActionTag tag)
+    public bool HasTag(SkillTag tag)
     {
         return tags.Contains(tag);
     }
@@ -69,21 +69,21 @@ public class CombatAction : ScriptableObject
 
     public bool IsBasic()
     {
-        return tags.Contains(ActionTag.Basic);
+        return tags.Contains(SkillTag.Basic);
     }
 
-	public bool IsSkill()
+	public bool IsAdvanced()
 	{
-		return tags.Contains(ActionTag.Skill);
+		return tags.Contains(SkillTag.Advanced);
 	}
 
     public bool IsAttack()
     {
-        return tags.Contains(ActionTag.Attack);
+        return tags.Contains(SkillTag.Attack);
     }
 
     public bool IsDefend()
     {
-        return tags.Contains(ActionTag.Defend);
+        return tags.Contains(SkillTag.Defend);
     }
 }

@@ -9,18 +9,18 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 	[SerializeField] private Health _health;
 
 	[SerializeField] private Player _player;
-	[SerializeField] private ActionConfig _config;
+	[SerializeField] private SkillConfig _config;
 	[SerializeField] private Timer _actionTimer;
 	[SerializeField] private float _actionInterval = 5f;
 
 	public Player Player { get => _player; }
-	public ActionConfig Config { get => _config; }
+	public SkillConfig Config { get => _config; }
 
-	private ActionManager actionManager;
+	private SkillManager skillManager;
 
 	protected virtual void Awake()
 	{
-		actionManager = GetComponent<ActionManager>();
+		skillManager = GetComponent<SkillManager>();
 	}
 
 	public virtual void Initialize(Player player, Timer timer)
@@ -74,10 +74,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 	/// </summary>
 	protected abstract void OnActionTimerComplete();
 
-	protected void PlayAction(CombatAction action)
+	protected void PlaySkill(Skill skill)
 	{
-		if (action == null) return;
-		foreach (EffectInfo effect in action.effects)
+		if (skill == null) return;
+		foreach (EffectInfo effect in skill.effects)
 		{
 			GameObject target = GetTarget(effect.targetTeam);
 			effect.Apply(target);

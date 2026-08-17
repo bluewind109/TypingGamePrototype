@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BasicEnemy : Enemy
 {
-	private CombatAction basicAttack;
+	private Skill basicAttack;
 
 	protected override void SetupSkills()
 	{
@@ -17,7 +17,7 @@ public class BasicEnemy : Enemy
 
 	protected override void OnActionTimerComplete()
 	{
-		PlayAction(basicAttack);
+		PlaySkill(basicAttack);
 		StartActionTimer();
 	}
 }

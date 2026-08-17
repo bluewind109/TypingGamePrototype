@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerActionController : MonoBehaviour
 {
 	[Header("Components")]
-	[SerializeField] private ActionConfig config;
+	[SerializeField] private SkillConfig config;
 	[SerializeField] private SentenceManager sentenceManager;
 
 	[Header("References")]
@@ -16,7 +16,7 @@ public class PlayerActionController : MonoBehaviour
 	void Awake()
 	{
 		_player = GetComponent<Player>();
-		sentenceManager.onActionsTyped += OnActionsTyped;
+		sentenceManager.onSkillsTyped += OnSkillsTyped;
 	}
 
 	void Start()
@@ -27,7 +27,7 @@ public class PlayerActionController : MonoBehaviour
 
 	void OnDestroy()
 	{
-		sentenceManager.onActionsTyped -= OnActionsTyped;
+		sentenceManager.onSkillsTyped -= OnSkillsTyped;
 	}
 
 	public void UpdateController()
@@ -42,34 +42,34 @@ public class PlayerActionController : MonoBehaviour
 	/// - If skill, check if the player has enough AP to use it.
 	/// - If enough AP, execute the skill and decrease AP.
 	/// </summary>
-	/// <param name="typedActions"></param>
-	private void OnActionsTyped(List<CombatAction> typedActions)
+	/// <param name="typedSkills"></param>
+	private void OnSkillsTyped(List<Skill> typedSkills)
 	{
-		if (typedActions == null) return;
+		if (typedSkills == null) return;
 
-		foreach (CombatAction action in typedActions)
+		foreach (Skill skill in typedSkills)
 		{
-			if (action.IsBasic())
+			if (skill.IsBasic())
 			{
-				ExecuteAction(action);
+				ExecuteAction(skill);
 				_player.UpdateActionPoint(1);
 				continue;
 			}
-			else if (action.IsSkill())
+			else if (skill.IsAdvanced())
 			{
-				bool hasEnoughAP = _player.ActionPoints >= action.apCost;
+				bool hasEnoughAP = _player.ActionPoints >= skill.apCost;
 				if (!hasEnoughAP) continue;
-				ExecuteAction(action);
-				_player.UpdateActionPoint(-action.apCost);
+				ExecuteAction(skill);
+				_player.UpdateActionPoint(-skill.apCost);
 			}
 		}
 	}
 
-	private void ExecuteAction(CombatAction action)
+	private void ExecuteAction(Skill skill)
 	{
-		if (action == null) return;
+		if (skill == null) return;
 
-		foreach (EffectInfo effect in action.effects)
+		foreach (EffectInfo effect in skill.effects)
 		{
 			GameObject target = GetTarget(effect.targetTeam);
 			effect.Apply(target);

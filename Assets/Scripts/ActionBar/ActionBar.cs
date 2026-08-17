@@ -45,7 +45,7 @@ public class ActionBar : MonoBehaviour
         _actionItemPool.Push(item);
     }
 
-    public void AddAction(CombatAction action)
+    public void AddAction(Skill action)
     {
         ActionBarItem item = GetAvailableActionItem();
         item.Initialize(action.GetIcon());
