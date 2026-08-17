@@ -36,10 +36,10 @@ public class PlayerActionController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// - Loop through each action in the typed actions list.
-	/// - Check if the action is basic or skill.
-	/// - If basic, execute the action and increase AP.
-	/// - If skill, check if the player has enough AP to use it.
+	/// - Loop through each skill in the typed skills list.<br/>
+	/// - Check if the skill is basic or advanced.<br/>
+	/// - If basic, execute the skill and increase AP.<br/>
+	/// - If advanced, check if the player has enough AP to use it.<br/>
 	/// - If enough AP, execute the skill and decrease AP.
 	/// </summary>
 	/// <param name="typedSkills"></param>
@@ -51,25 +51,25 @@ public class PlayerActionController : MonoBehaviour
 		{
 			if (skill.IsBasic())
 			{
-				ExecuteAction(skill);
+				ExecuteSkill(skill);
 				_player.UpdateActionPoint(1);
 				continue;
 			}
 			else if (skill.IsAdvanced())
 			{
-				bool hasEnoughAP = _player.ActionPoints >= skill.apCost;
+				bool hasEnoughAP = _player.ActionPoints >= skill.ApCost;
 				if (!hasEnoughAP) continue;
-				ExecuteAction(skill);
-				_player.UpdateActionPoint(-skill.apCost);
+				ExecuteSkill(skill);
+				_player.UpdateActionPoint(-skill.ApCost);
 			}
 		}
 	}
 
-	private void ExecuteAction(Skill skill)
+	private void ExecuteSkill(Skill skill)
 	{
 		if (skill == null) return;
 
-		foreach (EffectInfo effect in skill.effects)
+		foreach (Effect effect in skill.Effects)
 		{
 			GameObject target = GetTarget(effect.targetTeam);
 			effect.Apply(target);

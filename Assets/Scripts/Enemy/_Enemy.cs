@@ -77,7 +77,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 	protected void PlaySkill(Skill skill)
 	{
 		if (skill == null) return;
-		foreach (EffectInfo effect in skill.effects)
+		foreach (Effect effect in skill.Effects)
 		{
 			GameObject target = GetTarget(effect.targetTeam);
 			effect.Apply(target);

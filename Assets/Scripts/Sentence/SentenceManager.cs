@@ -29,7 +29,7 @@ public class SentenceManager : MonoBehaviour
 		foreach (Skill skill in _availableSkills)
 		{
 			Sentence sentence = new Sentence(
-				skill.actionName,
+				skill.Name,
 				Instantiate(_sentenceDisplayPrefab, _sentenceContainer)
 			);
 
@@ -72,11 +72,11 @@ public class SentenceManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// - Split the sentence into words and check each word against the available actions.
-	/// - Checks if the typed sentence matches any of the available actions.
-	/// - If matched, remove the matched word from the typed sentence and add to the found actions list.
-	/// - Continue to check the remaining typed sentence for more matches until no more matches are found;.
-	/// - Pass the found actions list to the onActionsTyped event for further processing.
+	/// - Split the sentence into words and check each word against the available actions.<br/>
+	/// - Checks if the typed sentence matches any of the available actions.<br/>
+	/// - If matched, remove the matched word from the typed sentence and add to the found actions list.<br/>
+	/// - Continue to check the remaining typed sentence for more matches until no more matches are found.<br/>
+	/// - Pass the found actions list to the onActionsTyped event for further processing.<br/>
 	/// - Clear the typed sentence after processing.
 	/// </summary>
 	private void CheckTypedSentence()
@@ -106,9 +106,9 @@ public class SentenceManager : MonoBehaviour
 
 		foreach (Skill skill in _availableSkills)
 		{
-			if (string.Equals(typedWord, skill.actionName, StringComparison.OrdinalIgnoreCase))
+			if (string.Equals(typedWord, skill.Name, StringComparison.OrdinalIgnoreCase))
 			{
-				Debug.Log($"Found matching action: <color=green>{skill.actionName}</color>");
+				Debug.Log($"Found matching action: <color=green>{skill.Name}</color>");
 				return skill;
 			}
 		}
