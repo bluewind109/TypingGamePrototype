@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class BasicEnemy : Enemy
 {
-	private Skill basicAttack;
+	private Skill _basicAttack;
 
 	protected override void SetupSkills()
 	{
-		basicAttack = Config.basicSkills[0];
+		base.SetupSkills();
+		_basicAttack = Config.basicSkills[0];
 	}
 
 	public override void UpdateEntity()
@@ -17,7 +18,7 @@ public class BasicEnemy : Enemy
 
 	protected override void OnActionTimerComplete()
 	{
-		PlaySkill(basicAttack);
+		PlaySkill(_basicAttack);
 		StartActionTimer();
 	}
 }

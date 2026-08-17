@@ -99,6 +99,8 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: 43a6ac13339d74549a44c81992f4e9e1, type: 2}
   _actionTimer: {fileID: 0}
   _actionInterval: 5
+  _sentenceContainer: {fileID: 0}
+  _sentenceDisplayPrefab: {fileID: 4174429099412486964, guid: e886b5f05967d034fab335085076aebb, type: 3}
 --- !u!212 &4847784631936663361
 SpriteRenderer:
   serializedVersion: 2

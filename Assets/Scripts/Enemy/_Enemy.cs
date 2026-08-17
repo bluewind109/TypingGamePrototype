@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
@@ -13,10 +14,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 	[SerializeField] private Timer _actionTimer;
 	[SerializeField] private float _actionInterval = 5f;
 
+	[SerializeField] private Transform _sentenceContainer;
+	[SerializeField] private SentenceDisplay _sentenceDisplayPrefab;
+
 	public Player Player { get => _player; }
 	public SkillConfig Config { get => _config; }
 
 	private SkillManager skillManager;
+	private List<Skill> _availableSkills;
 
 	protected virtual void Awake()
 	{
@@ -40,7 +45,17 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 		StartActionTimer();
 	}
 
-	protected abstract void SetupSkills();
+	protected virtual void SetupSkills()
+	{
+		_availableSkills = _config.GetAllSkills();
+		foreach (Skill skill in _availableSkills)
+		{
+			Sentence sentence = new Sentence(
+				skill.Name,
+				Instantiate(_sentenceDisplayPrefab, _sentenceContainer)
+			);
+		}
+	}
 
 	protected void StartActionTimer()
 	{
