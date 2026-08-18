@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class GameplayState : GameState
 	private List<Skill> _typedSkills_NormalPhase = new List<Skill>();
 	private List<Skill> _typedSkills_DefendPhase = new List<Skill>();
 	private Skill _enemySkill;
+
+	private List<Skill> _skillTimeline = new List<Skill>();
 
 	public GameplayState(Player player, Enemy currentEnemy)
 	{
@@ -74,12 +77,69 @@ public class GameplayState : GameState
 	{
 		_typedSkills_DefendPhase = typedSkills;
 		_enemySkill = enemySkill;
+		Debug.Log($"DefendPhase completed. Typed Skills: {string.Join(", ", typedSkills.ConvertAll(skill => skill.name))}, Enemy Skill: {enemySkill?.name}");
 
+		_skillTimeline.Clear();
+		_skillTimeline.AddRange(_typedSkills_NormalPhase);
+
+		bool hasDefendSkill = HasDefendSkillTyped(_typedSkills_DefendPhase);
+
+		List<Skill> skillsUpToDefend = hasDefendSkill ? GetSkillsUpToDefendSkill(_typedSkills_DefendPhase) : _typedSkills_DefendPhase;
+		List<Skill> skillsAfterDefend = hasDefendSkill ? GetSkillsAfterDefendSkill(_typedSkills_DefendPhase) : new List<Skill>();
+
+		_skillTimeline.AddRange(skillsUpToDefend);
+		if (_enemySkill != null) _skillTimeline.Add(_enemySkill);
+		_skillTimeline.AddRange(skillsAfterDefend);
+
+		string skillTimelineString = string.Join(", ", _skillTimeline.ConvertAll(skill => skill.name));
+		Debug.Log($"Full Skill Timeline: {skillTimelineString}");
+
+		_resultPhase.SetSkillTimeline(_skillTimeline);
 		SetPhase(_resultPhase);
 	}
 
 	private void OnResultPhaseCompleted()
 	{
-		
+
+	}
+
+	private List<Skill> GetSkillsUpToDefendSkill(List<Skill> skills)
+	{
+		if (skills == null) return new List<Skill>();
+
+		for (int i = 0; i < skills.Count; i++)
+		{
+			bool isDefendSkill = skills[i].IsDefend();
+			if (isDefendSkill)
+			{
+				return skills.GetRange(0, i + 1);
+			}
+		}
+		return skills;
+		// return skills.GetRange(0, defendSkillIndex);
+	}
+
+	private List<Skill> GetSkillsAfterDefendSkill(List<Skill> skills)
+	{
+		if (skills == null) return new List<Skill>();
+
+		for (int i = 0; i < skills.Count; i++)
+		{
+			bool isDefendSkill = skills[i].IsDefend();
+			if (isDefendSkill)
+			{
+				return skills.GetRange(i + 1, skills.Count - i - 1);
+			}
+		}
+
+		return new List<Skill>();
+	}
+
+	private bool HasDefendSkillTyped(List<Skill> skills)
+	{
+		if (skills == null) return false;
+		Skill defendSkill = _player.GetDefendSkill();
+		int defendSkillIndex = skills.IndexOf(defendSkill);
+		return defendSkillIndex >= 0;
 	}
 }

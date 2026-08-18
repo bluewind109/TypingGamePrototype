@@ -43,7 +43,10 @@ public class PlayerActionController : MonoBehaviour
 	{
 		return sentenceManager.GetTypedSkillsAndReset();
 	}
-
+	public Skill GetDefendSkill()
+	{
+		return config.GetDefendSkill();
+	}
 	/// <summary>
 	/// - Loop through each skill in the typed skills list.<br/>
 	/// - Check if the skill is basic or advanced.<br/>

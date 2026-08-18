@@ -16,4 +16,6 @@ public class SkillConfig : ScriptableObject
         allSkills.AddRange(advancedSkills);
         return allSkills;
     }
+
+	public Skill GetDefendSkill() => defendSkill;
 }

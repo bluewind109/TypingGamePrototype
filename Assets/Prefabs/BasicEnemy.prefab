@@ -57,6 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4914531379284536953}
   - component: {fileID: 6803460785461153767}
+  - component: {fileID: 4958925462155714254}
   - component: {fileID: 4847784631936663361}
   m_Layer: 0
   m_Name: BasicEnemy
@@ -101,6 +102,18 @@ MonoBehaviour:
   _actionInterval: 5
   _sentenceContainer: {fileID: 0}
   _sentenceDisplayPrefab: {fileID: 4174429099412486964, guid: e886b5f05967d034fab335085076aebb, type: 3}
+--- !u!114 &4958925462155714254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893849415538194473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971d690fe78f8264f9b4c152d65afb36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillManager
 --- !u!212 &4847784631936663361
 SpriteRenderer:
   serializedVersion: 2

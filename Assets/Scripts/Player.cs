@@ -84,4 +84,9 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 	{
 		return _actionController.GetTypedSkills();
 	}
+
+	public Skill GetDefendSkill()
+	{
+		return _actionController.GetDefendSkill();
+	}
 }

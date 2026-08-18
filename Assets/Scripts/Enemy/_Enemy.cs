@@ -24,6 +24,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 	private SkillManager skillManager;
 	private List<Skill> _availableSkills;
 
+	private Skill _basicAttack;
 
 	protected virtual void Awake()
 	{
@@ -62,6 +63,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 	protected void StartActionTimer()
 	{
 		if (_actionTimer == null) return;
+		skillManager.SetCurrentSkill(_config.basicSkills[0]);
 		_actionTimer.Play(_actionInterval);
 	}
 
