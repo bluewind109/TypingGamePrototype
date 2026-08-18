@@ -7,13 +7,13 @@ public class SkillManager : MonoBehaviour
 
     private List<Skill> _actionQueue = new List<Skill>();
 
-    public Skill GetCurrentAction()
+    public Skill GetCurrentSkill()
     {
         if (_actionQueue.Count > 0)
         {
-            Skill action = _actionQueue[0];
+            Skill skill = _actionQueue[0];
             _actionQueue.RemoveAt(0);
-            return action;
+            return skill;
         }
         else
         {

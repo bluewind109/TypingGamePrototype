@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class DefendPhase : CombatPhase
 {
-	public event Action<List<Skill>> DefendPhaseCompleted;
+	public event Action<List<Skill>, Skill> DefendPhaseCompleted;
 
-	public DefendPhase(Player player, Enemy currentEnemy, Action<List<Skill>> defendPhaseCompleted) : base(player, currentEnemy)
+	public DefendPhase(Player player, Enemy currentEnemy, Action<List<Skill>, Skill> defendPhaseCompleted) : base(player, currentEnemy)
 	{
 		player.SkillsTyped += OnSkillsTyped;
 		DefendPhaseCompleted += defendPhaseCompleted;
@@ -31,13 +31,15 @@ public class DefendPhase : CombatPhase
 		if (remainingPercentage <= 0.01f)
 		{
 			List<Skill> typedSkills = _player.GetTypedSkills();
-			DefendPhaseCompleted?.Invoke(typedSkills);
+			Skill enemySkill = _currentEnemy.GetCurrentSkill();
+			DefendPhaseCompleted?.Invoke(typedSkills, enemySkill);
 		}
 	}
 
 	private void OnSkillsTyped(List<Skill> typedSkills)
 	{
 		if (typedSkills == null) return;
-		DefendPhaseCompleted?.Invoke(typedSkills);
+		Skill enemySkill = _currentEnemy.GetCurrentSkill();
+		DefendPhaseCompleted?.Invoke(typedSkills, enemySkill);
 	}
 }

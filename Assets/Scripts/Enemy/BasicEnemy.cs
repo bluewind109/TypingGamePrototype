@@ -15,11 +15,4 @@ public class BasicEnemy : Enemy
 	{
 		base.UpdateEntity(timeScale);
 	}
-
-	protected override void OnActionTimerComplete()
-	{
-		base.OnActionTimerComplete();
-		PlaySkill(_basicAttack);
-		StartActionTimer();
-	}
 }

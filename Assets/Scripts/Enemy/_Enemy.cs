@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 {
 	public event Action Die;
-	public event Action ActionTimerComplete;
+	public event Action<Skill> ActionTimerCompleted;
 
 	[SerializeField] private Stats _stats;
 	[SerializeField] private Health _health;
@@ -35,7 +35,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 		this._player = player;
 		this._actionTimer = timer;
 
-		_actionTimer.onTimerComplete += OnActionTimerComplete;
+		_actionTimer.onTimerComplete += OnActionTimerCompleted;
 
 		if (_stats != null)
 		{
@@ -67,7 +67,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 
 	protected virtual void OnDestroy()
 	{
-		_actionTimer.onTimerComplete -= OnActionTimerComplete;
+		_actionTimer.onTimerComplete -= OnActionTimerCompleted;
 	}
 
 	public virtual void UpdateEntity(float timeScale)
@@ -88,9 +88,15 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 		return _actionTimer.RemainingPercentage;
 	}
 
-	protected virtual void OnActionTimerComplete()
+	protected virtual void OnActionTimerCompleted()
 	{
-		ActionTimerComplete?.Invoke();
+		ActionTimerCompleted?.Invoke(GetCurrentSkill());
+	}
+
+	public Skill GetCurrentSkill()
+	{
+		if (skillManager == null) return null;
+		return skillManager.GetCurrentSkill();
 	}
 
 	protected void PlaySkill(Skill skill)

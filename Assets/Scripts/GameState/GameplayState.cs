@@ -15,6 +15,7 @@ public class GameplayState : GameState
 
 	private List<Skill> _typedSkills_NormalPhase = new List<Skill>();
 	private List<Skill> _typedSkills_DefendPhase = new List<Skill>();
+	private Skill _enemySkill;
 
 	public GameplayState(Player player, Enemy currentEnemy)
 	{
@@ -69,9 +70,11 @@ public class GameplayState : GameState
 		SetPhase(_defendPhase);
 	}
 
-	private void OnDefendPhaseCompleted(List<Skill> typedSkills)
+	private void OnDefendPhaseCompleted(List<Skill> typedSkills, Skill enemySkill)
 	{
 		_typedSkills_DefendPhase = typedSkills;
+		_enemySkill = enemySkill;
+
 		SetPhase(_resultPhase);
 	}
 

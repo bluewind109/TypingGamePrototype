@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class ResultPhase : CombatPhase
 {
@@ -8,6 +9,7 @@ public class ResultPhase : CombatPhase
 
 	public override void Enter()
 	{
+		Debug.Log("Enter <color=green>ResultPhase</color>");		
 	}
 
 	public override void Exit()
