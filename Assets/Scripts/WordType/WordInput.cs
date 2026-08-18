@@ -19,6 +19,7 @@ public class WordInput : MonoBehaviour
     public void UpdateInput()
     {
         if (!isEnabled) return;
+        if (!Input.anyKeyDown) return;
 
         foreach (char letter in Input.inputString)
         {
