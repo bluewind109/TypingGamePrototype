@@ -3,8 +3,14 @@ using UnityEngine;
 
 public class GameplayState : GameState
 {
+	private CombatPhase _currentPhase;
+	private NormalPhase _normalPhase;
+	private DefendPhase _defendPhase;
+
 	private Player _player;
 	private Enemy _currentEnemy;
+
+	private bool _isInitialized = false;
 
 	public GameplayState(Player player, Enemy currentEnemy)
 	{
@@ -15,12 +21,34 @@ public class GameplayState : GameState
 	public override void Enter()
 	{
 		Debug.Log("Enter GameplayState");
+		InitPhases();
+	}
+
+	private void InitPhases()
+	{
+		if (_isInitialized) return;
+		_normalPhase = new NormalPhase(_player, _currentEnemy);
+		_defendPhase = new DefendPhase(_player, _currentEnemy);
+		SetPhase(_normalPhase);
+		_isInitialized = true;
+	}
+
+	private void SetPhase(CombatPhase newPhase)
+	{
+		if (newPhase == null)
+		{
+			Debug.LogError("New phase is null!");
+			return;
+		}
+
+		_currentPhase?.Exit();
+		_currentPhase = newPhase;
+		_currentPhase.Enter();
 	}
 
 	public override void Update()
 	{
-		_player?.UpdateEntity();
-		_currentEnemy?.UpdateEntity();
+		_currentPhase?.Update();
 	}
 
 	public override void Exit()
