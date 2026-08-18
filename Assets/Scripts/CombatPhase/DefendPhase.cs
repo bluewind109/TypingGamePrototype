@@ -8,7 +8,6 @@ public class DefendPhase : CombatPhase
 
 	public DefendPhase(Player player, Enemy currentEnemy, Action<List<Skill>, Skill> defendPhaseCompleted) : base(player, currentEnemy)
 	{
-		player.SkillsTyped += OnSkillsTyped;
 		DefendPhaseCompleted += defendPhaseCompleted;
 		_timeScale = 0.5f; // Slow down the enemy's action timer during the DefendPhase
 	}
@@ -16,10 +15,12 @@ public class DefendPhase : CombatPhase
 	public override void Enter()
 	{
 		Debug.Log("Enter <color=green>DefendPhase</color>");
+		_player.SkillsTyped += OnSkillsTyped;
 	}
 
 	public override void Exit()
 	{
+		_player.SkillsTyped -= OnSkillsTyped;
 	}
 
 	public override void Update()

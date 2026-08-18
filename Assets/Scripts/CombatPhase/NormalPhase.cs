@@ -11,7 +11,6 @@ public class NormalPhase : CombatPhase
 
 	public NormalPhase(Player player, Enemy currentEnemy, Action<List<Skill>> normalPhaseCompleted) : base(player, currentEnemy)
 	{
-		player.SkillsTyped += OnSkillsTyped;
 		NormalPhaseCompleted += normalPhaseCompleted;
 		_timeScale = 1f; // Normal time scale for the NormalPhase
 	}
@@ -19,10 +18,12 @@ public class NormalPhase : CombatPhase
 	public override void Enter()
 	{
 		Debug.Log("Enter <color=green>NormalPhase</color>");
+		_player.SkillsTyped += OnSkillsTyped;
 	}
 
 	public override void Exit()
 	{
+		_player.SkillsTyped -= OnSkillsTyped;
 	}
 
 	public override void Update()
