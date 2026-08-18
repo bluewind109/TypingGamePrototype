@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerActionController : MonoBehaviour
 {
+	public event Action<List<Skill>> SkillsTyped;
+
 	[Header("Components")]
 	[SerializeField] private SkillConfig config;
 	[SerializeField] private SentenceManager sentenceManager;
@@ -13,15 +15,15 @@ public class PlayerActionController : MonoBehaviour
 
 	void Start()
 	{
-		sentenceManager.onSkillsTyped += OnSkillsTyped;
+		sentenceManager.SkillsTyped += OnSkillsTyped;
 	}
 
 	void OnDestroy()
 	{
-		sentenceManager.onSkillsTyped -= OnSkillsTyped;
+		sentenceManager.SkillsTyped -= OnSkillsTyped;
 	}
 
-	public void Init(Player player, Enemy enemy)
+	public void Init(Player player, Enemy enemy, Action<List<Skill>> onSkillsTyped)
 	{
 		Debug.Log("PlayerActionController Init called");
 		this._player = player;
@@ -29,11 +31,17 @@ public class PlayerActionController : MonoBehaviour
 
 		sentenceManager.Initialize(config.GetAllSkills());
 		sentenceManager.ToggleInput(true);
+		SkillsTyped += onSkillsTyped;
 	}
 
 	public void UpdateController()
 	{
 		sentenceManager.UpdateGameplay();
+	}
+
+	public List<Skill> GetTypedSkills()
+	{
+		return sentenceManager.GetTypedSkillsAndReset();
 	}
 
 	/// <summary>
@@ -47,23 +55,24 @@ public class PlayerActionController : MonoBehaviour
 	private void OnSkillsTyped(List<Skill> typedSkills)
 	{
 		if (typedSkills == null) return;
+		SkillsTyped?.Invoke(typedSkills);
 
-		foreach (Skill skill in typedSkills)
-		{
-			if (skill.IsBasic())
-			{
-				ExecuteSkill(skill);
-				_player.UpdateActionPoint(1);
-				continue;
-			}
-			else if (skill.IsAdvanced())
-			{
-				bool hasEnoughAP = _player.ActionPoints >= skill.ApCost;
-				if (!hasEnoughAP) continue;
-				ExecuteSkill(skill);
-				_player.UpdateActionPoint(-skill.ApCost);
-			}
-		}
+		// foreach (Skill skill in typedSkills)
+		// {
+		// 	if (skill.IsBasic())
+		// 	{
+		// 		ExecuteSkill(skill);
+		// 		_player.UpdateActionPoint(1);
+		// 		continue;
+		// 	}
+		// 	else if (skill.IsAdvanced())
+		// 	{
+		// 		bool hasEnoughAP = _player.ActionPoints >= skill.ApCost;
+		// 		if (!hasEnoughAP) continue;
+		// 		ExecuteSkill(skill);
+		// 		_player.UpdateActionPoint(-skill.ApCost);
+		// 	}
+		// }
 	}
 
 	private void ExecuteSkill(Skill skill)

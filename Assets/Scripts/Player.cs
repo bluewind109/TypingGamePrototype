@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 {
+	public event Action<List<Skill>> SkillsTyped;
+
     [SerializeField] protected Stats _stats;
     [SerializeField] private Health _health;
     [SerializeField] private PlayerActionController _actionController;
@@ -18,7 +21,7 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 
     void Awake()
     {
-        if (_stats != null)
+        if (_stats != null && _health != null)
         {
             _health.Initialize(_stats.health);
             _health.onDie += OnDie;
@@ -29,7 +32,7 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 	{
 		if (_actionController != null)
 		{
-			_actionController.Init(this, _enemy);
+			_actionController.Init(this, _enemy, OnSkillsTyped);
 		}
 		_actionPointUI.UpdateUI(_actionPoints);
 	}
@@ -37,6 +40,7 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
     void OnDestroy()
     {
         _health.onDie -= OnDie;
+		_actionController.SkillsTyped -= OnSkillsTyped;
     }
 
     public void UpdateEntity()
@@ -69,5 +73,15 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 	{
 		_actionPoints = Mathf.Clamp(_actionPoints + amount, 0, MAX_ACTION_POINTS);
 		_actionPointUI.UpdateUI(_actionPoints);
+	}
+
+	private void OnSkillsTyped(List<Skill> typedSkills)
+	{
+		SkillsTyped?.Invoke(typedSkills);
+	}
+
+	public List<Skill> GetTypedSkills()
+	{
+		return _actionController.GetTypedSkills();
 	}
 }

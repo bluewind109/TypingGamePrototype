@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameplayState : GameState
@@ -11,6 +12,9 @@ public class GameplayState : GameState
 	private Enemy _currentEnemy;
 
 	private bool _isInitialized = false;
+
+	private List<Skill> _typedSkills_NormalPhase = new List<Skill>();
+	private List<Skill> _typedSkills_DefendPhase = new List<Skill>();
 
 	public GameplayState(Player player, Enemy currentEnemy)
 	{
@@ -27,7 +31,7 @@ public class GameplayState : GameState
 	private void InitPhases()
 	{
 		if (_isInitialized) return;
-		_normalPhase = new NormalPhase(_player, _currentEnemy, OnDefendPhaseThresholdReached);
+		_normalPhase = new NormalPhase(_player, _currentEnemy, OnNormalPhaseCompleted);
 		_defendPhase = new DefendPhase(_player, _currentEnemy, OnDefendPhaseCompleted);
 		_resultPhase = new ResultPhase(_player, _currentEnemy);
 
@@ -59,13 +63,20 @@ public class GameplayState : GameState
 		Debug.Log("Exit GameplayState");
 	}
 
-	private void OnDefendPhaseThresholdReached()
+	private void OnNormalPhaseCompleted(List<Skill> typedSkills)
 	{
+		_typedSkills_NormalPhase = typedSkills;
 		SetPhase(_defendPhase);
 	}
 
-	private void OnDefendPhaseCompleted()
+	private void OnDefendPhaseCompleted(List<Skill> typedSkills)
 	{
+		_typedSkills_DefendPhase = typedSkills;
 		SetPhase(_resultPhase);
+	}
+
+	private void OnResultPhaseCompleted()
+	{
+		
 	}
 }

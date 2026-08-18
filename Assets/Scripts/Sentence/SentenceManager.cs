@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SentenceManager : MonoBehaviour
 {
-	public Action<List<Skill>> onSkillsTyped;
+	public event Action<List<Skill>> SkillsTyped;
 
 	[Header("Components")]
 	[SerializeField] private Transform _sentenceContainer;
@@ -66,22 +66,26 @@ public class SentenceManager : MonoBehaviour
 
 	private void OnEnterTyped()
 	{
-		// Check if typed sentence matches any available action
-		CheckTypedSentence();
-
+		List<Skill> typedSkills = GetTypedSkillsAndReset();
+		SkillsTyped?.Invoke(typedSkills);
 	}
 
-	/// <summary>
-	/// - Split the sentence into words and check each word against the available actions.<br/>
-	/// - Checks if the typed sentence matches any of the available actions.<br/>
-	/// - If matched, remove the matched word from the typed sentence and add to the found actions list.<br/>
-	/// - Continue to check the remaining typed sentence for more matches until no more matches are found.<br/>
-	/// - Pass the found actions list to the onActionsTyped event for further processing.<br/>
-	/// - Clear the typed sentence after processing.
-	/// </summary>
-	private void CheckTypedSentence()
+	public List<Skill> GetTypedSkillsAndReset()
+	{
+		List<Skill> typedSkills = GetTypedSkills();
+		ResetTypedSentence();
+		return typedSkills;
+	}
+
+	private List<Skill> GetTypedSkills()
 	{
 		List<string> typedWords = _typedSentence.GetWords();
+		List<Skill> typedSkills = ConvertTypedWordsToSkills(typedWords);
+		return typedSkills;
+	}
+
+	private List<Skill> ConvertTypedWordsToSkills(List<string> typedWords)
+	{
 		Debug.Log($"Typed words: <color=green>{string.Join(", ", typedWords)}</color>");
 
 		List<Skill> foundSkills = new List<Skill>();
@@ -95,9 +99,7 @@ public class SentenceManager : MonoBehaviour
 
 			foundSkills.Add(matchedSkill);
 		}
-
-		onSkillsTyped?.Invoke(foundSkills);
-		ResetTypedSentence();
+		return foundSkills;
 	}
 
 	private Skill FindMatchedSkill(string typedWord)
