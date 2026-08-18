@@ -8,8 +8,9 @@ public class NormalPhase : CombatPhase
 	private const float DEFEND_PHASE_THRESHOLD = 0.3f;
 	private bool _isDefendPhaseTriggered = false;
 
-	public NormalPhase(Player player, Enemy currentEnemy) : base(player, currentEnemy)
+	public NormalPhase(Player player, Enemy currentEnemy, Action defendPhaseThresholdReached) : base(player, currentEnemy)
 	{
+		DefendPhaseThresholdReached += defendPhaseThresholdReached;
 		_timeScale = 1f; // Normal time scale for the NormalPhase
 	}
 

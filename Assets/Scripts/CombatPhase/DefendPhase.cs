@@ -5,8 +5,9 @@ public class DefendPhase : CombatPhase
 {
 	public event Action DefendPhaseCompleted;
 
-	public DefendPhase(Player player, Enemy currentEnemy) : base(player, currentEnemy)
+	public DefendPhase(Player player, Enemy currentEnemy, Action defendPhaseCompleted) : base(player, currentEnemy)
 	{
+		DefendPhaseCompleted += defendPhaseCompleted;
 		_timeScale = 0.5f; // Slow down the enemy's action timer during the DefendPhase
 	}	
 

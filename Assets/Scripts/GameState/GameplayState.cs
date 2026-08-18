@@ -26,11 +26,8 @@ public class GameplayState : GameState
 	private void InitPhases()
 	{
 		if (_isInitialized) return;
-		_normalPhase = new NormalPhase(_player, _currentEnemy);
-		_defendPhase = new DefendPhase(_player, _currentEnemy);
-
-		_normalPhase.DefendPhaseThresholdReached += OnDefendPhaseThresholdReached;
-		_defendPhase.DefendPhaseCompleted += OnDefendPhaseCompleted;
+		_normalPhase = new NormalPhase(_player, _currentEnemy, OnDefendPhaseThresholdReached);
+		_defendPhase = new DefendPhase(_player, _currentEnemy, OnDefendPhaseCompleted);
 
 		SetPhase(_normalPhase);
 		_isInitialized = true;
