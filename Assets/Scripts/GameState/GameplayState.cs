@@ -5,6 +5,7 @@ public class GameplayState : GameState
 	private CombatPhase _currentPhase;
 	private NormalPhase _normalPhase;
 	private DefendPhase _defendPhase;
+	private ResultPhase _resultPhase;
 
 	private Player _player;
 	private Enemy _currentEnemy;
@@ -28,6 +29,7 @@ public class GameplayState : GameState
 		if (_isInitialized) return;
 		_normalPhase = new NormalPhase(_player, _currentEnemy, OnDefendPhaseThresholdReached);
 		_defendPhase = new DefendPhase(_player, _currentEnemy, OnDefendPhaseCompleted);
+		_resultPhase = new ResultPhase(_player, _currentEnemy);
 
 		SetPhase(_normalPhase);
 		_isInitialized = true;
@@ -64,6 +66,6 @@ public class GameplayState : GameState
 
 	private void OnDefendPhaseCompleted()
 	{
-		SetPhase(_normalPhase);
+		SetPhase(_resultPhase);
 	}
 }

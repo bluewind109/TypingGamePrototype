@@ -1,13 +1,12 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerActionController))]
 public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 {
     [SerializeField] protected Stats _stats;
     [SerializeField] private Health _health;
-
-    private PlayerActionController _actionController;
+    [SerializeField] private PlayerActionController _actionController;
+	[SerializeField] private Enemy _enemy;
 
     private int _actionPoints = 0;
     public int ActionPoints => _actionPoints;
@@ -24,12 +23,14 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
             _health.Initialize(_stats.health);
             _health.onDie += OnDie;
         }
-
-        _actionController = GetComponent<PlayerActionController>();
     }
 
 	void Start()
 	{
+		if (_actionController != null)
+		{
+			_actionController.Init(this, _enemy);
+		}
 		_actionPointUI.UpdateUI(_actionPoints);
 	}
 
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IShieldable
 
     public void UpdateEntity()
     {
-        _actionController.UpdateController();
+        _actionController?.UpdateController();
     }
 
     private void OnDie()

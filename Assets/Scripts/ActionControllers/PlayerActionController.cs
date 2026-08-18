@@ -8,26 +8,27 @@ public class PlayerActionController : MonoBehaviour
 	[SerializeField] private SkillConfig config;
 	[SerializeField] private SentenceManager sentenceManager;
 
-	[Header("References")]
-	[SerializeField] private Enemy enemy;
-
 	private Player _player;
-
-	void Awake()
-	{
-		_player = GetComponent<Player>();
-		sentenceManager.onSkillsTyped += OnSkillsTyped;
-	}
+	private Enemy _enemy;
 
 	void Start()
 	{
-		sentenceManager.Initialize(config.GetAllSkills());
-		sentenceManager.ToggleInput(true);
+		sentenceManager.onSkillsTyped += OnSkillsTyped;
 	}
 
 	void OnDestroy()
 	{
 		sentenceManager.onSkillsTyped -= OnSkillsTyped;
+	}
+
+	public void Init(Player player, Enemy enemy)
+	{
+		Debug.Log("PlayerActionController Init called");
+		this._player = player;
+		this._enemy = enemy;
+
+		sentenceManager.Initialize(config.GetAllSkills());
+		sentenceManager.ToggleInput(true);
 	}
 
 	public void UpdateController()
@@ -85,7 +86,7 @@ public class PlayerActionController : MonoBehaviour
 			case TargetTeam.Ally:
 				return null; // Implement ally targeting logic if needed
 			case TargetTeam.Enemy:
-				return enemy.gameObject;
+				return _enemy.gameObject;
 			default:
 				return null;
 		}

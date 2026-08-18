@@ -148,7 +148,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5510737961868205281}
   - component: {fileID: 6839632704271022320}
-  - component: {fileID: 6465240378076363520}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -169,9 +168,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 769176605515677935}
+  - {fileID: 2436058916302484840}
   - {fileID: 7348359269150331422}
   - {fileID: 8133080568933565}
-  - {fileID: 2436058916302484840}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6839632704271022320
@@ -188,13 +188,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _stats: {fileID: 11400000, guid: 3d328970ff7bd6847a04a9c113813b55, type: 2}
   _health: {fileID: 702443572124391756}
---- !u!114 &6465240378076363520
+  _actionController: {fileID: 3981432082906893881}
+  _enemy: {fileID: 0}
+  _actionPointUI: {fileID: 0}
+--- !u!1 &9141630341025171946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 769176605515677935}
+  - component: {fileID: 3981432082906893881}
+  m_Layer: 0
+  m_Name: ActionController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &769176605515677935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9141630341025171946}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1136.1709, y: 597.2038, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5510737961868205281}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3981432082906893881
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8754370595885996352}
+  m_GameObject: {fileID: 9141630341025171946}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12bd939c7d3ba0c46a99031c3d7338ba, type: 3}
@@ -202,7 +237,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerActionController
   config: {fileID: 11400000, guid: 526b7d18d2daae74caeb1384d02422ae, type: 2}
   sentenceManager: {fileID: 1336081937732170631}
-  menuTitleText: {fileID: 0}
 --- !u!1001 &1094020232468726455
 PrefabInstance:
   m_ObjectHideFlags: 0

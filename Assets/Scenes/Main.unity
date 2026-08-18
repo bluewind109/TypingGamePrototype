@@ -1841,6 +1841,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6839632704271022320, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
+      propertyPath: _enemy
+      value: 
+      objectReference: {fileID: 266103567}
+    - target: {fileID: 6839632704271022320, guid: 907bc5c9e63dc6942820e8564924e30e, type: 3}
       propertyPath: _actionPointUI
       value: 
       objectReference: {fileID: 1945704176}
