@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class GameplayState : GameState
@@ -29,6 +28,10 @@ public class GameplayState : GameState
 		if (_isInitialized) return;
 		_normalPhase = new NormalPhase(_player, _currentEnemy);
 		_defendPhase = new DefendPhase(_player, _currentEnemy);
+
+		_normalPhase.DefendPhaseThresholdReached += OnDefendPhaseThresholdReached;
+		_defendPhase.DefendPhaseCompleted += OnDefendPhaseCompleted;
+
 		SetPhase(_normalPhase);
 		_isInitialized = true;
 	}
@@ -40,6 +43,7 @@ public class GameplayState : GameState
 			Debug.LogError("New phase is null!");
 			return;
 		}
+		if (_currentPhase == newPhase) return;
 
 		_currentPhase?.Exit();
 		_currentPhase = newPhase;
@@ -54,5 +58,15 @@ public class GameplayState : GameState
 	public override void Exit()
 	{
 		Debug.Log("Exit GameplayState");
+	}
+
+	private void OnDefendPhaseThresholdReached()
+	{
+		SetPhase(_defendPhase);
+	}
+
+	private void OnDefendPhaseCompleted()
+	{
+		SetPhase(_normalPhase);
 	}
 }

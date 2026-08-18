@@ -5,12 +5,14 @@ using UnityEngine;
 public class SkillConfig : ScriptableObject
 {
     public List<Skill> basicSkills = new List<Skill>();
+	public Skill defendSkill;
     public List<Skill> advancedSkills = new List<Skill>();
 
     public List<Skill> GetAllSkills()
     {
         List<Skill> allSkills = new List<Skill>();
         allSkills.AddRange(basicSkills);
+		if (defendSkill != null) allSkills.Add(defendSkill);
         allSkills.AddRange(advancedSkills);
         return allSkills;
     }

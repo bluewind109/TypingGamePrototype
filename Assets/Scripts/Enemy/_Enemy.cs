@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 {
-	public event Action onDie;
+	public event Action Die;
+	public event Action ActionTimerComplete;
 
 	[SerializeField] private Stats _stats;
 	[SerializeField] private Health _health;
@@ -22,6 +23,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 
 	private SkillManager skillManager;
 	private List<Skill> _availableSkills;
+
 
 	protected virtual void Awake()
 	{
@@ -68,26 +70,28 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 		_actionTimer.onTimerComplete -= OnActionTimerComplete;
 	}
 
-	public virtual void UpdateEntity()
+	public virtual void UpdateEntity(float timeScale)
 	{
-		_actionTimer?.UpdateTime();
+		_actionTimer?.UpdateTime(timeScale);
 	}
 
 	protected virtual void OnDie()
 	{
 		Debug.Log("Enemy died");
 		_actionTimer.Pause();
+		Die?.Invoke();
 		// gameObject.SetActive(false);
 	}
 
-	/// <summary>
-	/// - This method is called when the action timer completes, 
-	/// indicating that the enemy's current action has finished executing.
-	/// - Get current action and play it
-	/// - Get next action in the queue
-	/// - Reset the action timer
-	/// </summary>
-	protected abstract void OnActionTimerComplete();
+	public float GetActionTimerRemainingPercentage()
+	{
+		return _actionTimer.RemainingPercentage;
+	}
+
+	protected virtual void OnActionTimerComplete()
+	{
+		ActionTimerComplete?.Invoke();
+	}
 
 	protected void PlaySkill(Skill skill)
 	{

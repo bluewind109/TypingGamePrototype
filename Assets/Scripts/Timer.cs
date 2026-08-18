@@ -10,15 +10,16 @@ public class Timer : MonoBehaviour
     private float duration;
     private float timer;
     public bool IsPaused { get; private set; }
-    public bool IsRunning => timer > 0;
+    public bool IsRunning => timer > 0 && !IsPaused;
+	public float RemainingPercentage => duration > 0 ? timer / duration : 0;
 
-    public void UpdateTime()
+    public void UpdateTime(float timeScale = 1f)
     {
         if (IsPaused) return;
 
         if (timer > 0)
         {
-            timer -= Time.deltaTime;
+            timer -= Time.deltaTime * timeScale;
             if (timer <= 0)
             {
                 timer = 0;

@@ -11,13 +11,14 @@ public class BasicEnemy : Enemy
 		_basicAttack = Config.basicSkills[0];
 	}
 
-	public override void UpdateEntity()
+	public override void UpdateEntity(float timeScale)
 	{
-		base.UpdateEntity();
+		base.UpdateEntity(timeScale);
 	}
 
 	protected override void OnActionTimerComplete()
 	{
+		base.OnActionTimerComplete();
 		PlaySkill(_basicAttack);
 		StartActionTimer();
 	}
