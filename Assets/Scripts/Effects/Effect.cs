@@ -29,6 +29,11 @@ public class Effect
 				break;
 		}
 	}
+
+	public bool IsDamageEffect()
+	{
+		return type == EffectType.Damage;
+	}
 }
 
 public enum EffectType

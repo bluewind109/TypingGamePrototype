@@ -18,7 +18,7 @@ public class GameplayState : GameState
 	private List<Skill> _typedSkills_DefendPhase = new List<Skill>();
 	private Skill _enemySkill;
 
-	private List<Skill> _skillTimeline = new List<Skill>();
+	private List<TimelineEntry> _skillTimeline = new List<TimelineEntry>();
 
 	public GameplayState(Player player, Enemy currentEnemy)
 	{
@@ -73,6 +73,14 @@ public class GameplayState : GameState
 		SetPhase(_defendPhase);
 	}
 
+	/// <summary>
+	/// - Store typed skills from DefendPhase and the enemy's skill. <br/>
+	/// - Add attack phase skills to the skill timeline. <br/>
+	/// - Check if a defend skill was typed. <br/>
+	/// - If a defend skill was typed, split the defend phase skills into two parts: 
+	/// skills up to and including the defend skill, and skills after the defend skill. <br/>
+	/// - Move to Result Phase
+	/// </summary>
 	private void OnDefendPhaseCompleted(List<Skill> typedSkills, Skill enemySkill)
 	{
 		_typedSkills_DefendPhase = typedSkills;
@@ -80,27 +88,38 @@ public class GameplayState : GameState
 		Debug.Log($"DefendPhase completed. Typed Skills: {string.Join(", ", typedSkills.ConvertAll(skill => skill.name))}, Enemy Skill: {enemySkill?.name}");
 
 		_skillTimeline.Clear();
-		_skillTimeline.AddRange(_typedSkills_AttackPhase);
+		AddSkillsToTimeline(_typedSkills_AttackPhase, SkillSource.Player);
 
 		bool hasDefendSkill = HasDefendSkillTyped(_typedSkills_DefendPhase);
 
 		List<Skill> skillsUpToDefend = hasDefendSkill ? GetSkillsUpToDefendSkill(_typedSkills_DefendPhase) : _typedSkills_DefendPhase;
 		List<Skill> skillsAfterDefend = hasDefendSkill ? GetSkillsAfterDefendSkill(_typedSkills_DefendPhase) : new List<Skill>();
 
-		_skillTimeline.AddRange(skillsUpToDefend);
-		if (_enemySkill != null) _skillTimeline.Add(_enemySkill);
-		_skillTimeline.AddRange(skillsAfterDefend);
+		AddSkillsToTimeline(skillsUpToDefend, SkillSource.Player);
+		AddSkillToTimeline(_enemySkill, SkillSource.Enemy);
+		AddSkillsToTimeline(skillsAfterDefend, SkillSource.Player);
 
-		string skillTimelineString = string.Join(", ", _skillTimeline.ConvertAll(skill => skill.name));
+		string skillTimelineString = string.Join(", ", _skillTimeline.ConvertAll(entry => entry.Skill.name));
 		Debug.Log($"Full Skill Timeline: {skillTimelineString}");
 
 		_resultPhase.SetSkillTimeline(_skillTimeline);
 		SetPhase(_resultPhase);
 	}
 
-	private void OnResultPhaseCompleted()
+	private void AddSkillsToTimeline(List<Skill> skills, SkillSource source)
 	{
+		if (skills == null) return;
+		foreach (Skill skill in skills)
+		{
+			AddSkillToTimeline(skill, source);
+		}
+	}
 
+	private void AddSkillToTimeline(Skill skill, SkillSource source)
+	{
+		if (skill == null) return;
+		TimelineEntry entry = new TimelineEntry(skill, source);
+		_skillTimeline.Add(entry);
 	}
 
 	private List<Skill> GetSkillsUpToDefendSkill(List<Skill> skills)
@@ -141,5 +160,10 @@ public class GameplayState : GameState
 		Skill defendSkill = _player.GetDefendSkill();
 		int defendSkillIndex = skills.IndexOf(defendSkill);
 		return defendSkillIndex >= 0;
+	}
+
+	private void OnResultPhaseCompleted()
+	{
+
 	}
 }

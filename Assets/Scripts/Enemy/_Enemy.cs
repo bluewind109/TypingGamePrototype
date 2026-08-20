@@ -18,6 +18,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 	[SerializeField] private Transform _sentenceContainer;
 	[SerializeField] private SentenceDisplay _sentenceDisplayPrefab;
 
+	[SerializeField] private Transform _playerAttackPosition;
+	public Transform PlayerAttackPosition => _playerAttackPosition;
+
 	public Player Player { get => _player; }
 	public SkillConfig Config { get => _config; }
 
@@ -101,7 +104,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable, IHealable, IShieldable
 		return skillManager.GetCurrentSkill();
 	}
 
-	protected void PlaySkill(Skill skill)
+	public void ExecuteSkill(Skill skill)
 	{
 		if (skill == null) return;
 		foreach (Effect effect in skill.Effects)
