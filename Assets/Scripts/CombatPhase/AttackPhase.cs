@@ -2,22 +2,22 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class NormalPhase : CombatPhase
+public class AttackPhase : CombatPhase
 {
-	public event Action<List<Skill>> NormalPhaseCompleted;
+	public event Action<List<Skill>> AttackPhaseCompleted;
 
 	private const float DEFEND_PHASE_THRESHOLD = 0.3f;
 	private bool _isDefendPhaseTriggered = false;
 
-	public NormalPhase(Player player, Enemy currentEnemy, Action<List<Skill>> normalPhaseCompleted) : base(player, currentEnemy)
+	public AttackPhase(Player player, Enemy currentEnemy, Action<List<Skill>> attackPhaseCompleted) : base(player, currentEnemy)
 	{
-		NormalPhaseCompleted += normalPhaseCompleted;
-		_timeScale = 1f; // Normal time scale for the NormalPhase
+		AttackPhaseCompleted += attackPhaseCompleted;
+		_timeScale = 1f; // Normal time scale for the AttackPhase
 	}
 
 	public override void Enter()
 	{
-		Debug.Log("Enter <color=green>NormalPhase</color>");
+		Debug.Log("Enter <color=green>AttackPhase</color>");
 		_player.SkillsTyped += OnSkillsTyped;
 	}
 
@@ -37,13 +37,13 @@ public class NormalPhase : CombatPhase
 		{
 			_isDefendPhaseTriggered = true;
 			List<Skill> typedSkills = _player.GetTypedSkills();
-			NormalPhaseCompleted?.Invoke(typedSkills);
+			AttackPhaseCompleted?.Invoke(typedSkills);
 		}
 	}
 
 	private void OnSkillsTyped(List<Skill> typedSkills)
 	{
 		if (typedSkills == null) return;
-		NormalPhaseCompleted?.Invoke(typedSkills);
+		AttackPhaseCompleted?.Invoke(typedSkills);
 	}
 }

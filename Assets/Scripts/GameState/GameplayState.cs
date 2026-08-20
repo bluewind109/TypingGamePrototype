@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameplayState : GameState
 {
 	private CombatPhase _currentPhase;
-	private NormalPhase _normalPhase;
+	private AttackPhase _attackPhase;
 	private DefendPhase _defendPhase;
 	private ResultPhase _resultPhase;
 
@@ -14,7 +14,7 @@ public class GameplayState : GameState
 
 	private bool _isInitialized = false;
 
-	private List<Skill> _typedSkills_NormalPhase = new List<Skill>();
+	private List<Skill> _typedSkills_AttackPhase = new List<Skill>();
 	private List<Skill> _typedSkills_DefendPhase = new List<Skill>();
 	private Skill _enemySkill;
 
@@ -35,11 +35,11 @@ public class GameplayState : GameState
 	private void InitPhases()
 	{
 		if (_isInitialized) return;
-		_normalPhase = new NormalPhase(_player, _currentEnemy, OnNormalPhaseCompleted);
+		_attackPhase = new AttackPhase(_player, _currentEnemy, OnAttackPhaseCompleted);
 		_defendPhase = new DefendPhase(_player, _currentEnemy, OnDefendPhaseCompleted);
 		_resultPhase = new ResultPhase(_player, _currentEnemy);
 
-		SetPhase(_normalPhase);
+		SetPhase(_attackPhase);
 		_isInitialized = true;
 	}
 
@@ -67,9 +67,9 @@ public class GameplayState : GameState
 		Debug.Log("Exit GameplayState");
 	}
 
-	private void OnNormalPhaseCompleted(List<Skill> typedSkills)
+	private void OnAttackPhaseCompleted(List<Skill> typedSkills)
 	{
-		_typedSkills_NormalPhase = typedSkills;
+		_typedSkills_AttackPhase = typedSkills;
 		SetPhase(_defendPhase);
 	}
 
@@ -80,7 +80,7 @@ public class GameplayState : GameState
 		Debug.Log($"DefendPhase completed. Typed Skills: {string.Join(", ", typedSkills.ConvertAll(skill => skill.name))}, Enemy Skill: {enemySkill?.name}");
 
 		_skillTimeline.Clear();
-		_skillTimeline.AddRange(_typedSkills_NormalPhase);
+		_skillTimeline.AddRange(_typedSkills_AttackPhase);
 
 		bool hasDefendSkill = HasDefendSkillTyped(_typedSkills_DefendPhase);
 
